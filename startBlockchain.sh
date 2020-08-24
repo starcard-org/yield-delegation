@@ -1,0 +1,1 @@
+ganache-cli --fork https://fee7372b6e224441b747bf1fde15b2bd.eth.rpc.rivet.cloud --networkId 1001 --gasPrice 0x1 -e 100000000000000000000 --gasLimit 12500000  --mnemonic="concert load couple harbor equip island argue ramp clarify fence smart topic" --max-old-space-size=8192 -u 0x744b130afb4E0DFb99868B7A64a1F934b69004C4
