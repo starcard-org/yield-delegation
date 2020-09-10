@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import { Container, Button, Card, CardContent } from "../components";
-import { Grid, Row, Col } from "react-flexbox-grid";
-const mrRally = require("../assets/img/mr-rally.png");
+import React from 'react';
+import styled from 'styled-components';
+import {Container, Button, Card} from '../components';
+import {Grid, Row, Col} from 'react-flexbox-grid';
+const mrRally = require('../assets/img/mr-rally.png');
 
 const Title = styled(Col)`
   font-size: 2rem;
@@ -55,9 +55,9 @@ export default () => {
     <Container>
       <Grid fluid>
         <Col xs={12}>
-          <Row center={"xs"}>
+          <Row center={'xs'}>
             <Col xs={8} sm={4}>
-              <img src={mrRally} width={"100%"} />
+              <img src={mrRally} width={'100%'} alt={'Mr. Rally Logo'} />
             </Col>
           </Row>
         </Col>
@@ -69,14 +69,14 @@ export default () => {
             Stake Uniswap LP tokens to claim your very own yummy SUSHI!
           </SubTitle>
         </Row>
-        <Row center={"xs"}>
+        <Row center={'xs'}>
           <CenterContainer xs={8} sm={6} md={4}>
             <Button size="sm" text="view migration checklist" />
           </CenterContainer>
         </Row>
         <Row>
           <Col xs={12}>
-            <Row center={"xs"}>
+            <Row center={'xs'}>
               <Col xs={12} sm={5}>
                 <StyledCard>
                   <CardTitle>0.00000</CardTitle>
@@ -92,11 +92,11 @@ export default () => {
             </Row>
           </Col>
         </Row>
-        <Row center={"xs"}>
+        <Row center={'xs'}>
           <CountDown xs={12}>00:00:00:00</CountDown>
           <Description xs={12}>type something here</Description>
         </Row>
-        <Row center={"xs"}>
+        <Row center={'xs'}>
           <CenterContainerWithSub xs={8} sm={6} md={4}>
             <Button size="sm" text="Approve V2 Migration" />
           </CenterContainerWithSub>

@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import { Container } from "../index";
+import {Container} from '../index';
 
-import AccountButton from "./components/AccountButton";
-import Nav from "./components/Nav";
+import AccountButton from './components/AccountButton';
+import Nav from './components/Nav';
 
-const TopBar = ({ onPresentMobileMenu }) => {
+const TopBar = () => {
   return (
     <StyledTopBar>
       <Container size="lg">
@@ -36,9 +36,9 @@ const StyledTopBar = styled.div``;
 const StyledTopBarInner = styled.div`
   align-items: center;
   display: flex;
-  height: ${({ theme }) => theme.topBarSize}px;
+  height: ${({theme}) => theme.topBarSize}px;
   justify-content: space-between;
-  max-width: ${({ theme }) => theme.siteWidth}px;
+  max-width: ${({theme}) => theme.siteWidth}px;
   width: 100%;
 `;
 const StyledNavWrapper = styled.div`
