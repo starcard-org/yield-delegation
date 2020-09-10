@@ -29,8 +29,8 @@ contract YieldDelegatingVault is ERC20 {
         _setupDecimals(ERC20(_vault).decimals());
         token = IERC20(Vault(_vault).token()); //token being deposited in the referenced vault
         vault = _vault; //address of the vault we're proxying
-	totalDeposits = 0;
-	treasury = msg.sender;
+        totalDeposits = 0;
+        treasury = msg.sender;
     }
 
     function balance() public view returns (uint) {
