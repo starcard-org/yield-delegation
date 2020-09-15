@@ -59,9 +59,7 @@
   "ast": {
     "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/Migrations.sol",
     "exportedSymbols": {
-      "Migrations": [
-        36
-      ]
+      "Migrations": [36]
     },
     "id": 37,
     "license": "MIT",
@@ -69,15 +67,7 @@
     "nodes": [
       {
         "id": 1,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.4",
-          ".25",
-          "<",
-          "0.7",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.4", ".25", "<", "0.7", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:32:0"
       },
@@ -89,9 +79,7 @@
         "documentation": null,
         "fullyImplemented": true,
         "id": 36,
-        "linearizedBaseContracts": [
-          36
-        ],
+        "linearizedBaseContracts": [36],
         "name": "Migrations",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -485,9 +473,7 @@
   "legacyAST": {
     "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/Migrations.sol",
     "exportedSymbols": {
-      "Migrations": [
-        36
-      ]
+      "Migrations": [36]
     },
     "id": 37,
     "license": "MIT",
@@ -495,15 +481,7 @@
     "nodes": [
       {
         "id": 1,
-        "literals": [
-          "solidity",
-          ">=",
-          "0.4",
-          ".25",
-          "<",
-          "0.7",
-          ".0"
-        ],
+        "literals": ["solidity", ">=", "0.4", ".25", "<", "0.7", ".0"],
         "nodeType": "PragmaDirective",
         "src": "32:32:0"
       },
@@ -515,9 +493,7 @@
         "documentation": null,
         "fullyImplemented": true,
         "id": 36,
-        "linearizedBaseContracts": [
-          36
-        ],
+        "linearizedBaseContracts": [36],
         "name": "Migrations",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -916,12 +892,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x259B692b79623009CCca50216d2426FC3036F3F2",
-      "transactionHash": "0xb93f21cf91d2c464eea0619cfcce473a178c8cfcc1746b7b949cdb7dc9fad1e4"
+      "address": "0xDBe56256e0f51b190dA066F2397E3e744B58D3C3",
+      "transactionHash": "0x31913b395e497a2011ff06236d1af1873fe90f07dbbf7eae099c6f77805b5c05"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-09-07T14:56:38.146Z",
+  "updatedAt": "2020-09-15T19:19:41.159Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

@@ -389,9 +389,7 @@
   "ast": {
     "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleVault.sol",
     "exportedSymbols": {
-      "SampleVault": [
-        885
-      ]
+      "SampleVault": [885]
     },
     "id": 886,
     "license": "MIT",
@@ -399,12 +397,7 @@
     "nodes": [
       {
         "id": 637,
-        "literals": [
-          "solidity",
-          "^",
-          "0.6",
-          ".2"
-        ],
+        "literals": ["solidity", "^", "0.6", ".2"],
         "nodeType": "PragmaDirective",
         "src": "32:23:5"
       },
@@ -507,21 +500,12 @@
             "src": "437:5:5"
           }
         ],
-        "contractDependencies": [
-          908,
-          1894,
-          1972
-        ],
+        "contractDependencies": [908, 1894, 1972],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
         "id": 885,
-        "linearizedBaseContracts": [
-          885,
-          1894,
-          1972,
-          908
-        ],
+        "linearizedBaseContracts": [885, 1894, 1972, 908],
         "name": "SampleVault",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -1734,9 +1718,7 @@
               "src": "1093:534:5",
               "statements": [
                 {
-                  "assignments": [
-                    737
-                  ],
+                  "assignments": [737],
                   "declarations": [
                     {
                       "constant": false,
@@ -2009,9 +1991,7 @@
                   "src": "1135:66:5"
                 },
                 {
-                  "assignments": [
-                    755
-                  ],
+                  "assignments": [755],
                   "declarations": [
                     {
                       "constant": false,
@@ -2297,9 +2277,7 @@
                   "src": "1273:27:5"
                 },
                 {
-                  "assignments": [
-                    774
-                  ],
+                  "assignments": [774],
                   "declarations": [
                     {
                       "constant": false,
@@ -2968,9 +2946,7 @@
               "src": "1758:157:5",
               "statements": [
                 {
-                  "assignments": [
-                    824
-                  ],
+                  "assignments": [824],
                   "declarations": [
                     {
                       "constant": false,
@@ -3930,9 +3906,7 @@
   "legacyAST": {
     "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleVault.sol",
     "exportedSymbols": {
-      "SampleVault": [
-        885
-      ]
+      "SampleVault": [885]
     },
     "id": 886,
     "license": "MIT",
@@ -3940,12 +3914,7 @@
     "nodes": [
       {
         "id": 637,
-        "literals": [
-          "solidity",
-          "^",
-          "0.6",
-          ".2"
-        ],
+        "literals": ["solidity", "^", "0.6", ".2"],
         "nodeType": "PragmaDirective",
         "src": "32:23:5"
       },
@@ -4048,21 +4017,12 @@
             "src": "437:5:5"
           }
         ],
-        "contractDependencies": [
-          908,
-          1894,
-          1972
-        ],
+        "contractDependencies": [908, 1894, 1972],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
         "id": 885,
-        "linearizedBaseContracts": [
-          885,
-          1894,
-          1972,
-          908
-        ],
+        "linearizedBaseContracts": [885, 1894, 1972, 908],
         "name": "SampleVault",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -5275,9 +5235,7 @@
               "src": "1093:534:5",
               "statements": [
                 {
-                  "assignments": [
-                    737
-                  ],
+                  "assignments": [737],
                   "declarations": [
                     {
                       "constant": false,
@@ -5550,9 +5508,7 @@
                   "src": "1135:66:5"
                 },
                 {
-                  "assignments": [
-                    755
-                  ],
+                  "assignments": [755],
                   "declarations": [
                     {
                       "constant": false,
@@ -5838,9 +5794,7 @@
                   "src": "1273:27:5"
                 },
                 {
-                  "assignments": [
-                    774
-                  ],
+                  "assignments": [774],
                   "declarations": [
                     {
                       "constant": false,
@@ -6509,9 +6463,7 @@
               "src": "1758:157:5",
               "statements": [
                 {
-                  "assignments": [
-                    824
-                  ],
+                  "assignments": [824],
                   "declarations": [
                     {
                       "constant": false,
@@ -7527,12 +7479,12 @@
         }
       },
       "links": {},
-      "address": "0x8DCBf27100dCEe32086E9296d6Fe693657F41B7C",
-      "transactionHash": "0x7de3ebc88c1bc780dcc09afbbc88a54feb2364269ee1553cab7819a7815e8a80"
+      "address": "0x1d339ff8aEc474114539f07FE75EA85cd0245AAb",
+      "transactionHash": "0x6fe9ccda1ced3e32370dc5dff79475681b55918b255cbf93e9a50aa97de22ec5"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-09-07T14:56:38.128Z",
+  "updatedAt": "2020-09-15T19:19:41.143Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
