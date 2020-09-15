@@ -2,6 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import {Container, Button, Card} from '../components';
 import {Grid, Row, Col} from 'react-flexbox-grid';
+import {useCall} from '../hooks/useCall';
+import {useWallet} from 'use-wallet';
+import {bnToDec} from '../utils/number';
+import BigNumber from 'bignumber.js';
+
 const mrRally = require('../assets/img/mr-rally.png');
 
 const Title = styled(Col)`
@@ -51,6 +56,11 @@ const CardSubtitle = styled.div`
 `;
 
 export default () => {
+  const {account} = useWallet();
+  const [balance] = useCall('SampleToken', 'balanceOf', 0, account);
+  const [totalSupply] = useCall('SampleToken', 'totalSupply', 0);
+  const [decimals] = useCall('SampleToken', 'decimals', 0);
+
   return (
     <Container>
       <Grid fluid>
@@ -79,13 +89,17 @@ export default () => {
             <Row center={'xs'}>
               <Col xs={12} sm={5}>
                 <StyledCard>
-                  <CardTitle>0.00000</CardTitle>
+                  <CardTitle>
+                    {bnToDec(new BigNumber(balance), decimals).toFixed(2)}
+                  </CardTitle>
                   <CardSubtitle>Balance</CardSubtitle>
                 </StyledCard>
               </Col>
               <Col xs={12} sm={5}>
                 <StyledCard>
-                  <CardTitle>0.00000</CardTitle>
+                  <CardTitle>
+                    {bnToDec(new BigNumber(totalSupply), decimals).toFixed(2)}
+                  </CardTitle>
                   <CardSubtitle>Total supply</CardSubtitle>
                 </StyledCard>
               </Col>

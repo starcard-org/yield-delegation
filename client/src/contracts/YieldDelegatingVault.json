@@ -445,9 +445,7 @@
   "ast": {
     "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YieldDelegatingVault.sol",
     "exportedSymbols": {
-      "YieldDelegatingVault": [
-        479
-      ]
+      "YieldDelegatingVault": [479]
     },
     "id": 480,
     "license": "MIT",
@@ -455,12 +453,7 @@
     "nodes": [
       {
         "id": 38,
-        "literals": [
-          "solidity",
-          "^",
-          "0.6",
-          ".2"
-        ],
+        "literals": ["solidity", "^", "0.6", ".2"],
         "nodeType": "PragmaDirective",
         "src": "32:23:1"
       },
@@ -574,21 +567,12 @@
             "src": "490:5:1"
           }
         ],
-        "contractDependencies": [
-          908,
-          1894,
-          1972
-        ],
+        "contractDependencies": [908, 1894, 1972],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
         "id": 479,
-        "linearizedBaseContracts": [
-          479,
-          1894,
-          1972,
-          908
-        ],
+        "linearizedBaseContracts": [479, 1894, 1972, 908],
         "name": "YieldDelegatingVault",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -2138,9 +2122,7 @@
               "src": "1489:966:1",
               "statements": [
                 {
-                  "assignments": [
-                    163
-                  ],
+                  "assignments": [163],
                   "declarations": [
                     {
                       "constant": false,
@@ -2207,9 +2189,7 @@
                   "src": "1499:22:1"
                 },
                 {
-                  "assignments": [
-                    168
-                  ],
+                  "assignments": [168],
                   "declarations": [
                     {
                       "constant": false,
@@ -2528,9 +2508,7 @@
                   "src": "1623:58:1"
                 },
                 {
-                  "assignments": [
-                    190
-                  ],
+                  "assignments": [190],
                   "declarations": [
                     {
                       "constant": false,
@@ -3074,9 +3052,7 @@
                   "src": "1921:29:1"
                 },
                 {
-                  "assignments": [
-                    228
-                  ],
+                  "assignments": [228],
                   "declarations": [
                     {
                       "constant": false,
@@ -3143,9 +3119,7 @@
                   "src": "1988:28:1"
                 },
                 {
-                  "assignments": [
-                    233
-                  ],
+                  "assignments": [233],
                   "declarations": [
                     {
                       "constant": false,
@@ -3247,9 +3221,7 @@
                   "src": "2069:41:1"
                 },
                 {
-                  "assignments": [
-                    240
-                  ],
+                  "assignments": [240],
                   "declarations": [
                     {
                       "constant": false,
@@ -3918,9 +3890,7 @@
               "src": "2586:376:1",
               "statements": [
                 {
-                  "assignments": [
-                    290
-                  ],
+                  "assignments": [290],
                   "declarations": [
                     {
                       "constant": false,
@@ -4216,9 +4186,7 @@
                   "src": "2658:26:1"
                 },
                 {
-                  "assignments": [
-                    309
-                  ],
+                  "assignments": [309],
                   "declarations": [
                     {
                       "constant": false,
@@ -4476,9 +4444,7 @@
                   "src": "2750:24:1"
                 },
                 {
-                  "assignments": [
-                    326
-                  ],
+                  "assignments": [326],
                   "declarations": [
                     {
                       "constant": false,
@@ -5314,9 +5280,7 @@
               "src": "3440:215:1",
               "statements": [
                 {
-                  "assignments": [
-                    384
-                  ],
+                  "assignments": [384],
                   "declarations": [
                     {
                       "constant": false,
@@ -5783,9 +5747,7 @@
               "src": "3689:492:1",
               "statements": [
                 {
-                  "assignments": [
-                    415
-                  ],
+                  "assignments": [415],
                   "declarations": [
                     {
                       "constant": false,
@@ -5912,9 +5874,7 @@
                     "src": "3773:402:1",
                     "statements": [
                       {
-                        "assignments": [
-                          423
-                        ],
+                        "assignments": [423],
                         "declarations": [
                           {
                             "constant": false,
@@ -6470,9 +6430,7 @@
                         "src": "3850:104:1"
                       },
                       {
-                        "assignments": [
-                          456
-                        ],
+                        "assignments": [456],
                         "declarations": [
                           {
                             "constant": false,
@@ -6804,9 +6762,7 @@
   "legacyAST": {
     "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YieldDelegatingVault.sol",
     "exportedSymbols": {
-      "YieldDelegatingVault": [
-        479
-      ]
+      "YieldDelegatingVault": [479]
     },
     "id": 480,
     "license": "MIT",
@@ -6814,12 +6770,7 @@
     "nodes": [
       {
         "id": 38,
-        "literals": [
-          "solidity",
-          "^",
-          "0.6",
-          ".2"
-        ],
+        "literals": ["solidity", "^", "0.6", ".2"],
         "nodeType": "PragmaDirective",
         "src": "32:23:1"
       },
@@ -6933,21 +6884,12 @@
             "src": "490:5:1"
           }
         ],
-        "contractDependencies": [
-          908,
-          1894,
-          1972
-        ],
+        "contractDependencies": [908, 1894, 1972],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
         "id": 479,
-        "linearizedBaseContracts": [
-          479,
-          1894,
-          1972,
-          908
-        ],
+        "linearizedBaseContracts": [479, 1894, 1972, 908],
         "name": "YieldDelegatingVault",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -8497,9 +8439,7 @@
               "src": "1489:966:1",
               "statements": [
                 {
-                  "assignments": [
-                    163
-                  ],
+                  "assignments": [163],
                   "declarations": [
                     {
                       "constant": false,
@@ -8566,9 +8506,7 @@
                   "src": "1499:22:1"
                 },
                 {
-                  "assignments": [
-                    168
-                  ],
+                  "assignments": [168],
                   "declarations": [
                     {
                       "constant": false,
@@ -8887,9 +8825,7 @@
                   "src": "1623:58:1"
                 },
                 {
-                  "assignments": [
-                    190
-                  ],
+                  "assignments": [190],
                   "declarations": [
                     {
                       "constant": false,
@@ -9433,9 +9369,7 @@
                   "src": "1921:29:1"
                 },
                 {
-                  "assignments": [
-                    228
-                  ],
+                  "assignments": [228],
                   "declarations": [
                     {
                       "constant": false,
@@ -9502,9 +9436,7 @@
                   "src": "1988:28:1"
                 },
                 {
-                  "assignments": [
-                    233
-                  ],
+                  "assignments": [233],
                   "declarations": [
                     {
                       "constant": false,
@@ -9606,9 +9538,7 @@
                   "src": "2069:41:1"
                 },
                 {
-                  "assignments": [
-                    240
-                  ],
+                  "assignments": [240],
                   "declarations": [
                     {
                       "constant": false,
@@ -10277,9 +10207,7 @@
               "src": "2586:376:1",
               "statements": [
                 {
-                  "assignments": [
-                    290
-                  ],
+                  "assignments": [290],
                   "declarations": [
                     {
                       "constant": false,
@@ -10575,9 +10503,7 @@
                   "src": "2658:26:1"
                 },
                 {
-                  "assignments": [
-                    309
-                  ],
+                  "assignments": [309],
                   "declarations": [
                     {
                       "constant": false,
@@ -10835,9 +10761,7 @@
                   "src": "2750:24:1"
                 },
                 {
-                  "assignments": [
-                    326
-                  ],
+                  "assignments": [326],
                   "declarations": [
                     {
                       "constant": false,
@@ -11673,9 +11597,7 @@
               "src": "3440:215:1",
               "statements": [
                 {
-                  "assignments": [
-                    384
-                  ],
+                  "assignments": [384],
                   "declarations": [
                     {
                       "constant": false,
@@ -12142,9 +12064,7 @@
               "src": "3689:492:1",
               "statements": [
                 {
-                  "assignments": [
-                    415
-                  ],
+                  "assignments": [415],
                   "declarations": [
                     {
                       "constant": false,
@@ -12271,9 +12191,7 @@
                     "src": "3773:402:1",
                     "statements": [
                       {
-                        "assignments": [
-                          423
-                        ],
+                        "assignments": [423],
                         "declarations": [
                           {
                             "constant": false,
@@ -12829,9 +12747,7 @@
                         "src": "3850:104:1"
                       },
                       {
-                        "assignments": [
-                          456
-                        ],
+                        "assignments": [456],
                         "declarations": [
                           {
                             "constant": false,
@@ -13219,12 +13135,12 @@
         }
       },
       "links": {},
-      "address": "0xC31d860499C193a8C43EBef1f7DE91742F78Bb9e",
-      "transactionHash": "0x87ee4b2c927b90459ab62b23bb6e28884f5322898a5c46fd7894f26b4e6792ab"
+      "address": "0xe5B833e43D361b13c5e63581fFe0c27c30ee1ead",
+      "transactionHash": "0x13101a727d1e898578fdc06c7bb72a1a40fae8eac6bf8a21987c9050ae7feade"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-09-07T14:56:38.138Z",
+  "updatedAt": "2020-09-15T19:19:41.151Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

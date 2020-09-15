@@ -1,8 +1,9 @@
-import React, {useState, useCallback} from 'react';
+import React from 'react';
 import {TopBar} from './components';
 import ThemeProvider from './theme';
 import styled from 'styled-components';
 import ModalsProvider from './context/Modals';
+import {DrizzleProvider} from './context/DrizzleContext';
 import {DarkModeProvider} from './context/DarkModeContext';
 import {UseWalletProvider} from 'use-wallet';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
@@ -20,10 +21,14 @@ const Providers = ({children}) => (
       <UseWalletProvider
         chainId={1337}
         connectors={{
-          walletconnect: {rpcUrl: 'ws://127.0.0.1:9545'},
+          walletconnect: {
+            rpcUrl: 'https://mainnet.eth.aragon.network/',
+          },
         }}
       >
-        <ModalsProvider>{children}</ModalsProvider>
+        <DrizzleProvider>
+          <ModalsProvider>{children}</ModalsProvider>
+        </DrizzleProvider>
       </UseWalletProvider>
     </ThemeProvider>
   </DarkModeProvider>

@@ -572,9 +572,7 @@
   "ast": {
     "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleToken.sol",
     "exportedSymbols": {
-      "SampleToken": [
-        635
-      ]
+      "SampleToken": [635]
     },
     "id": 636,
     "license": "MIT",
@@ -582,12 +580,7 @@
     "nodes": [
       {
         "id": 550,
-        "literals": [
-          "solidity",
-          "^",
-          "0.6",
-          ".2"
-        ],
+        "literals": ["solidity", "^", "0.6", ".2"],
         "nodeType": "PragmaDirective",
         "src": "32:23:4"
       },
@@ -664,23 +657,12 @@
             "src": "256:13:4"
           }
         ],
-        "contractDependencies": [
-          908,
-          1191,
-          1894,
-          1972
-        ],
+        "contractDependencies": [908, 1191, 1894, 1972],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
         "id": 635,
-        "linearizedBaseContracts": [
-          635,
-          1191,
-          1894,
-          1972,
-          908
-        ],
+        "linearizedBaseContracts": [635, 1191, 1894, 1972, 908],
         "name": "SampleToken",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -1582,10 +1564,7 @@
                       "id": 619,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        -18,
-                        -18
-                      ],
+                      "overloadedDeclarations": [-18, -18],
                       "referencedDeclaration": -18,
                       "src": "791:7:4",
                       "typeDescriptions": {
@@ -1781,9 +1760,7 @@
   "legacyAST": {
     "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleToken.sol",
     "exportedSymbols": {
-      "SampleToken": [
-        635
-      ]
+      "SampleToken": [635]
     },
     "id": 636,
     "license": "MIT",
@@ -1791,12 +1768,7 @@
     "nodes": [
       {
         "id": 550,
-        "literals": [
-          "solidity",
-          "^",
-          "0.6",
-          ".2"
-        ],
+        "literals": ["solidity", "^", "0.6", ".2"],
         "nodeType": "PragmaDirective",
         "src": "32:23:4"
       },
@@ -1873,23 +1845,12 @@
             "src": "256:13:4"
           }
         ],
-        "contractDependencies": [
-          908,
-          1191,
-          1894,
-          1972
-        ],
+        "contractDependencies": [908, 1191, 1894, 1972],
         "contractKind": "contract",
         "documentation": null,
         "fullyImplemented": true,
         "id": 635,
-        "linearizedBaseContracts": [
-          635,
-          1191,
-          1894,
-          1972,
-          908
-        ],
+        "linearizedBaseContracts": [635, 1191, 1894, 1972, 908],
         "name": "SampleToken",
         "nodeType": "ContractDefinition",
         "nodes": [
@@ -2791,10 +2752,7 @@
                       "id": 619,
                       "name": "require",
                       "nodeType": "Identifier",
-                      "overloadedDeclarations": [
-                        -18,
-                        -18
-                      ],
+                      "overloadedDeclarations": [-18, -18],
                       "referencedDeclaration": -18,
                       "src": "791:7:4",
                       "typeDescriptions": {
@@ -3121,12 +3079,12 @@
         }
       },
       "links": {},
-      "address": "0x90Cb31Ea8B9ef701cb7F8E78e6B93B3aa4721deb",
-      "transactionHash": "0xc477e74b7f06e8b81f94382ca0cd0441f578a433fa3a2a3c559efc2040776b1a"
+      "address": "0xD7F862dB9f9CFEF95D2d7233FdA2c1AD8Ec6bC14",
+      "transactionHash": "0xd65f6155dbb88563ff263762fd36afcf325cc1e8bf746de83e93d429e8dba30b"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-09-07T14:56:38.124Z",
+  "updatedAt": "2020-09-15T19:19:41.139Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

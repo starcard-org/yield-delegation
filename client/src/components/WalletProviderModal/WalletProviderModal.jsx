@@ -1,24 +1,26 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, {useEffect} from 'react';
+import styled from 'styled-components';
 
-import metamaskLogo from "../../assets/img/metamask-fox.svg";
-import { useWallet } from "use-wallet";
+import metamaskLogo from '../../assets/img/metamask-fox.svg';
+import walletConnectLogo from '../../assets/img/wallet-connect.svg';
+import {useWallet} from 'use-wallet';
 
-import { Button } from "../Button";
-import { Modal, ModalActions, ModalTitle, ModalContent } from "../Modal";
+import {Button} from '../Button';
+import {Modal, ModalActions, ModalTitle, ModalContent} from '../Modal';
 
 const IconButton = styled(Button)`
   display: flex;
   justify-content: space-between;
+  margin-top: 1rem;
 `;
 
 const Blurb = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
+  ${({theme}) => theme.flexRowNoWrap}
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   margin-top: 2rem;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({theme}) => theme.mediaWidth.upToMedium`
     margin: 1rem;
     font-size: 12px;
   `};
@@ -27,7 +29,7 @@ const Blurb = styled.div`
 const StyledLink = styled.a`
   text-decoration: none;
   cursor: pointer;
-  color: ${({ theme }) => theme.primary1};
+  color: ${({theme}) => theme.primary1};
   font-weight: 500;
 
   :hover {
@@ -44,8 +46,8 @@ const StyledLink = styled.a`
   }
 `;
 
-const WalletProviderModal = ({ onDismiss }) => {
-  const { account, connect, status, error } = useWallet();
+const WalletProviderModal = ({onDismiss}) => {
+  const {account, connect, status, error} = useWallet();
 
   console.log(error);
 
@@ -61,7 +63,10 @@ const WalletProviderModal = ({ onDismiss }) => {
       <ModalContent>
         <StyledWalletsWrapper>
           <IconButton onClick={() => connect()} text="MetaMask">
-            <img src={metamaskLogo} style={{ height: 32, paddingLeft: 10 }} />
+            <img src={metamaskLogo} style={{height: 32, width: 32}} />
+          </IconButton>
+          <IconButton onClick={() => connect('walletconnect')} text="WalletConnect">
+            <img src={walletConnectLogo} style={{height: 32, width: 32}} />
           </IconButton>
         </StyledWalletsWrapper>
       </ModalContent>
@@ -70,11 +75,11 @@ const WalletProviderModal = ({ onDismiss }) => {
         <Button text="Cancel" variant="secondary" onClick={onDismiss} />
       </ModalActions>
       <Blurb>
-        <span>New to Ethereum? &nbsp;</span>{" "}
+        <span>New to Ethereum? &nbsp;</span>{' '}
         <StyledLink
-          target={"_blank"}
-          rel={"noopener noreferrer"}
-          href={"https://ethereum.org/wallets/"}
+          target={'_blank'}
+          rel={'noopener noreferrer'}
+          href={'https://ethereum.org/wallets/'}
         >
           Learn more about wallets
         </StyledLink>
@@ -89,7 +94,7 @@ const StyledWalletsWrapper = styled.div`
 `;
 
 const StyledWalletCard = styled.div`
-  flex-basis: calc(50% - ${({ theme }) => theme.spacing[2]}px;
+  flex-basis: calc(50% - ${({theme}) => theme.spacing[2]}px;
 `;
 
 export default WalletProviderModal;
