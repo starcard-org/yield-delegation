@@ -1,0 +1,1 @@
+{"abi": [{"stateMutability": "view", "inputs": [], "type": "function", "name": "softCap", "outputs": [{"type": "uint256", "name": "", "internalType": "uint256"}]}], "networks": {}}

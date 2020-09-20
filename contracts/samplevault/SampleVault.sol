@@ -65,6 +65,6 @@ contract SampleVault is ERC20 {
     }
 
     function simulateEarnings() public {
-	SampleToken(token).mint(address(this), balance());
+	    SampleToken(token).mint(address(this), balance());
     }
 }
