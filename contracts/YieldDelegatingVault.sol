@@ -2,36 +2,105 @@
 pragma solidity ^0.6.2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/GSN/Context.sol";
 
-import "./interfaces/Controller.sol";
+import "./YieldDelegatingVaultStorage.sol";
+import "./YieldDelegatingVaultEvent.sol";
+import "./interfaces/ControllerInterface.sol";
 import "./interfaces/Vault.sol";
 import "./YDVErrorReporter.sol";
 
-contract YieldDelegatingVault is ERC20, YDVErrorReporter {
+contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelegatingVaultEvent, YDVErrorReporter, AccessControl, Ownable {
     using SafeERC20 for IERC20;
     using Address for address;
     using SafeMath for uint256;
 
-    address public vault;
-    address public treasury;
-    IERC20 public token;
-    
-    uint256 public totalDeposits;
+    bytes32 public constant CONTROLLER_ROLE = keccak256("CONTROLLER");
 
-    constructor (address _vault) public ERC20(
+    constructor (
+        ControllerInterface _controller,
+        address _vault,
+        address _treasury,
+        uint256 _delegatePercent,
+        uint256 _globalDepositCap,
+        uint256 _individualDepositCap
+    ) public ERC20(
         string(abi.encodePacked("rally delegating ", ERC20(Vault(_vault).token()).name())),
         string(abi.encodePacked("rd", ERC20(Vault(_vault).token()).symbol()))
     ) {
         _setupDecimals(ERC20(Vault(_vault).token()).decimals());
         token = IERC20(Vault(_vault).token()); //token being deposited in the referenced vault
         vault = _vault; //address of the vault we're proxying
+	    treasury = _treasury;
+        controller = _controller;
+        delegatePercent = _delegatePercent;
+        globalDepositCap = _globalDepositCap;
+        individualDepositCap = _individualDepositCap;
 	    totalDeposits = 0;
-	    treasury = msg.sender;
+
+        _setupRole(DEFAULT_ADMIN_ROLE, owner());
+	    _setRoleAdmin(CONTROLLER_ROLE, DEFAULT_ADMIN_ROLE);
+        grantRole(CONTROLLER_ROLE, address(controller));
+    }
+
+    function setTreasury(address newTreasury) public {
+        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set treasury");
+        require(newTreasury != address(0), "treasure should be valid address");
+
+        address oldTreasury = treasury;
+        treasury = newTreasury;
+
+        emit NewTreasury(oldTreasury, newTreasury);
+    }
+
+    function setDelegatePercent(uint256 newDelegatePercent) public {
+        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set delegate percent");
+        require(newDelegatePercent <= 10000, "delegate percent should be lower than 100%");
+
+        uint256 oldDelegatePercent = delegatePercent;
+        delegatePercent = newDelegatePercent;
+
+        emit NewDelegatePercent(oldDelegatePercent, newDelegatePercent);
+    }
+
+    function setGlobalDepositCap(uint256 newGlobalDepositCap) public {
+        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set global deposit cap");
+        require(newGlobalDepositCap >= totalDeposits, "global deposit cap should be bigger than totalDeposits");
+
+        uint256 oldGlobalDepositCap = globalDepositCap;
+        globalDepositCap = newGlobalDepositCap;
+
+        emit NewGlobalDepositCap(oldGlobalDepositCap, newGlobalDepositCap);
+    }
+
+    function setIndividualDepositCap(uint256 newIndividualDepositCap) public {
+        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set individual deposit cap");
+
+        uint256 oldIndividualDepositCap = individualDepositCap;
+        individualDepositCap = newIndividualDepositCap;
+
+        emit NewIndividualDepositCap(oldIndividualDepositCap, newIndividualDepositCap);
+    }
+
+    modifier updateReward(address account) {
+        if (account != address(0)) {
+            rewards[account] = earned(account);
+        }
+        _;
+    }
+
+    function earned(address account) public view returns (uint256) {
+        return Vault(vault).balanceOf(account).sub(balanceOf(account));
+    }
+
+    function claim() public {
+        controller.earnReward(msg.sender, rewards[msg.sender]);
     }
 
     function balance() public view returns (uint256) {
@@ -42,7 +111,14 @@ contract YieldDelegatingVault is ERC20, YDVErrorReporter {
         deposit(token.balanceOf(msg.sender));
     }
 
-    function deposit(uint256 _amount) public returns (uint256) {
+    function deposit(uint256 _amount) public updateReward(msg.sender) returns (uint256) {
+        if(individualDepositCap < balanceOf(address(this)).add(_amount)) {
+            return fail(Error.BAD_INPUT, FailureInfo.SET_INDIVIDUAL_SOFT_CAP_CHECK);
+        }
+
+        if(globalDepositCap < totalSupply().add(_amount)) {
+            return fail(Error.BAD_INPUT, FailureInfo.SET_GLOBAL_SOFT_CAP_CHECK);
+        }
         uint256 _pool = balance();
 
         uint256 _before = token.balanceOf(address(this));
@@ -89,11 +165,11 @@ contract YieldDelegatingVault is ERC20, YDVErrorReporter {
         _mint(msg.sender, shares);
     }
 
-    function withdrawAll() external {
+    function withdrawAll() external updateReward(msg.sender) {
         withdraw(balanceOf(msg.sender));
     }
 
-    function withdraw(uint256 _shares) public {
+    function withdraw(uint256 _shares) public updateReward(msg.sender) {
         uint256 r = (balance().mul(_shares)).div(totalSupply());
         _burn(msg.sender, _shares);
 
@@ -131,11 +207,11 @@ contract YieldDelegatingVault is ERC20, YDVErrorReporter {
         return 0;
     }
 
-    function harvest() external {
+    function harvest() external updateReward(msg.sender) {
         uint256 _availableYield = availableYield();
         if (_availableYield > 0) {
             uint256 _before = token.balanceOf(address(this));
-            Vault(vault).withdraw(_availableYield.mul(1e18).div(Vault(vault).getPricePerFullShare()).mul(9).div(10)); //translate yield to shares in underlying vault, haircut to 90% to allow for fees etc...
+            Vault(vault).withdraw(_availableYield.mul(1e18).div(Vault(vault).getPricePerFullShare()).mul(delegatePercent).div(10000)); //translate yield to shares in underlying vault, haircut to 90% to allow for fees etc...
             uint256 _after = token.balanceOf(address(this));
             token.safeTransfer(treasury, _after.sub(_before));
         }

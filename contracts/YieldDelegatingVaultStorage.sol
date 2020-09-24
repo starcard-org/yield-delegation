@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.2;
+
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./interfaces/ControllerInterface.sol";
+
+contract YieldDelegatingVaultStorage {
+    ControllerInterface public controller;
+    address public vault;
+    address public treasury;
+    IERC20 public token;
+    uint256 public delegatePercent;
+    uint256 public globalDepositCap;
+    uint256 public individualDepositCap;
+    
+    uint256 public totalDeposits;
+    
+    mapping(address => uint256) public rewards;
+}

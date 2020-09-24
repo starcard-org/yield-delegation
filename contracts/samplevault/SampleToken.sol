@@ -17,17 +17,13 @@ contract SampleToken is ERC20, AccessControl, Ownable, SampleTokenStorage, Sampl
 
     /**
      * @notice Constructs a reward token
-     * @param softCap_ The initial soft cap of reward token
      */
-    constructor (uint256 softCap_) public ERC20(
+    constructor () public ERC20(
         string(abi.encodePacked("sample token")),
         string(abi.encodePacked("STKN"))
     ) {
-        softCap = softCap_;
-
         _setupRole(DEFAULT_ADMIN_ROLE, owner());
 	    _setRoleAdmin(MINTER_ROLE, DEFAULT_ADMIN_ROLE);
-	    addMinter(owner());
     }
 
     /**
@@ -40,28 +36,9 @@ contract SampleToken is ERC20, AccessControl, Ownable, SampleTokenStorage, Sampl
         emit MinterAdded(account_);
     }
 
-    /**
-     * @notice Set the new soft cap of the reward token
-     * @param newSoftCap The soft cap value
-     */
-    function setSoftCap(uint256 newSoftCap) public onlyOwner returns (uint) {
-        if (newSoftCap < totalSupply()) {
-            return fail(Error.BAD_INPUT, FailureInfo.SET_SOFT_CAP_CHECK);
-        }
-
-        uint256 oldSoftCap = softCap;
-        softCap = newSoftCap;
-
-        emit NewSoftCap(oldSoftCap, newSoftCap);
-    }
-
-    function mint (address account_, uint amount_) public returns (uint) {
+    function mint(address user, uint amount_) public returns (uint) {
         require (hasRole(MINTER_ROLE, msg.sender), "only minters");
 
-        if (totalSupply() + amount_ > softCap) {
-            return fail(Error.REJECTION, FailureInfo.SET_SOFT_CAP_CHECK);
-        }
-
-        _mint(account_, amount_);
+        _mint(user, amount_);
     }
 }

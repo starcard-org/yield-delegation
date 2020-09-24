@@ -10,7 +10,8 @@ contract YDVErrorReporter {
     }
 
     enum FailureInfo {
-        SET_SOFT_CAP_CHECK
+        SET_INDIVIDUAL_SOFT_CAP_CHECK,
+        SET_GLOBAL_SOFT_CAP_CHECK
     }
 
     /**
