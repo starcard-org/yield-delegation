@@ -1,7 +1,7 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import styled, {keyframes} from 'styled-components';
 
-const Modal = ({ children }) => {
+const Modal = ({children}) => {
   return (
     <StyledResponsiveWrapper>
       <StyledModal>{children}</StyledModal>
@@ -26,27 +26,26 @@ const StyledResponsiveWrapper = styled.div`
   position: relative;
   width: 100%;
   max-width: 512px;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
+  ${({theme}) => theme.mediaWidth.upToSmall`
     flex: 1;
     position: absolute;
     top: 100%;
     right: 0;
     left: 0;
-    max-height: calc(100% - ${({ theme }) => theme.spacing[4]}px);
+    max-height: calc(100% - ${({theme}) => theme.spacing[4]}px);
     animation: ${mobileKeyframes} 0.3s forwards ease-out;
   }`}
 `;
 
 const StyledModal = styled.div`
-  background: ${({ theme }) => theme.secondary2};
-  border: 1px solid ${({ theme }) => theme.secondary3}ff;
+  background: ${({theme}) => theme.bg2};
   border-radius: 12px;
-  box-shadow: 1px 1px 0px ${({ theme }) => theme.secondary1};
   display: flex;
   flex-direction: column;
   position: relative;
   width: 100%;
   min-height: 0;
+  padding: 1em;
 `;
 
 export default Modal;

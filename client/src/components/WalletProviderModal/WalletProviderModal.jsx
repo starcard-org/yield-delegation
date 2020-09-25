@@ -10,11 +10,14 @@ import {Modal, ModalActions, ModalTitle, ModalContent} from '../Modal';
 
 const IconButton = styled(Button)`
   display: flex;
-  justify-content: space-between;
   margin-top: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
 `;
 
 const Blurb = styled.div`
+  color: #fff;
   ${({theme}) => theme.flexRowNoWrap}
   align-items: center;
   justify-content: center;
@@ -29,7 +32,7 @@ const Blurb = styled.div`
 const StyledLink = styled.a`
   text-decoration: none;
   cursor: pointer;
-  color: ${({theme}) => theme.primary1};
+  color: ${({theme}) => theme.link1};
   font-weight: 500;
 
   :hover {
@@ -59,13 +62,17 @@ const WalletProviderModal = ({onDismiss}) => {
 
   return (
     <Modal>
-      <ModalTitle text={`Select a wallet provider. ${status}`} />
+      <ModalTitle text={'Select a wallet provider.'} />
       <ModalContent>
         <StyledWalletsWrapper>
-          <IconButton onClick={() => connect()} text="MetaMask">
+          <IconButton onClick={() => connect()} text="MetaMask" outline={false}>
             <img src={metamaskLogo} style={{height: 32, width: 32}} />
           </IconButton>
-          <IconButton onClick={() => connect('walletconnect')} text="WalletConnect">
+          <IconButton
+            onClick={() => connect('walletconnect')}
+            text="WalletConnect"
+            outline={false}
+          >
             <img src={walletConnectLogo} style={{height: 32, width: 32}} />
           </IconButton>
         </StyledWalletsWrapper>

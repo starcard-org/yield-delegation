@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledCard = styled.div`
-  background-color: ${({theme}) => theme.primary2};
+  background-color: ${({theme}) => theme.bg2};
   border-radius: 12px;
   display: flex;
   flex: 1;

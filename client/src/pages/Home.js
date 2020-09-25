@@ -7,115 +7,46 @@ import {useWallet} from 'use-wallet';
 import {bnToDec} from '../utils/number';
 import BigNumber from 'bignumber.js';
 
-const mrRally = require('../assets/img/mr-rally.png');
+const homeForms = require('../assets/img/home_forms.png');
 
 const Title = styled(Col)`
-  font-size: 2rem;
-  font-weight: bold;
+  font-size: 56px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.14;
+  letter-spacing: normal;
   text-align: center;
+  color: #ffffff;
 `;
 
-const SubTitle = styled(Col)`
-  text-align: center;
-`;
-
-const CenterContainer = styled(Col)`
-  padding: 1rem 0rem;
-`;
-
-const CenterContainerWithSub = styled(Col)`
-  padding-top: 1rem;
-`;
-
-const CountDown = styled(Col)`
-  font-size: 48px;
-  padding-top: 1rem;
-  font-weight: bold;
-`;
-
-const Description = styled(Col)`
-  padding-bottom: 1rem;
-  font-size: 12px;
-`;
-
-const StyledCard = styled(Card)`
-  padding: 1rem;
-`;
-
-const CardTitle = styled.div`
-  font-size: 48px;
-  padding: 8px 30px;
-  padding-bottom: 0px;
-  text-align: left;
-`;
-const CardSubtitle = styled.div`
-  font-size: 12px;
-  padding: 8px 30px;
-  padding-top: 0px;
-  text-align: left;
+const Spacer = styled(Row)`
+  padding: ${props => (props.space || 1) * 1}em 0;
 `;
 
 export default () => {
-  const {account} = useWallet();
-  const [balance] = useCall('SampleToken', 'balanceOf', 0, account);
-  const [totalSupply] = useCall('SampleToken', 'totalSupply', 0);
-  const [decimals] = useCall('SampleToken', 'decimals', 0);
+  // const {account} = useWallet();
+  // const [balance] = useCall('SampleToken', 'balanceOf', 0, account);
+  // const [totalSupply] = useCall('SampleToken', 'totalSupply', 0);
+  // const [decimals] = useCall('SampleToken', 'decimals', 0);
 
   return (
-    <Container>
-      <Grid fluid>
-        <Col xs={12}>
+    <Container size="lg">
+      <Grid>
+        <Row center={'xs'}>
+          <img src={homeForms} width={'100%'} alt={'Geometric Forms'} />
+        </Row>
+        <Container size="sm">
+          <Row>
+            <Title xs={12}>Connect your wallet to continue</Title>
+          </Row>
+          <Spacer />
           <Row center={'xs'}>
-            <Col xs={8} sm={4}>
-              <img src={mrRally} width={'100%'} alt={'Mr. Rally Logo'} />
+            <Col xs={5}>
+              <Button outline={false} text="Connect your wallet" />
             </Col>
           </Row>
-        </Col>
-        <Row>
-          <Title xs={12}>Mr. Rally is Ready</Title>
-        </Row>
-        <Row>
-          <SubTitle xs={12}>
-            Stake Uniswap LP tokens to claim your very own yummy SUSHI!
-          </SubTitle>
-        </Row>
-        <Row center={'xs'}>
-          <CenterContainer xs={8} sm={6} md={4}>
-            <Button size="sm" text="view migration checklist" />
-          </CenterContainer>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <Row center={'xs'}>
-              <Col xs={12} sm={5}>
-                <StyledCard>
-                  <CardTitle>
-                    {bnToDec(new BigNumber(balance), decimals).toFixed(2)}
-                  </CardTitle>
-                  <CardSubtitle>Balance</CardSubtitle>
-                </StyledCard>
-              </Col>
-              <Col xs={12} sm={5}>
-                <StyledCard>
-                  <CardTitle>
-                    {bnToDec(new BigNumber(totalSupply), decimals).toFixed(2)}
-                  </CardTitle>
-                  <CardSubtitle>Total supply</CardSubtitle>
-                </StyledCard>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-        <Row center={'xs'}>
-          <CountDown xs={12}>00:00:00:00</CountDown>
-          <Description xs={12}>type something here</Description>
-        </Row>
-        <Row center={'xs'}>
-          <CenterContainerWithSub xs={8} sm={6} md={4}>
-            <Button size="sm" text="Approve V2 Migration" />
-          </CenterContainerWithSub>
-          <Description xs={12}>type something here</Description>
-        </Row>
+        </Container>
       </Grid>
     </Container>
   );
