@@ -1,0 +1,1 @@
+{"abi": [{"inputs": [{"indexed": false, "type": "address", "name": "account", "internalType": "address"}], "type": "event", "name": "MinterAdded", "anonymous": false}], "networks": {}}
