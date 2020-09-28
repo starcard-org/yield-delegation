@@ -24,6 +24,7 @@ export default () => {
                 tokenName={'SampleToken'}
                 vaultAcronym={'yST'}
                 tokenAcronym={'ST'}
+                fadeTime={100}
               />
             </Col>
             <Col xs={12}>
@@ -32,6 +33,7 @@ export default () => {
                 tokenName={'SampleToken'}
                 vaultAcronym={'yST'}
                 tokenAcronym={'ST'}
+                fadeTime={200}
               />
             </Col>
             <Col xs={12}>
@@ -40,6 +42,7 @@ export default () => {
                 tokenName={'SampleToken'}
                 vaultAcronym={'yST'}
                 tokenAcronym={'ST'}
+                fadeTime={300}
               />
             </Col>
             <Col xs={12}>
@@ -48,6 +51,7 @@ export default () => {
                 tokenName={'SampleToken'}
                 vaultAcronym={'yST'}
                 tokenAcronym={'ST'}
+                fadeTime={400}
               />
             </Col>
             <Col xs={12}>
@@ -56,6 +60,7 @@ export default () => {
                 tokenName={'SampleToken'}
                 vaultAcronym={'yST'}
                 tokenAcronym={'ST'}
+                fadeTime={500}
               />
             </Col>
           </Row>

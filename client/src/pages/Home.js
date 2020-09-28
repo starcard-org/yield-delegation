@@ -1,11 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import {Container, Button, Card} from '../components';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import {useCall} from '../hooks/useCall';
-import {useWallet} from 'use-wallet';
-import {bnToDec} from '../utils/number';
-import BigNumber from 'bignumber.js';
+import {fadeIn, fadeOut} from '../theme/animations';
 
 const homeForms = require('../assets/img/home_forms.png');
 
@@ -24,28 +21,49 @@ const Spacer = styled(Row)`
   padding: ${props => (props.space || 1) * 1}em 0;
 `;
 
+const ImageContainer = styled(Row)`
+  visibility: ${({visible}) => (!visible ? 'hidden' : 'visible')};
+  animation: ${({visible}) => (!visible ? fadeOut : fadeIn)} 1s linear;
+  transition: visibility 1s linear;
+`;
+
+const TextContainer = styled.div`
+  visibility: ${({visible}) => (!visible ? 'hidden' : 'visible')};
+  animation: ${({visible}) => (!visible ? fadeOut : fadeIn)} 1s linear;
+  transition: visibility 1s linear;
+`;
+
 export default () => {
-  // const {account} = useWallet();
-  // const [balance] = useCall('SampleToken', 'balanceOf', 0, account);
-  // const [totalSupply] = useCall('SampleToken', 'totalSupply', 0);
-  // const [decimals] = useCall('SampleToken', 'decimals', 0);
+  const [vText, setVisibleText] = useState(false);
+  const [vImage, setVisibleImage] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setVisibleImage(true);
+    }, 100);
+
+    setTimeout(() => {
+      setVisibleText(true);
+    }, 250);
+  }, []);
 
   return (
     <Container size="lg">
       <Grid>
-        <Row center={'xs'}>
+        <ImageContainer center={'xs'} visible={vImage}>
           <img src={homeForms} width={'100%'} alt={'Geometric Forms'} />
-        </Row>
+        </ImageContainer>
         <Container size="sm">
-          <Row>
-            <Title xs={12}>Connect your wallet to continue</Title>
-          </Row>
-          <Spacer />
-          <Row center={'xs'}>
-            <Col xs={5}>
-              <Button outline={false} text="Connect your wallet" />
-            </Col>
-          </Row>
+          <TextContainer visible={vText}>
+            <Row>
+              <Title xs={12}>Connect your wallet to continue</Title>
+            </Row>
+            <Spacer />
+            <Row center={'xs'}>
+              <Col xs={5}>
+                <Button outline={false} text="Connect your wallet" />
+              </Col>
+            </Row>
+          </TextContainer>
         </Container>
       </Grid>
     </Container>

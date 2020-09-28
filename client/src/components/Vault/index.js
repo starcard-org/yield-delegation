@@ -1,13 +1,13 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import styled from 'styled-components';
 import BigNumber from 'bignumber.js';
 import {Card, Accordion, Button} from '../index';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import useAllowance from '../../hooks/useAllowance';
 import {useDeposit} from '../../hooks/useDeposit';
 import useApprove from '../../hooks/useApprove';
 import {useCall} from '../../hooks/useCall';
-import {bnToDec} from '../../utils/number';
+import {bnToDec, decToBn} from '../../utils/number';
+import {fadeIn, fadeOut} from '../../theme/animations';
 import {useWallet} from 'use-wallet';
 
 const StyledCard = styled(Card)`
@@ -15,10 +15,19 @@ const StyledCard = styled(Card)`
   background-color: #000000;
   margin-bottom: 1em;
   border-radius: 17px;
+
+  visibility: ${({visible}) => (!visible ? 'hidden' : 'visible')};
+  animation: ${({visible}) => (!visible ? fadeOut : fadeIn)} 1s linear;
+  transition: visibility 1s linear;
 `;
 
 const Percentage = styled(Col)`
   font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    color: #ffd800;
+  }
 `;
 
 const PercentageRow = styled(Row)`
@@ -58,21 +67,30 @@ const AccordionContent = styled(Grid)`
   padding: 20px;
 `;
 
-export default ({tokenName, vaultName, tokenAcronym, vaultAcronym}) => {
+export default ({tokenName, vaultName, tokenAcronym, vaultAcronym, fadeTime = 250}) => {
   const {account} = useWallet();
+  const [visible, setVisible] = useState(false);
+
   const [tokenBalance] = useCall(tokenName, 'balanceOf', 0, account);
   const [pricePerFullShare] = useCall(vaultName, 'getPricePerFullShare', 0);
   const [vaultTokenBalance] = useCall(vaultName, 'balanceOf', 0, account);
   const [decimals] = useCall(tokenName, 'decimals', 0);
   const [vaultDecimals] = useCall(vaultName, 'decimals', 0);
   const [isApproved, setIsApproved] = useState(false);
-  const [amount, setAmount] = useState(0);
-  const {allowance} = useAllowance(tokenName, vaultName);
+  const [dAmount, setDAmount] = useState(0); // Deposit
+  const [wAmount, setWAmount] = useState(0); // Withdrawal
   const {onApprove} = useApprove(tokenName, vaultName);
   const deposit = useDeposit(vaultName);
 
-  const getFormatedBalance = useCallback(balance =>
-    bnToDec(new BigNumber(balance), decimals).toFixed(2)
+  useEffect(() => {
+    setTimeout(() => {
+      setVisible(true);
+    }, fadeTime);
+  }, []);
+
+  const getFormatedBalance = useCallback(
+    balance => bnToDec(new BigNumber(balance), decimals).toFixed(2),
+    [decimals]
   );
 
   const getTopSection = useCallback(
@@ -95,17 +113,21 @@ export default ({tokenName, vaultName, tokenAcronym, vaultAcronym}) => {
     [vaultName, tokenName, getFormatedBalance, tokenBalance, tokenAcronym]
   );
 
-  const getPercentageRow = () => (
+  const onPercentageClick = (s, b, p) => () => {
+    s(b * p);
+  };
+
+  const getPercentageRow = (setter, balance) => (
     <PercentageRow around={'xs'}>
-      <Percentage>25%</Percentage>
-      <Percentage>50%</Percentage>
-      <Percentage>75%</Percentage>
-      <Percentage>100%</Percentage>
+      <Percentage onClick={onPercentageClick(setter, balance, 0.25)}>25%</Percentage>
+      <Percentage onClick={onPercentageClick(setter, balance, 0.5)}>50%</Percentage>
+      <Percentage onClick={onPercentageClick(setter, balance, 0.75)}>75%</Percentage>
+      <Percentage onClick={onPercentageClick(setter, balance, 1)}>100%</Percentage>
     </PercentageRow>
   );
 
   return (
-    <StyledCard>
+    <StyledCard visible={visible}>
       <Accordion top={getTopSection()}>
         <AccordionContent>
           <Row>
@@ -116,15 +138,15 @@ export default ({tokenName, vaultName, tokenAcronym, vaultAcronym}) => {
               <Row>
                 <StyledInput
                   disabled={!isApproved}
-                  defaultValue={amount}
+                  defaultValue={dAmount}
                   onBlur={e => {
-                    setAmount(e.target.value);
+                    setDAmount(e.target.value);
                   }}
                   type="number"
                   required
                 />
               </Row>
-              {getPercentageRow()}
+              {getPercentageRow(setDAmount)}
             </ContainerCol>
             <ContainerCol xs={6}>
               <Row>
@@ -136,16 +158,16 @@ export default ({tokenName, vaultName, tokenAcronym, vaultAcronym}) => {
               </Row>
               <Row>
                 <StyledInput
-                  defaultValue={amount}
+                  defaultValue={wAmount}
                   disabled={!isApproved}
                   onBlur={e => {
-                    setAmount(e.target.value);
+                    setWAmount(e.target.value);
                   }}
                   type="number"
                   required
                 />
               </Row>
-              {getPercentageRow()}
+              {getPercentageRow(setWAmount)}
             </ContainerCol>
           </Row>
           <Row center={'xs'}>
@@ -166,7 +188,7 @@ export default ({tokenName, vaultName, tokenAcronym, vaultAcronym}) => {
                   <Row>
                     <Button
                       onClick={() => {
-                        deposit(amount);
+                        deposit(decToBn(dAmount));
                       }}
                       text={'Deposit'}
                     />
