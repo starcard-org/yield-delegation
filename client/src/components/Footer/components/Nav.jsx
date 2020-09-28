@@ -18,7 +18,6 @@ const Nav = () => {
 const StyledNav = styled.nav`
   align-items: center;
   display: flex;
-  justify-content: center;
   flex: 1 0 auto;
 `;
 
@@ -31,21 +30,6 @@ const StyledLink = styled(NavLink)`
   text-decoration: none;
   &:hover {
     color: ${({theme}) => theme.text2};
-  }
-
-  &.active {
-    color: #ffd800;
-    &:after {
-      content: ' ';
-      width: 6px;
-      display: block;
-      position: absolute;
-      border-radius: 6px;
-      height: 6px;
-      background-color: #ffd800;
-      left: calc(50% - 3px);
-      bottom: -12px;
-    }
   }
 `;
 
