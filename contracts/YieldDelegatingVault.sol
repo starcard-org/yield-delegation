@@ -26,6 +26,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     constructor (
         ControllerInterface _controller,
         address _vault,
+        IERC20 _rally,
         address _treasury,
         uint256 _delegatePercent,
         uint256 _globalDepositCap,
@@ -37,6 +38,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         _setupDecimals(ERC20(Vault(_vault).token()).decimals());
         token = IERC20(Vault(_vault).token()); //token being deposited in the referenced vault
         vault = _vault; //address of the vault we're proxying
+        rally = _rally;
 	    treasury = _treasury;
         controller = _controller;
         delegatePercent = _delegatePercent;
@@ -88,6 +90,15 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         emit NewIndividualDepositCap(oldIndividualDepositCap, newIndividualDepositCap);
     }
 
+    function setNewRewardPerToken(uint256 newRewardPerToken) public {
+        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set reward per token");
+
+        uint256 oldRewardPerToken = rewardPerToken;
+        rewardPerToken = newRewardPerToken;
+
+        emit NewRewardPerToken(oldRewardPerToken, newRewardPerToken);
+    }
+
     modifier updateReward(address account) {
         if (account != address(0)) {
             rewards[account] = earned(account);
@@ -96,11 +107,11 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     }
 
     function earned(address account) public view returns (uint256) {
-        return Vault(vault).balanceOf(account).sub(balanceOf(account));
-    }
-
-    function claim() public {
-        controller.earnReward(msg.sender, rewards[msg.sender]);
+        uint256 _availableYield = availableYield(account);
+        return
+            _availableYield
+                .mul(rewardPerToken)
+                .div(1e18);
     }
 
     function balance() public view returns (uint256) {
@@ -127,6 +138,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         _amount = _after.sub(_before);
 
         totalDeposits = totalDeposits.add(_amount);
+        userDeposits[msg.sender] = userDeposits[msg.sender].add(_amount);
 
         token.approve(vault, _amount);
         Vault(vault).deposit(_amount);
@@ -154,6 +166,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
 
         uint _underlyingAmount = _yamount.div(Vault(vault).getPricePerFullShare());
         totalDeposits = totalDeposits.add(_underlyingAmount);
+        userDeposits[msg.sender] = userDeposits[msg.sender].add(_underlyingAmount);
 		
         //translate vault shares into delegating vault shares
         uint256 shares = 0;
@@ -178,6 +191,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         uint256 _after = token.balanceOf(address(this));
 
         totalDeposits = totalDeposits.add(_after).sub(_before);
+        userDeposits[msg.sender] = userDeposits[msg.sender].add(_after).sub(_before);
 
         token.safeTransfer(msg.sender, _after.sub(_before));
     }
@@ -189,6 +203,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         uint256 _amount = r.div(Vault(vault).getPricePerFullShare());
 
         totalDeposits = totalDeposits.sub(_amount);
+        userDeposits[msg.sender] = userDeposits[msg.sender].sub(_amount);
 
         IERC20(vault).safeTransfer(msg.sender, r);
     }
@@ -196,6 +211,15 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     //differs from underlying vault implementation, price per full share denominated in token type we are depositing into the underlying vault
     function getPricePerFullShare() public view returns (uint256) {
     	return (Vault(vault).getPricePerFullShare().mul(balance())).div(totalSupply());
+    }
+
+    //how much are user's shares of the underlying vault worth relative to the deposit value? that's the user's avaialable yield
+    function availableYield(address _account) public view returns (uint256) {
+        uint256 userValue = userDeposits[_account].mul(Vault(vault).getPricePerFullShare()).div(1e18);
+        if (userValue > userDeposits[_account]) {
+            return userValue.sub(userDeposits[_account]);
+        }
+        return 0;
     }
 
     //how much are our shares of the underlying vault worth relative to the deposit value? that's the avaialable yield
@@ -214,6 +238,15 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
             Vault(vault).withdraw(_availableYield.mul(1e18).div(Vault(vault).getPricePerFullShare()).mul(delegatePercent).div(10000)); //translate yield to shares in underlying vault, haircut to 90% to allow for fees etc...
             uint256 _after = token.balanceOf(address(this));
             token.safeTransfer(treasury, _after.sub(_before));
+        }
+    }
+
+    function getReward() public updateReward(msg.sender) {
+        uint256 reward = earned(msg.sender);
+        if (reward > 0) {
+            rewards[msg.sender] = 0;
+            rally.safeTransfer(msg.sender, reward);
+            emit RewardPaid(msg.sender, reward);
         }
     }
 }
