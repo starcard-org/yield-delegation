@@ -14,9 +14,9 @@ contract YieldDelegatingVaultStorage {
     uint256 public globalDepositCap;
     uint256 public individualDepositCap;
     
-    mapping(address => uint256) public userDeposits;
+    mapping(address => uint256) public rewardDebt;
     uint256 public totalDeposits;
 
     uint256 public rewardPerToken;
-    mapping(address => uint256) public rewards;
+    uint256 public accRallyPerShare;
 }

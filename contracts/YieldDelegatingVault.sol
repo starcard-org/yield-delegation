@@ -22,7 +22,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     using SafeMath for uint256;
 
     bytes32 public constant CONTROLLER_ROLE = keccak256("CONTROLLER");
-
+    
     constructor (
         ControllerInterface _controller,
         address _vault,
@@ -45,9 +45,10 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         globalDepositCap = _globalDepositCap;
         individualDepositCap = _individualDepositCap;
 	    totalDeposits = 0;
+        accRallyPerShare = 0;
 
         _setupRole(DEFAULT_ADMIN_ROLE, owner());
-	    _setRoleAdmin(CONTROLLER_ROLE, DEFAULT_ADMIN_ROLE);
+	_setRoleAdmin(CONTROLLER_ROLE, DEFAULT_ADMIN_ROLE);
         grantRole(CONTROLLER_ROLE, address(controller));
     }
 
@@ -99,19 +100,8 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         emit NewRewardPerToken(oldRewardPerToken, newRewardPerToken);
     }
 
-    modifier updateReward(address account) {
-        if (account != address(0)) {
-            rewards[account] = earned(account);
-        }
-        _;
-    }
-
     function earned(address account) public view returns (uint256) {
-        uint256 _availableYield = availableYield(account);
-        return
-            _availableYield
-                .mul(rewardPerToken)
-                .div(1e18);
+        return balanceOf(account).mul(accRallyPerShare).div(1e12).sub(rewardDebt[account]);
     }
 
     function balance() public view returns (uint256) {
@@ -122,13 +112,18 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         deposit(token.balanceOf(msg.sender));
     }
 
-    function deposit(uint256 _amount) public updateReward(msg.sender) returns (uint256) {
+    function deposit(uint256 _amount) public returns (uint256) {
         if(individualDepositCap < balanceOf(address(this)).add(_amount)) {
             return fail(Error.BAD_INPUT, FailureInfo.SET_INDIVIDUAL_SOFT_CAP_CHECK);
         }
 
         if(globalDepositCap < totalSupply().add(_amount)) {
             return fail(Error.BAD_INPUT, FailureInfo.SET_GLOBAL_SOFT_CAP_CHECK);
+        }
+
+        uint256 pending = earned(msg.sender);
+        if (pending > 0) {
+            safeRallyTransfer(msg.sender, pending);
         }
         uint256 _pool = balance();
 
@@ -138,7 +133,6 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         _amount = _after.sub(_before);
 
         totalDeposits = totalDeposits.add(_amount);
-        userDeposits[msg.sender] = userDeposits[msg.sender].add(_amount);
 
         token.approve(vault, _amount);
         Vault(vault).deposit(_amount);
@@ -154,10 +148,16 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
             shares = (_new_shares.mul(totalSupply())).div(_pool);
         }
         _mint(msg.sender, shares);
+        rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
     }
 
     function deposityToken(uint256 _yamount) public returns (uint256) {
         uint256 _pool = balance();
+
+        uint256 pending = earned(msg.sender);
+        if (pending > 0) {
+            safeRallyTransfer(msg.sender, pending);
+        }
 
         uint256 _before = IERC20(vault).balanceOf(address(this));
         IERC20(vault).safeTransferFrom(msg.sender, address(this), _yamount);
@@ -166,7 +166,6 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
 
         uint _underlyingAmount = _yamount.div(Vault(vault).getPricePerFullShare());
         totalDeposits = totalDeposits.add(_underlyingAmount);
-        userDeposits[msg.sender] = userDeposits[msg.sender].add(_underlyingAmount);
 		
         //translate vault shares into delegating vault shares
         uint256 shares = 0;
@@ -176,77 +175,78 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
             shares = (_yamount.mul(totalSupply())).div(_pool);
         }
         _mint(msg.sender, shares);
+        rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
     }
 
-    function withdrawAll() external updateReward(msg.sender) {
+    function withdrawAll() external {
         withdraw(balanceOf(msg.sender));
     }
 
-    function withdraw(uint256 _shares) public updateReward(msg.sender) {
+    function withdraw(uint256 _shares) public {
+        uint256 pending = earned(msg.sender);
+        if (pending > 0) {
+            safeRallyTransfer(msg.sender, pending);
+        }
+
         uint256 r = (balance().mul(_shares)).div(totalSupply());
         _burn(msg.sender, _shares);
-
+        rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
         uint256 _before = token.balanceOf(address(this));
         Vault(vault).withdraw(r);
         uint256 _after = token.balanceOf(address(this));
 
         totalDeposits = totalDeposits.add(_after).sub(_before);
-        userDeposits[msg.sender] = userDeposits[msg.sender].add(_after).sub(_before);
 
         token.safeTransfer(msg.sender, _after.sub(_before));
     }
 
     function withdrawyToken(uint256 _shares) public {
+        uint256 pending = earned(msg.sender);
+        if (pending > 0) {
+            safeRallyTransfer(msg.sender, pending);
+        }
         uint256 r = (balance().mul(_shares)).div(totalSupply());
         _burn(msg.sender, _shares);
-
+        rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
         uint256 _amount = r.div(Vault(vault).getPricePerFullShare());
 
         totalDeposits = totalDeposits.sub(_amount);
-        userDeposits[msg.sender] = userDeposits[msg.sender].sub(_amount);
 
         IERC20(vault).safeTransfer(msg.sender, r);
     }
 
-    //differs from underlying vault implementation, price per full share denominated in token type we are depositing into the underlying vault
-    function getPricePerFullShare() public view returns (uint256) {
-    	return (Vault(vault).getPricePerFullShare().mul(balance())).div(totalSupply());
-    }
-
-    //how much are user's shares of the underlying vault worth relative to the deposit value? that's the user's avaialable yield
-    function availableYield(address _account) public view returns (uint256) {
-        uint256 userValue = userDeposits[_account].mul(Vault(vault).getPricePerFullShare()).div(1e18);
-        if (userValue > userDeposits[_account]) {
-            return userValue.sub(userDeposits[_account]);
+    // Safe RLY transfer function, just in case pool does not have enough RLY; either rounding error or we're not supplying more rewards
+    function safeRallyTransfer(address _to, uint256 _amount) internal {
+        uint256 rallyBal = rally.balanceOf(address(this));
+        if (_amount > rallyBal) {
+            rally.transfer(_to, rallyBal);
+        } else {
+            rally.transfer(_to, _amount);
         }
-        return 0;
     }
 
-    //how much are our shares of the underlying vault worth relative to the deposit value? that's the avaialable yield
+    //how much are our shares of the underlying vault worth relative to the deposit value? returns value denominated in vault tokens
     function availableYield() public view returns (uint256) {
         uint256 totalValue = balance().mul(Vault(vault).getPricePerFullShare()).div(1e18);
         if (totalValue > totalDeposits) {
-            return totalValue.sub(totalDeposits);
+            uint256 earnings = totalValue.sub(totalDeposits);
+            return earnings.mul(1e18).div(Vault(vault).getPricePerFullShare());
         }
         return 0;
     }
 
-    function harvest() external updateReward(msg.sender) {
+    //transfer accumulated yield to treasury, update totalDeposits to ensure availableYield following
+    //harvest is 0, and increase accumulated rally rewards
+    //if we do not have enough Rally to fund rewards, zero out availableYield without transferring to treasury
+    function harvest() public {
         uint256 _availableYield = availableYield();
         if (_availableYield > 0) {
-            uint256 _before = token.balanceOf(address(this));
-            Vault(vault).withdraw(_availableYield.mul(1e18).div(Vault(vault).getPricePerFullShare()).mul(delegatePercent).div(10000)); //translate yield to shares in underlying vault, haircut to 90% to allow for fees etc...
-            uint256 _after = token.balanceOf(address(this));
-            token.safeTransfer(treasury, _after.sub(_before));
-        }
-    }
-
-    function getReward() public updateReward(msg.sender) {
-        uint256 reward = earned(msg.sender);
-        if (reward > 0) {
-            rewards[msg.sender] = 0;
-            rally.safeTransfer(msg.sender, reward);
-            emit RewardPaid(msg.sender, reward);
+            uint256 rallyReward = _availableYield.mul(delegatePercent).div(10000).mul(rewardPerToken).div(1e18);
+            if (rally.balanceOf(address(this)) >= rallyReward) {
+                IERC20(vault).safeTransfer(treasury, _availableYield.mul(delegatePercent).div(10000));
+                accRallyPerShare = accRallyPerShare.add(rallyReward.mul(1e12).div(totalSupply()));
+            }
+            totalDeposits = balance().mul(Vault(vault).getPricePerFullShare()).div(1e18);
         }
     }
 }
