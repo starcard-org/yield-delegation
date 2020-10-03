@@ -12,7 +12,6 @@ import "@openzeppelin/contracts/GSN/Context.sol";
 
 import "./YieldDelegatingVaultStorage.sol";
 import "./YieldDelegatingVaultEvent.sol";
-import "./interfaces/ControllerInterface.sol";
 import "./interfaces/Vault.sol";
 import "./YDVErrorReporter.sol";
 
@@ -24,7 +23,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     bytes32 public constant CONTROLLER_ROLE = keccak256("CONTROLLER");
     
     constructor (
-        ControllerInterface _controller,
+        address _controller,
         address _vault,
         IERC20 _rally,
         address _treasury,
@@ -39,17 +38,16 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         token = IERC20(Vault(_vault).token()); //token being deposited in the referenced vault
         vault = _vault; //address of the vault we're proxying
         rally = _rally;
-	    treasury = _treasury;
         controller = _controller;
+	treasury = _treasury;
         delegatePercent = _delegatePercent;
         globalDepositCap = _globalDepositCap;
         individualDepositCap = _individualDepositCap;
 	    totalDeposits = 0;
         accRallyPerShare = 0;
 
-        _setupRole(DEFAULT_ADMIN_ROLE, owner());
-	_setRoleAdmin(CONTROLLER_ROLE, DEFAULT_ADMIN_ROLE);
-        grantRole(CONTROLLER_ROLE, address(controller));
+        _setupRole(DEFAULT_ADMIN_ROLE, controller);
+	_setupRole(CONTROLLER_ROLE, controller);
     }
 
     function setTreasury(address newTreasury) public {
@@ -195,9 +193,18 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         Vault(vault).withdraw(r);
         uint256 _after = token.balanceOf(address(this));
 
-        totalDeposits = totalDeposits.add(_after).sub(_before);
+        uint256 toTransfer = _after.sub(_before);
+        safeReduceTotalDeposits(toTransfer);
+        token.safeTransfer(msg.sender, toTransfer);
+    }
 
-        token.safeTransfer(msg.sender, _after.sub(_before));
+    //in case of rounding errors converting between vault tokens and underlying value
+    function safeReduceTotalDeposits(uint256 _amount) internal {
+        if (_amount > totalDeposits) {
+          totalDeposits = 0;
+        } else {
+          totalDeposits = totalDeposits.sub(_amount);
+        }
     }
 
     function withdrawyToken(uint256 _shares) public {
@@ -208,9 +215,9 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         uint256 r = (balance().mul(_shares)).div(totalSupply());
         _burn(msg.sender, _shares);
         rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
-        uint256 _amount = r.div(Vault(vault).getPricePerFullShare());
+        uint256 _amount = r.mul(Vault(vault).getPricePerFullShare()).div(1e18);
 
-        totalDeposits = totalDeposits.sub(_amount);
+        safeReduceTotalDeposits(_amount);
 
         IERC20(vault).safeTransfer(msg.sender, r);
     }
