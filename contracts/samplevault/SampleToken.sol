@@ -22,17 +22,16 @@ contract SampleToken is ERC20, AccessControl, Ownable, SampleTokenStorage, Sampl
         string(abi.encodePacked("sample token")),
         string(abi.encodePacked("STKN"))
     ) {
-        _setupRole(DEFAULT_ADMIN_ROLE, owner());
-	    _setRoleAdmin(MINTER_ROLE, DEFAULT_ADMIN_ROLE);
+        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
+	_setupRole(MINTER_ROLE, msg.sender);
     }
 
     /**
      * @notice Add the minter of the reward token
      * @param account_ The address of the minter
      */
-    function addMinter(address account_) public onlyOwner {
+    function addMinter(address account_) public {
         grantRole(MINTER_ROLE, account_);
-
         emit MinterAdded(account_);
     }
 

@@ -64,7 +64,8 @@ contract SampleVault is ERC20 {
     	return balance().mul(1e18).div(totalSupply());
     }
 
+    //add 10% more tokens to simulate generating yield
     function simulateEarnings() public {
-	    SampleToken(token).mint(address(this), balance());
+	    SampleToken(token).mint(address(this), balance().mul(1000).div(10000));
     }
 }
