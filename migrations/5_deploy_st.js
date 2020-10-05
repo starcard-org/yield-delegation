@@ -26,7 +26,6 @@ async function deploySampleVault (deployer, network, accounts) {
 
     let ydv = await deployer.deploy(
       YDV,
-      controller,
       sv.options.address,
       YDVRewardsDistributor.address,
       treasury,
