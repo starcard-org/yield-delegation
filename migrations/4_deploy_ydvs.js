@@ -15,7 +15,6 @@ module.exports = async function(deployer, network, accounts) {
 
     let ydv = await deployer.deploy(
       YieldDelegatingVault,
-      controller,
       yusdc_address,
       YDVRewardsDistributor.address,
       treasury,

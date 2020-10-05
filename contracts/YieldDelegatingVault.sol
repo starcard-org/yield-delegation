@@ -2,13 +2,11 @@
 pragma solidity ^0.6.2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Address.sol";
 import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/GSN/Context.sol";
 
 import "./YieldDelegatingVaultEvent.sol";
 import "./YDVRewardsDistributor.sol";
@@ -16,15 +14,12 @@ import "./interfaces/Vault.sol";
 import "./YDVErrorReporter.sol";
 import "./YieldDelegatingVaultStorage.sol";
 
-contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelegatingVaultEvent, YDVErrorReporter, AccessControl, Ownable {
+contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelegatingVaultEvent, YDVErrorReporter, Ownable {
     using SafeERC20 for IERC20;
     using Address for address;
     using SafeMath for uint256;
 
-    bytes32 public constant CONTROLLER_ROLE = keccak256("CONTROLLER");
-   
     constructor (
-        address _controller,
         address _vault,
         address _rewards,
         address _treasury,
@@ -40,20 +35,15 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         vault = _vault; //address of the vault we're proxying
         rewards = YDVRewardsDistributor(_rewards);
         rally = rewards.rewardToken();
-        controller = _controller;
 	treasury = _treasury;
         delegatePercent = _delegatePercent;
         globalDepositCap = _globalDepositCap;
         individualDepositCap = _individualDepositCap;
 	    totalDeposits = 0;
         accRallyPerShare = 0;
-
-        _setupRole(DEFAULT_ADMIN_ROLE, controller);
-	_setupRole(CONTROLLER_ROLE, controller);
     }
 
-    function setTreasury(address newTreasury) public {
-        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set treasury");
+    function setTreasury(address newTreasury) public onlyOwner {
         require(newTreasury != address(0), "treasure should be valid address");
 
         address oldTreasury = treasury;
@@ -62,38 +52,21 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         emit NewTreasury(oldTreasury, newTreasury);
     }
 
-    function setDelegatePercent(uint256 newDelegatePercent) public {
-        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set delegate percent");
-        require(newDelegatePercent <= 10000, "delegate percent should be lower than 100%");
-
-        uint256 oldDelegatePercent = delegatePercent;
-        delegatePercent = newDelegatePercent;
-
-        emit NewDelegatePercent(oldDelegatePercent, newDelegatePercent);
-    }
-
-    function setGlobalDepositCap(uint256 newGlobalDepositCap) public {
-        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set global deposit cap");
-        require(newGlobalDepositCap >= totalDeposits, "global deposit cap should be bigger than totalDeposits");
-
+    function setGlobalDepositCap(uint256 newGlobalDepositCap) public onlyOwner {
         uint256 oldGlobalDepositCap = globalDepositCap;
         globalDepositCap = newGlobalDepositCap;
 
         emit NewGlobalDepositCap(oldGlobalDepositCap, newGlobalDepositCap);
     }
 
-    function setIndividualDepositCap(uint256 newIndividualDepositCap) public {
-        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set individual deposit cap");
-
+    function setIndividualDepositCap(uint256 newIndividualDepositCap) public onlyOwner {
         uint256 oldIndividualDepositCap = individualDepositCap;
         individualDepositCap = newIndividualDepositCap;
 
         emit NewIndividualDepositCap(oldIndividualDepositCap, newIndividualDepositCap);
     }
 
-    function setNewRewardPerToken(uint256 newRewardPerToken) public {
-        require(hasRole(CONTROLLER_ROLE, msg.sender), "only controller can set reward per token");
-
+    function setNewRewardPerToken(uint256 newRewardPerToken) public onlyOwner {
         uint256 oldRewardPerToken = rewardPerToken;
         rewardPerToken = newRewardPerToken;
 
