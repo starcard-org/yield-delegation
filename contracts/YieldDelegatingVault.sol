@@ -10,10 +10,11 @@ import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/GSN/Context.sol";
 
-import "./YieldDelegatingVaultStorage.sol";
 import "./YieldDelegatingVaultEvent.sol";
+import "./YDVRewardsDistributor.sol";
 import "./interfaces/Vault.sol";
 import "./YDVErrorReporter.sol";
+import "./YieldDelegatingVaultStorage.sol";
 
 contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelegatingVaultEvent, YDVErrorReporter, AccessControl, Ownable {
     using SafeERC20 for IERC20;
@@ -21,11 +22,11 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     using SafeMath for uint256;
 
     bytes32 public constant CONTROLLER_ROLE = keccak256("CONTROLLER");
-    
+   
     constructor (
         address _controller,
         address _vault,
-        IERC20 _rally,
+        address _rewards,
         address _treasury,
         uint256 _delegatePercent,
         uint256 _globalDepositCap,
@@ -37,7 +38,8 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         _setupDecimals(ERC20(Vault(_vault).token()).decimals());
         token = IERC20(Vault(_vault).token()); //token being deposited in the referenced vault
         vault = _vault; //address of the vault we're proxying
-        rally = _rally;
+        rewards = YDVRewardsDistributor(_rewards);
+        rally = rewards.rewardToken();
         controller = _controller;
 	treasury = _treasury;
         delegatePercent = _delegatePercent;
@@ -222,7 +224,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         IERC20(vault).safeTransfer(msg.sender, r);
     }
 
-    // Safe RLY transfer function, just in case pool does not have enough RLY; either rounding error or we're not supplying more rewards
+    // Safe RLY transfer function, just in case pool does not have enough RLY due to rounding error
     function safeRallyTransfer(address _to, uint256 _amount) internal {
         uint256 rallyBal = rally.balanceOf(address(this));
         if (_amount > rallyBal) {
@@ -244,15 +246,14 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
 
     //transfer accumulated yield to treasury, update totalDeposits to ensure availableYield following
     //harvest is 0, and increase accumulated rally rewards
-    //if we do not have enough Rally to fund rewards, zero out availableYield without transferring to treasury
+    //harvest fails if we're unable to fund rewards
     function harvest() public {
         uint256 _availableYield = availableYield();
         if (_availableYield > 0) {
             uint256 rallyReward = _availableYield.mul(delegatePercent).div(10000).mul(rewardPerToken).div(1e18);
-            if (rally.balanceOf(address(this)) >= rallyReward) {
-                IERC20(vault).safeTransfer(treasury, _availableYield.mul(delegatePercent).div(10000));
-                accRallyPerShare = accRallyPerShare.add(rallyReward.mul(1e12).div(totalSupply()));
-            }
+            rewards.transferReward(rallyReward);
+            IERC20(vault).safeTransfer(treasury, _availableYield.mul(delegatePercent).div(10000));
+            accRallyPerShare = accRallyPerShare.add(rallyReward.mul(1e12).div(totalSupply()));
             totalDeposits = balance().mul(Vault(vault).getPricePerFullShare()).div(1e18);
         }
     }

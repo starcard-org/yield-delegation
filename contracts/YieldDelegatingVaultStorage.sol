@@ -2,10 +2,12 @@
 pragma solidity ^0.6.2;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./YDVRewardsDistributor.sol";
 
 contract YieldDelegatingVaultStorage {
     address public controller;
     address public vault;
+    YDVRewardsDistributor rewards;
     IERC20 public rally;
     address public treasury;
     IERC20 public token;
