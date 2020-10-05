@@ -24,6 +24,7 @@
     "ethereumjs-util": "^7.0.4",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
-    "openzeppelin-test-helpers": "^0.5.1"
+    "openzeppelin-test-helpers": "^0.5.1",
+    "truffle-plugin-verify": "^0.4.0"
   }
 }

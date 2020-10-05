@@ -34,6 +34,17 @@ module.exports = {
       from: process.env.DEPLOYER_ACCOUNT,
       timeoutBlocks: 800,
     },
+    rinkeby: {
+      network_id: '4',
+      provider: () => new HDWalletProvider(
+        [process.env.DEPLOYER_PRIVATE_KEY],
+        "https://rinkeby.infura.io/v3/cb4a5ae28e874192b688d73008d7875e",
+        0,
+        1,
+      ),
+      gasPrice: Number(process.env.GAS_PRICE),
+      from: process.env.DEPLOYER_ACCOUNT,
+    },
   },
   compilers: {
     solc: {
@@ -48,5 +59,11 @@ module.exports = {
         },
       }
     }
+  },
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    etherscan: process.env.ETHERSCAN_API_KEY
   }
 };
