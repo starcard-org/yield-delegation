@@ -1,25 +1,25 @@
 import {useWallet} from 'use-wallet';
 import {useCallback, useContext} from 'react';
+import BigNumber from 'bignumber.js';
+import {bnToDec} from '../utils/number';
 import {DrizzleContext} from '../context/DrizzleContext';
 
 export const useDeposit = name => {
-  const {drizzle, loading} = useContext(DrizzleContext);
+  const {drizzle, initialized} = useContext(DrizzleContext);
   const {account} = useWallet();
   const deposit = useCallback(
-    amount => {
-      console.log(`Depositing to ${name}, from ${account}`);
-      if (!drizzle || loading) {
-        return false;
+    (amount, decimals, method = 'deposit') => {
+      if (!drizzle || !initialized) {
+        return;
       }
 
-      console.log(drizzle.contracts[name].methods);
-      drizzle.contracts[name].methods.deposit(10000000000).send({
+      drizzle.contracts[name].methods[method](
+        bnToDec(new BigNumber(amount), decimals)
+      ).send({
         from: account,
       });
-
-      console.log(`Deposited ${amount}`);
     },
-    [account, name, drizzle, loading]
+    [account, name, drizzle, initialized]
   );
   return deposit;
 };

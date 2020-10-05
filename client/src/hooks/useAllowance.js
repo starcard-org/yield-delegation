@@ -22,8 +22,12 @@ const useAllowance = (token, vault) => {
         drizzle.contracts[token].address,
         account
       );
+
       setAllowance(tx);
     } catch (e) {
+      console.log(
+        `Error getting allowance for owner: ${drizzle.contracts[token].address}, spender: ${account}`
+      );
       return 0;
     }
   }, [account, token, vault, drizzle, initialized]);
@@ -39,7 +43,7 @@ const useAllowance = (token, vault) => {
     return () => clearInterval(refreshInterval);
   }, [drizzle, fetchAllowance, initialized]);
 
-  return {getAllowance, allowance, setAllowance};
+  return {getAllowance: fetchAllowance, allowance, setAllowance};
 };
 
 export default useAllowance;

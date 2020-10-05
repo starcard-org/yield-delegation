@@ -7,7 +7,6 @@ import {DrizzleProvider} from './context/DrizzleContext';
 import {DarkModeProvider} from './context/DarkModeContext';
 import {UseWalletProvider} from 'use-wallet';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Home from './pages/Home';
 import Vaults from './pages/Vaults';
 
 const Container = styled.div`
@@ -61,8 +60,7 @@ function App() {
           </Shrink>
           <Grow>
             <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/vaults" exact component={Vaults} />
+              <Route path="/" exact component={Vaults} />
             </Switch>
           </Grow>
           <Shrink>

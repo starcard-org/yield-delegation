@@ -6,18 +6,22 @@ export const useCall = (name, method, defaultValue = null, params) => {
   const [value, setValue] = useState(defaultValue);
 
   useEffect(() => {
-    if (!drizzle || !initialized) {
+    if (!drizzle || !initialized || !drizzle.contracts[name]) {
       return;
     }
 
-    console.log(`Calling ${method} for ${name}`);
     (async () => {
       let executor = drizzle.contracts[name].methods[method];
-
-      const result = await (params ? executor(params).call() : executor().call());
-
-      console.log(`[${method}-${name}]: ${result}`);
-      setValue(result);
+      try {
+        const result = await (params ? executor(params).call() : executor().call());
+        console.log(`[${method}-${name}]: ${result}`);
+        setValue(result);
+      } catch (e) {
+        console.error(e);
+        console.log(
+          `drizzle.contracts[${name}].methods[${method}](${params}).call(): Error`
+        );
+      }
     })();
   }, [drizzle, initialized, name, method, params]);
 

@@ -4,7 +4,7 @@ import {Container, Button, Card} from '../components';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import {fadeIn, fadeOut} from '../theme/animations';
 
-const homeForms = require('../assets/img/home_forms.png');
+const Forms = require('../assets/img/forms.png');
 
 const Title = styled(Col)`
   font-size: 56px;
@@ -33,7 +33,7 @@ const TextContainer = styled.div`
   transition: visibility 1s linear;
 `;
 
-export default () => {
+export const ConnectYourWallet = () => {
   const [vText, setVisibleText] = useState(false);
   const [vImage, setVisibleImage] = useState(false);
   useEffect(() => {
@@ -50,7 +50,7 @@ export default () => {
     <Container size="lg">
       <Grid>
         <ImageContainer center={'xs'} visible={vImage}>
-          <img src={homeForms} width={'100%'} alt={'Geometric Forms'} />
+          <img src={Forms} width={'100%'} alt={'Geometric Forms'} />
         </ImageContainer>
         <Container size="sm">
           <TextContainer visible={vText}>

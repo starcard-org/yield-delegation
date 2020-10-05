@@ -39,6 +39,11 @@ const StyledButton = styled.button`
       height: 40px;
       border: solid 1px #ffd800;
       background-color: rgba(0, 0, 0, 0);
+
+      :focus {
+        outline: 0px;
+        border: solid 2px #ffd800;
+      }
     `
       : `
       height: 48px;

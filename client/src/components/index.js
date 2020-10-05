@@ -4,3 +4,4 @@ export {Footer} from './Footer';
 export {Container} from './Container';
 export {Button} from './Button';
 export {Accordion} from './Accordion';
+export {ConnectYourWallet} from './ConnectYourWallet';
