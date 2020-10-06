@@ -1,0 +1,1174 @@
+{
+  "contractName": "YieldDelegatingVaultEvent",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldDelegatePercent",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newDelegatePercent",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewDelegatePercent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldGlobalDepositCap",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newGlobalDepositCap",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewGlobalDepositCap",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldInvidivualDepositCap",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newInvidivualDepositCap",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewIndividualDepositCap",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "oldRewardPerToken",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "newRewardPerToken",
+          "type": "uint256"
+        }
+      ],
+      "name": "NewRewardPerToken",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "oldTreasury",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "newTreasury",
+          "type": "address"
+        }
+      ],
+      "name": "NewTreasury",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "reward",
+          "type": "uint256"
+        }
+      ],
+      "name": "RewardPaid",
+      "type": "event"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"oldDelegatePercent\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newDelegatePercent\",\"type\":\"uint256\"}],\"name\":\"NewDelegatePercent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"oldGlobalDepositCap\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newGlobalDepositCap\",\"type\":\"uint256\"}],\"name\":\"NewGlobalDepositCap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"oldInvidivualDepositCap\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newInvidivualDepositCap\",\"type\":\"uint256\"}],\"name\":\"NewIndividualDepositCap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"oldRewardPerToken\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"newRewardPerToken\",\"type\":\"uint256\"}],\"name\":\"NewRewardPerToken\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"oldTreasury\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"newTreasury\",\"type\":\"address\"}],\"name\":\"NewTreasury\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"reward\",\"type\":\"uint256\"}],\"name\":\"RewardPaid\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"events\":{\"NewDelegatePercent(uint256,uint256)\":{\"notice\":\"Emitted when set new delegate percent\"},\"NewGlobalDepositCap(uint256,uint256)\":{\"notice\":\"Emitted when set new global deposit cap\"},\"NewIndividualDepositCap(uint256,uint256)\":{\"notice\":\"Emitted when set new individual deposit cap\"},\"NewRewardPerToken(uint256,uint256)\":{\"notice\":\"Emitted when a minter is added by admin\"},\"NewTreasury(address,address)\":{\"notice\":\"Emitted when set new treasury\"},\"RewardPaid(address,uint256)\":{\"notice\":\"Emitted when a reward paid\"}},\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aranade/Development/yield-delegation/contracts/YieldDelegatingVaultEvent.sol\":\"YieldDelegatingVaultEvent\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aranade/Development/yield-delegation/contracts/YieldDelegatingVaultEvent.sol\":{\"keccak256\":\"0x28b229d606fa2951dc83538577fcca5fc48156c469bba3d954fe4e3c3b00958b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://900f1e2326c94f4c371a66c526aff2e2c27c7ab7e4b1f3598aaedf64f15c8ea6\",\"dweb:/ipfs/QmQtLqBf4pwkj76ZPCpRoxjjinMRWcne8mikmJXqhvbDhF\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212206d92922faa079f7450c56610f2e2a42f3ddcd19188274cc4ef9479f1d6c6293764736f6c634300060c0033",
+  "deployedBytecode": "0x6080604052600080fdfea26469706673582212206d92922faa079f7450c56610f2e2a42f3ddcd19188274cc4ef9479f1d6c6293764736f6c634300060c0033",
+  "immutableReferences": {},
+  "sourceMap": "57:853:4:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "57:853:4:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.2;\n\ncontract YieldDelegatingVaultEvent {\n    /// @notice Emitted when set new treasury\n    event NewTreasury(address oldTreasury, address newTreasury);\n    \n    /// @notice Emitted when set new delegate percent\n    event NewDelegatePercent(uint256 oldDelegatePercent, uint256 newDelegatePercent);\n\n    /// @notice Emitted when set new global deposit cap\n    event NewGlobalDepositCap(uint256 oldGlobalDepositCap, uint256 newGlobalDepositCap);\n    \n    /// @notice Emitted when set new individual deposit cap\n    event NewIndividualDepositCap(uint256 oldInvidivualDepositCap, uint256 newInvidivualDepositCap);\n    \n    /// @notice Emitted when a minter is added by admin\n    event NewRewardPerToken(uint256 oldRewardPerToken, uint256 newRewardPerToken);\n    \n    /// @notice Emitted when a reward paid\n    event RewardPaid(address account, uint256 reward);\n}\n",
+  "sourcePath": "/Users/aranade/Development/yield-delegation/contracts/YieldDelegatingVaultEvent.sol",
+  "ast": {
+    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/YieldDelegatingVaultEvent.sol",
+    "exportedSymbols": {
+      "YieldDelegatingVaultEvent": [1266]
+    },
+    "id": 1267,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1223,
+        "literals": ["solidity", "^", "0.6", ".2"],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:4"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1266,
+        "linearizedBaseContracts": [1266],
+        "name": "YieldDelegatingVaultEvent",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1224,
+              "nodeType": "StructuredDocumentation",
+              "src": "98:41:4",
+              "text": "@notice Emitted when set new treasury"
+            },
+            "id": 1230,
+            "name": "NewTreasury",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1229,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1226,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldTreasury",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1230,
+                  "src": "162:19:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1225,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "162:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1228,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newTreasury",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1230,
+                  "src": "183:19:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1227,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "183:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "161:42:4"
+            },
+            "src": "144:60:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1231,
+              "nodeType": "StructuredDocumentation",
+              "src": "214:49:4",
+              "text": "@notice Emitted when set new delegate percent"
+            },
+            "id": 1237,
+            "name": "NewDelegatePercent",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1236,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1233,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldDelegatePercent",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1237,
+                  "src": "293:26:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1232,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "293:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1235,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newDelegatePercent",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1237,
+                  "src": "321:26:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1234,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "321:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "292:56:4"
+            },
+            "src": "268:81:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1238,
+              "nodeType": "StructuredDocumentation",
+              "src": "355:51:4",
+              "text": "@notice Emitted when set new global deposit cap"
+            },
+            "id": 1244,
+            "name": "NewGlobalDepositCap",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1243,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1240,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldGlobalDepositCap",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1244,
+                  "src": "437:27:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1239,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "437:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1242,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newGlobalDepositCap",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1244,
+                  "src": "466:27:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1241,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "466:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "436:58:4"
+            },
+            "src": "411:84:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1245,
+              "nodeType": "StructuredDocumentation",
+              "src": "505:55:4",
+              "text": "@notice Emitted when set new individual deposit cap"
+            },
+            "id": 1251,
+            "name": "NewIndividualDepositCap",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1250,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1247,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldInvidivualDepositCap",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1251,
+                  "src": "595:31:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1246,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "595:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1249,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newInvidivualDepositCap",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1251,
+                  "src": "628:31:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1248,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "628:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "594:66:4"
+            },
+            "src": "565:96:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1252,
+              "nodeType": "StructuredDocumentation",
+              "src": "671:51:4",
+              "text": "@notice Emitted when a minter is added by admin"
+            },
+            "id": 1258,
+            "name": "NewRewardPerToken",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1257,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1254,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldRewardPerToken",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1258,
+                  "src": "751:25:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1253,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "751:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1256,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newRewardPerToken",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1258,
+                  "src": "778:25:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1255,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "778:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "750:54:4"
+            },
+            "src": "727:78:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1259,
+              "nodeType": "StructuredDocumentation",
+              "src": "815:38:4",
+              "text": "@notice Emitted when a reward paid"
+            },
+            "id": 1265,
+            "name": "RewardPaid",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1264,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1261,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1265,
+                  "src": "875:15:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1260,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "875:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1263,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "reward",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1265,
+                  "src": "892:14:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1262,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "892:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "874:33:4"
+            },
+            "src": "858:50:4"
+          }
+        ],
+        "scope": 1267,
+        "src": "57:853:4"
+      }
+    ],
+    "src": "32:879:4"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/YieldDelegatingVaultEvent.sol",
+    "exportedSymbols": {
+      "YieldDelegatingVaultEvent": [1266]
+    },
+    "id": 1267,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1223,
+        "literals": ["solidity", "^", "0.6", ".2"],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:4"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1266,
+        "linearizedBaseContracts": [1266],
+        "name": "YieldDelegatingVaultEvent",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1224,
+              "nodeType": "StructuredDocumentation",
+              "src": "98:41:4",
+              "text": "@notice Emitted when set new treasury"
+            },
+            "id": 1230,
+            "name": "NewTreasury",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1229,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1226,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldTreasury",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1230,
+                  "src": "162:19:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1225,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "162:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1228,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newTreasury",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1230,
+                  "src": "183:19:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1227,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "183:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "161:42:4"
+            },
+            "src": "144:60:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1231,
+              "nodeType": "StructuredDocumentation",
+              "src": "214:49:4",
+              "text": "@notice Emitted when set new delegate percent"
+            },
+            "id": 1237,
+            "name": "NewDelegatePercent",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1236,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1233,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldDelegatePercent",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1237,
+                  "src": "293:26:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1232,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "293:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1235,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newDelegatePercent",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1237,
+                  "src": "321:26:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1234,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "321:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "292:56:4"
+            },
+            "src": "268:81:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1238,
+              "nodeType": "StructuredDocumentation",
+              "src": "355:51:4",
+              "text": "@notice Emitted when set new global deposit cap"
+            },
+            "id": 1244,
+            "name": "NewGlobalDepositCap",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1243,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1240,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldGlobalDepositCap",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1244,
+                  "src": "437:27:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1239,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "437:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1242,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newGlobalDepositCap",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1244,
+                  "src": "466:27:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1241,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "466:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "436:58:4"
+            },
+            "src": "411:84:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1245,
+              "nodeType": "StructuredDocumentation",
+              "src": "505:55:4",
+              "text": "@notice Emitted when set new individual deposit cap"
+            },
+            "id": 1251,
+            "name": "NewIndividualDepositCap",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1250,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1247,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldInvidivualDepositCap",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1251,
+                  "src": "595:31:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1246,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "595:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1249,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newInvidivualDepositCap",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1251,
+                  "src": "628:31:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1248,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "628:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "594:66:4"
+            },
+            "src": "565:96:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1252,
+              "nodeType": "StructuredDocumentation",
+              "src": "671:51:4",
+              "text": "@notice Emitted when a minter is added by admin"
+            },
+            "id": 1258,
+            "name": "NewRewardPerToken",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1257,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1254,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "oldRewardPerToken",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1258,
+                  "src": "751:25:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1253,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "751:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1256,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "newRewardPerToken",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1258,
+                  "src": "778:25:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1255,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "778:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "750:54:4"
+            },
+            "src": "727:78:4"
+          },
+          {
+            "anonymous": false,
+            "documentation": {
+              "id": 1259,
+              "nodeType": "StructuredDocumentation",
+              "src": "815:38:4",
+              "text": "@notice Emitted when a reward paid"
+            },
+            "id": 1265,
+            "name": "RewardPaid",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 1264,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1261,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "account",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1265,
+                  "src": "875:15:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1260,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "875:7:4",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1263,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "reward",
+                  "nodeType": "VariableDeclaration",
+                  "overrides": null,
+                  "scope": 1265,
+                  "src": "892:14:4",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 1262,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "892:7:4",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "874:33:4"
+            },
+            "src": "858:50:4"
+          }
+        ],
+        "scope": 1267,
+        "src": "57:853:4"
+      }
+    ],
+    "src": "32:879:4"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.12+commit.27d51765.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.2.3",
+  "updatedAt": "2020-10-06T04:54:20.208Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "NewDelegatePercent(uint256,uint256)": {
+        "notice": "Emitted when set new delegate percent"
+      },
+      "NewGlobalDepositCap(uint256,uint256)": {
+        "notice": "Emitted when set new global deposit cap"
+      },
+      "NewIndividualDepositCap(uint256,uint256)": {
+        "notice": "Emitted when set new individual deposit cap"
+      },
+      "NewRewardPerToken(uint256,uint256)": {
+        "notice": "Emitted when a minter is added by admin"
+      },
+      "NewTreasury(address,address)": {
+        "notice": "Emitted when set new treasury"
+      },
+      "RewardPaid(address,uint256)": {
+        "notice": "Emitted when a reward paid"
+      }
+    },
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
