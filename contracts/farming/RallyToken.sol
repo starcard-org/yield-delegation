@@ -11,11 +11,9 @@ contract RallyToken is ERC20 {
     constructor (
         address _escrow
     ) public ERC20(
-	"Rally Network Token",
+	"Rally",
 	"RLY"
     ) {
         _mint(_escrow, TOKEN_SUPPLY);	
     }
-
-
 }
