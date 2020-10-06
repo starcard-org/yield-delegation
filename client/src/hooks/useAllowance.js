@@ -18,11 +18,10 @@ const useAllowance = (token, vault) => {
 
     try {
       const tx = await getAllowance(
-        drizzle.contracts[vault].methods,
-        drizzle.contracts[token].address,
-        account
+        drizzle.contracts[token].methods,
+        account,
+        drizzle.contracts[vault].address,
       );
-
       setAllowance(tx);
     } catch (e) {
       console.log(
