@@ -1,6 +1,21 @@
 import BigNumber from 'bignumber.js/bignumber';
 import { INTEGERS } from './constants.js';
 
+export function plus(a, b) {
+  return new BigNumber(a).plus(BigNumber(b)).toFixed(0);
+}
+
+export function minus(a, b) {
+  return new BigNumber(a).minus(BigNumber(b)).toFixed(0);
+}
+
+export function times(a, b) {
+  return new BigNumber(a).times(BigNumber(b)).toFixed(0);
+}
+
+export function div(a, b) {
+  return new BigNumber(a).div(BigNumber(b)).toFixed(0);
+}
 
 export function stringToDecimal(s) {
   return new BigNumber(s).div(INTEGERS.INTEREST_RATE_BASE);

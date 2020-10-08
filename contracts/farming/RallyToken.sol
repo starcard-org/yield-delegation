@@ -14,6 +14,6 @@ contract RallyToken is ERC20 {
 	"Rally",
 	"RLY"
     ) {
-        _mint(_escrow, TOKEN_SUPPLY);	
+        _mint(_escrow, TOKEN_SUPPLY);
     }
 }

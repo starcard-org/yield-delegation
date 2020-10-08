@@ -25,7 +25,8 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         address _treasury,
         uint256 _delegatePercent,
         uint256 _globalDepositCap,
-        uint256 _individualDepositCap
+        uint256 _individualDepositCap,
+        uint256 _rewardPerToken
     ) public ERC20(
         string(abi.encodePacked("rally delegating ", ERC20(Vault(_vault).token()).name())),
         string(abi.encodePacked("rd", ERC20(Vault(_vault).token()).symbol()))
@@ -34,12 +35,13 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         token = IERC20(Vault(_vault).token()); //token being deposited in the referenced vault
         vault = _vault; //address of the vault we're proxying
         rewards = YDVRewardsDistributor(_rewards);
-        rally = rewards.rewardToken();
-	treasury = _treasury;
+        rally = IERC20(rewards.rewardToken());
+        treasury = _treasury;
         delegatePercent = _delegatePercent;
         globalDepositCap = _globalDepositCap;
         individualDepositCap = _individualDepositCap;
-	    totalDeposits = 0;
+        rewardPerToken = _rewardPerToken;
+        totalDeposits = 0;
         accRallyPerShare = 0;
     }
 
@@ -94,10 +96,8 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
             return fail(Error.BAD_INPUT, FailureInfo.SET_GLOBAL_SOFT_CAP_CHECK);
         }
 
-        uint256 pending = earned(msg.sender);
-        if (pending > 0) {
-            safeRallyTransfer(msg.sender, pending);
-        }
+        transferPendingReward();
+        
         uint256 _pool = balance();
 
         uint256 _before = token.balanceOf(address(this));
@@ -110,7 +110,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         token.approve(vault, _amount);
         Vault(vault).deposit(_amount);
         uint256 _after_pool = balance();
-		
+        
         uint256 _new_shares = _after_pool.sub(_pool); //new vault tokens representing my added vault shares
 
         //translate vault shares into delegating vault shares
@@ -125,13 +125,9 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     }
 
     function deposityToken(uint256 _yamount) public returns (uint256) {
+        transferPendingReward();
+
         uint256 _pool = balance();
-
-        uint256 pending = earned(msg.sender);
-        if (pending > 0) {
-            safeRallyTransfer(msg.sender, pending);
-        }
-
         uint256 _before = IERC20(vault).balanceOf(address(this));
         IERC20(vault).safeTransferFrom(msg.sender, address(this), _yamount);
         uint256 _after = IERC20(vault).balanceOf(address(this));
@@ -139,7 +135,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
 
         uint _underlyingAmount = _yamount.div(Vault(vault).getPricePerFullShare());
         totalDeposits = totalDeposits.add(_underlyingAmount);
-		
+        
         //translate vault shares into delegating vault shares
         uint256 shares = 0;
         if (totalSupply() == 0) {
@@ -156,10 +152,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     }
 
     function withdraw(uint256 _shares) public {
-        uint256 pending = earned(msg.sender);
-        if (pending > 0) {
-            safeRallyTransfer(msg.sender, pending);
-        }
+        transferPendingReward();
 
         uint256 r = (balance().mul(_shares)).div(totalSupply());
         _burn(msg.sender, _shares);
@@ -183,10 +176,8 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     }
 
     function withdrawyToken(uint256 _shares) public {
-        uint256 pending = earned(msg.sender);
-        if (pending > 0) {
-            safeRallyTransfer(msg.sender, pending);
-        }
+        transferPendingReward();
+
         uint256 r = (balance().mul(_shares)).div(totalSupply());
         _burn(msg.sender, _shares);
         rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
@@ -195,6 +186,13 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         safeReduceTotalDeposits(_amount);
 
         IERC20(vault).safeTransfer(msg.sender, r);
+    }
+
+    function transferPendingReward() internal {
+        uint256 pending = earned(msg.sender);
+        if (pending > 0) {
+            safeRallyTransfer(msg.sender, pending);
+        }
     }
 
     // Safe RLY transfer function, just in case pool does not have enough RLY due to rounding error
@@ -220,14 +218,16 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     //transfer accumulated yield to treasury, update totalDeposits to ensure availableYield following
     //harvest is 0, and increase accumulated rally rewards
     //harvest fails if we're unable to fund rewards
-    function harvest() public {
+    function harvest() public returns(uint256) {
         uint256 _availableYield = availableYield();
+        uint256 rallyReward = 0;
         if (_availableYield > 0) {
-            uint256 rallyReward = _availableYield.mul(delegatePercent).div(10000).mul(rewardPerToken).div(1e18);
-            rewards.transferReward(rallyReward);
+            rallyReward = _availableYield.mul(delegatePercent).div(10000).mul(rewardPerToken).div(1e18);
+            rally.safeTransfer(msg.sender, rallyReward);
             IERC20(vault).safeTransfer(treasury, _availableYield.mul(delegatePercent).div(10000));
             accRallyPerShare = accRallyPerShare.add(rallyReward.mul(1e12).div(totalSupply()));
             totalDeposits = balance().mul(Vault(vault).getPricePerFullShare()).div(1e18);
         }
+        return rallyReward;
     }
 }

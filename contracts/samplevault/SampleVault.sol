@@ -18,7 +18,7 @@ contract SampleVault is ERC20 {
     address public token;
 
     constructor (address _token) public ERC20(
-        string(abi.encodePacked("sample vault", ERC20(_token).name())),
+        string(abi.encodePacked("sample vault ", ERC20(_token).name())),
         string(abi.encodePacked("sv", ERC20(_token).symbol()))
     ) {
         _setupDecimals(ERC20(_token).decimals());
@@ -66,6 +66,6 @@ contract SampleVault is ERC20 {
 
     //add 10% more tokens to simulate generating yield
     function simulateEarnings() public {
-	    SampleToken(token).mint(address(this), balance().mul(1000).div(10000));
+        SampleToken(token).mint(address(this), balance().mul(1000).div(10000));
     }
 }

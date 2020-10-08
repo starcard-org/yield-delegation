@@ -4,6 +4,9 @@ import * as Types from "./types.js";
 import { SUBTRACT_GAS_LIMIT, addressMap } from './constants.js';
 
 import YDVJson from '../clean_build/contracts/YieldDelegatingVault.json';
+import YDVRewardsDistributorJson from '../clean_build/contracts/YDVRewardsDistributor.json';
+import RallyTokenJson from '../clean_build/contracts/RallyToken.json';
+import SampleVaultJson from '../clean_build/contracts/SampleVault.json';
 import SampleTokenJson from '../clean_build/contracts/SampleToken.json';
 import ERC20Json from '../clean_build/contracts/ERC20.json';
 
@@ -22,8 +25,11 @@ export class Contracts {
     this.defaultGasPrice = options.defaultGasPrice;
 
     this.ydv = new this.web3.eth.Contract(YDVJson.abi);
+    this.ydv_rd = new this.web3.eth.Contract(YDVRewardsDistributorJson.abi);
     
     this.st = new this.web3.eth.Contract(SampleTokenJson.abi);
+    this.sv = new this.web3.eth.Contract(SampleVaultJson.abi);
+    this.rally = new this.web3.eth.Contract(ERC20Json.abi);
 
     this.usdc = new this.web3.eth.Contract(ERC20Json.abi);
     this.yusdc = new this.web3.eth.Contract(ERC20Json.abi);
@@ -40,7 +46,10 @@ export class Contracts {
     this.ydv.setProvider(provider);
     const contracts = [
       { contract: this.ydv, json: YDVJson },
+      { contract: this.ydv_rd, json: YDVRewardsDistributorJson },
       { contract: this.st, json: SampleTokenJson },
+      { contract: this.sv, json: SampleVaultJson },
+      { contract: this.rally, json: RallyTokenJson },
       { contract: this.usdc, json: ERC20Json },
       { contract: this.yusdc, json: ERC20Json },
     ]

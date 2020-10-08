@@ -23,7 +23,7 @@ contract SampleToken is ERC20, AccessControl, Ownable, SampleTokenStorage, Sampl
         string(abi.encodePacked("STKN"))
     ) {
         _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
-	_setupRole(MINTER_ROLE, msg.sender);
+        _setupRole(MINTER_ROLE, msg.sender);
     }
 
     /**
