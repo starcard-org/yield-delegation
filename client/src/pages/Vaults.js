@@ -26,7 +26,7 @@ const VAULTS = [
   {name: 'YFI', logo: YFI},
   {name: 'WETH', logo: WETH},
   {name: 'YCRV', logo: YCRV},
-  {name: 'crvBUSD', logo: crvBTC},
+  {name: 'crvBUSD', logo: YCRV},
   {name: 'crvBTC', logo: crvBTC},
 ];
 
