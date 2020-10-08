@@ -4,13 +4,35 @@ import BigNumber from 'bignumber.js';
 import {Card, Accordion, Button} from '../index';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import {useDeposit} from '../../hooks/useDeposit';
+import {useWithdraw} from '../../hooks/useWithdraw';
 import useApprove from '../../hooks/useApprove';
 import {useCall} from '../../hooks/useCall';
-import {bnToDec, decToBn} from '../../utils/number';
+import {bnToDec} from '../../utils/number';
 import {fadeIn, fadeOut} from '../../theme/animations';
 import {useWallet} from 'use-wallet';
 import Select from 'react-select';
 import useAllowance from '../../hooks/useAllowance';
+
+const TITLE = {
+  'yDAI+yUSDC+yUSDT+yTUSD': 'curve.fi/y LP',
+  'yyDAI+yUSDC+yUSDT+yTUSD': 'curve.fi/y LP',
+  'yDAI+yUSDC+yUSDT+yBUSD': 'curve.fi/busd LP',
+  'yyDAI+yUSDC+yUSDT+yBUSD': 'curve.fi/busd LP',
+  crvRenWSBTC: 'curve.fi/sbtc LP',
+  ycrvRenWSBTC: 'curve.fi/sbtc LP',
+};
+
+const SYMBOL = {
+  'yDAI+yUSDC+yUSDT+yTUSD': 'yCRV',
+  'yyDAI+yUSDC+yUSDT+yTUSD': 'yUSD',
+  'rdyDAI+yUSDC+yUSDT+yTUSD': 'yUSD',
+  'yDAI+yUSDC+yUSDT+yBUSD': 'crvBUSD',
+  'yyDAI+yUSDC+yUSDT+yBUSD': 'ycrvBUSD',
+  'rdyDAI+yUSDC+yUSDT+yBUSD': 'ycrvBUSD',
+  crvRenWSBTC: 'crvBTC',
+  ycrvRenWSBTC: 'ycrvBTC',
+  rdcrvRenWSBTC: 'ycrvBTC',
+};
 
 const StyledCard = styled(Card)`
   border: solid 1px rgba(255, 255, 255, 0.5);
@@ -75,6 +97,14 @@ const AccordionContent = styled(Grid)`
   padding: 20px;
 `;
 
+const VaultImage = styled.img`
+  height: 40px;
+`;
+
+const VaultTopSection = styled(Row)`
+  align-items: center;
+`;
+
 const TOKEN_TYPES = {
   UNDERLYING: 0,
   Y_TOKEN: 1,
@@ -89,15 +119,20 @@ const useToken = (name, type = TOKEN_TYPES.UNDERLYING) => {
   const {account} = useWallet();
 
   const [symbol] = useCall(token, 'symbol', '');
-  const [balance] = useCall(token, 'balanceOf', 0, account);
+  const [balance, fetchBalance] = useCall(token, 'balanceOf', 0, account);
   const [decimals] = useCall(token, 'decimals', 0);
   const {onApprove} = useApprove(token, vault);
   const {getAllowance, allowance, setAllowance} = useAllowance(token, vault);
   const deposit = useDeposit(vault);
+  const withdraw = useWithdraw(vault);
 
   useEffect(() => {
-    getAllowance();
-  }, [getAllowance]);
+    if (!allowance || allowance <= 0) {
+      return;
+    }
+
+    setIsApproved(true);
+  }, [allowance]);
 
   const getFormatedBalance = useCallback(
     () => bnToDec(new BigNumber(balance), decimals).toFixed(2),
@@ -111,18 +146,30 @@ const useToken = (name, type = TOKEN_TYPES.UNDERLYING) => {
 
   const callDeposit = useCallback(
     async amount => {
-      deposit(
-        amount,
+      await deposit(
+        amount > balance ? balance : amount,
         decimals,
         type === TOKEN_TYPES.UNDERLYING ? 'deposit' : 'deposityToken'
       );
+
+      fetchBalance();
     },
-    [deposit, type, decimals]
+    [deposit, balance, decimals, type, fetchBalance]
+  );
+
+  const callWithdraw = useCallback(
+    async amount => {
+      await withdraw(amount > balance ? balance : amount, decimals);
+      fetchBalance();
+    },
+    [withdraw, balance, decimals, fetchBalance]
   );
 
   return {
     name: token,
-    symbol,
+    title: TITLE[symbol] ? TITLE[symbol] : symbol,
+    symbol: SYMBOL[symbol] ? SYMBOL[symbol] : symbol,
+    decimals,
     balance,
     allowance,
     getAllowance,
@@ -131,6 +178,7 @@ const useToken = (name, type = TOKEN_TYPES.UNDERLYING) => {
     getFormatedBalance,
     callApprove,
     callDeposit,
+    callWithdraw,
   };
 };
 
@@ -138,7 +186,7 @@ const useVault = name => {
   const vault = `yVault${name}`;
   const {account} = useWallet();
   const [symbol] = useCall(vault, 'symbol', '');
-  const [balance] = useCall(vault, 'balanceOf', 0, account);
+  const [balance, fetchBalance] = useCall(vault, 'balanceOf', 0, account);
   const [pricePerFullShare] = useCall(vault, 'getPricePerFullShare', 0);
   const [decimals] = useCall(vault, 'decimals', 0);
 
@@ -149,15 +197,16 @@ const useVault = name => {
 
   return {
     name: vault,
-    symbol,
+    symbol: SYMBOL[symbol] ? SYMBOL[symbol] : symbol,
     balance,
     pricePerFullShare,
     decimals,
     getFormatedBalance,
+    fetchBalance,
   };
 };
 
-export default ({name, fadeTime = 250}) => {
+export default ({name, logo, fadeTime = 250}) => {
   const [options, setOptions] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isLoading, setLoading] = useState(true);
@@ -200,43 +249,56 @@ export default ({name, fadeTime = 250}) => {
   const getTopSection = useCallback(
     () => (
       <Grid>
-        <Row center={'xs'}>
-          <Col xs={8}>
-            <Title>{yToken.symbol}</Title>
-            <Subtitle>
-              Delegate earnings on deposist to Yearn {token.symbol} vault
-            </Subtitle>
+        <VaultTopSection>
+          <Col xs={1}>
+            <VaultImage src={logo} />
           </Col>
-          <Col xs={4}>
-            <Subtitle>Available to deposit</Subtitle>
-            <Row>
-              <Title>
-                {token.getFormatedBalance()} {token.symbol}
-              </Title>
-            </Row>
-            <Row>
-              <Title>
-                {yToken.getFormatedBalance()} {yToken.symbol}
-              </Title>
+          <Col xs={11}>
+            <Row center={'xs'}>
+              <Col xs={8}>
+                <Title>{yToken.title}</Title>
+                <Subtitle>
+                  Delegate earnings on deposist to Yearn {token.symbol} vault
+                </Subtitle>
+              </Col>
+              <Col xs={4}>
+                <Subtitle>Available to deposit</Subtitle>
+                <Row>
+                  <Title>
+                    {token.getFormatedBalance()} {token.symbol}
+                  </Title>
+                </Row>
+                <Row>
+                  <Title>
+                    {yToken.getFormatedBalance()} {yToken.symbol}
+                  </Title>
+                </Row>
+              </Col>
             </Row>
           </Col>
-        </Row>
+        </VaultTopSection>
       </Grid>
     ),
-    [token, yToken]
+    [logo, token, yToken]
   );
 
-  const onPercentageClick = (s, b, p) => () => {
-    s(b * p);
-  };
+  const onWithdrawPercentageClick = useCallback(
+    percentage => () => {
+      setWAmount(bnToDec(new BigNumber(vault.balance * percentage), vault.decimals));
+    },
+    [vault]
+  );
 
-  const getPercentageRow = (setter, balance) => (
-    <PercentageRow around={'xs'}>
-      <Percentage onClick={onPercentageClick(setter, balance, 0.25)}>25%</Percentage>
-      <Percentage onClick={onPercentageClick(setter, balance, 0.5)}>50%</Percentage>
-      <Percentage onClick={onPercentageClick(setter, balance, 0.75)}>75%</Percentage>
-      <Percentage onClick={onPercentageClick(setter, balance, 1)}>100%</Percentage>
-    </PercentageRow>
+  const onDepositPercentageClick = useCallback(
+    percentage => () => {
+      setDAmount(
+        bnToDec(
+          new BigNumber(getActiveToken().balance * percentage),
+          getActiveToken().decimals
+        )
+      );
+    },
+    [getActiveToken]
   );
 
   return (
@@ -261,16 +323,27 @@ export default ({name, fadeTime = 250}) => {
               </Row>
               <Row>
                 <StyledInput
+                  value={dAmount}
                   disabled={!getActiveToken().isApproved}
-                  defaultValue={dAmount}
+                  defaultValue={0}
+                  onChange={e => {
+                    setDAmount(e.target.value);
+                  }}
                   onBlur={e => {
                     setDAmount(e.target.value);
                   }}
                   type="number"
                   required
+                  min={0}
+                  max={getActiveToken().balance}
                 />
               </Row>
-              {getPercentageRow(setDAmount, token.balance)}
+              <PercentageRow around={'xs'}>
+                <Percentage onClick={onDepositPercentageClick(0.25)}>25%</Percentage>
+                <Percentage onClick={onDepositPercentageClick(0.5)}>50%</Percentage>
+                <Percentage onClick={onDepositPercentageClick(0.75)}>75%</Percentage>
+                <Percentage onClick={onDepositPercentageClick(1)}>100%</Percentage>
+              </PercentageRow>
             </ContainerCol>
             <ContainerCol xs={6}>
               <Row>
@@ -280,16 +353,27 @@ export default ({name, fadeTime = 250}) => {
               </Row>
               <Row>
                 <StyledInput
-                  defaultValue={wAmount}
+                  value={wAmount}
+                  defaultValue={0}
                   disabled={!getActiveToken().isApproved}
+                  onChange={e => {
+                    setWAmount(e.target.value);
+                  }}
                   onBlur={e => {
                     setWAmount(e.target.value);
                   }}
                   type="number"
                   required
+                  min={0}
+                  max={vault.balance}
                 />
               </Row>
-              {getPercentageRow(setWAmount)}
+              <PercentageRow around={'xs'}>
+                <Percentage onClick={onWithdrawPercentageClick(0.25)}>25%</Percentage>
+                <Percentage onClick={onWithdrawPercentageClick(0.5)}>50%</Percentage>
+                <Percentage onClick={onWithdrawPercentageClick(0.75)}>75%</Percentage>
+                <Percentage onClick={onWithdrawPercentageClick(1)}>100%</Percentage>
+              </PercentageRow>
             </ContainerCol>
           </Row>
           <Row center={'xs'}>
@@ -308,8 +392,10 @@ export default ({name, fadeTime = 250}) => {
                 <Col xs={6}>
                   <Row>
                     <Button
-                      onClick={() => {
-                        getActiveToken().callDeposit(decToBn(dAmount));
+                      onClick={async () => {
+                        await getActiveToken().callDeposit(dAmount);
+                        vault.fetchBalance();
+                        setDAmount(0);
                       }}
                       text={'Deposit'}
                     />
@@ -318,10 +404,24 @@ export default ({name, fadeTime = 250}) => {
                 <Col xs={6}>
                   <Row center={'xs'}>
                     <Col xs={6}>
-                      <Button text={'Withdraw'} />
+                      <Button
+                        onClick={async () => {
+                          await getActiveToken().callWithdraw(wAmount);
+                          vault.fetchBalance();
+                          setWAmount(0);
+                        }}
+                        text={'Withdraw'}
+                      />
                     </Col>
                     <Col xs={6}>
-                      <Button text={'Withdraw All'} />
+                      <Button
+                        onClick={async () => {
+                          await getActiveToken().callWithdraw(getActiveToken().balance);
+                          vault.fetchBalance();
+                          setWAmount(0);
+                        }}
+                        text={'Withdraw All'}
+                      />
                     </Col>
                   </Row>
                 </Col>

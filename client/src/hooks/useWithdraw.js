@@ -3,11 +3,11 @@ import {useCallback, useContext} from 'react';
 import {decToBn} from '../utils/number';
 import {DrizzleContext} from '../context/DrizzleContext';
 
-export const useDeposit = name => {
+export const useWithdraw = name => {
   const {drizzle, initialized} = useContext(DrizzleContext);
   const {account} = useWallet();
-  const deposit = useCallback(
-    async (amount, decimals, method = 'deposit') => {
+  const withdraw = useCallback(
+    async (amount, decimals) => {
       if (!drizzle || !initialized) {
         return;
       }
@@ -15,13 +15,15 @@ export const useDeposit = name => {
       // If ever we still have decimals after applying the decimals
       // we need to get rid of them.
       const value = decToBn(amount, decimals).toFixed(0, 1);
-      console.log(`Value: ${value}`);
-      const tx = await drizzle.contracts[name].methods[method](value.toString()).send({
+      console.log(value);
+      const tx = await drizzle.contracts[name].methods.withdraw(value.toString()).send({
         from: account,
       });
+
+      console.log(tx);
       return tx.status;
     },
     [account, name, drizzle, initialized]
   );
-  return deposit;
+  return withdraw;
 };

@@ -6,7 +6,6 @@ import BigNumber from 'bignumber.js';
 const MAX_APPROVAL = new BigNumber(2).pow(256).minus(1);
 
 const approve = async (methods, to, from) => {
-  debugger;
   return methods.approve(to, MAX_APPROVAL).send({from});
 };
 

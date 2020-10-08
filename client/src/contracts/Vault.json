@@ -80,16 +80,16 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"claimInsurance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPricePerFullShare\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aranade/Development/yield-delegation/contracts/interfaces/Vault.sol\":\"Vault\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aranade/Development/yield-delegation/contracts/interfaces/Vault.sol\":{\"keccak256\":\"0xf321698ee948035ef0e74e608f92941cb8d3ba87fce7eb02956d74f4c5dc2739\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://eea9e05d0ba94f3070958bfac39664ed7b5f065553107d5923153ccb70e440dd\",\"dweb:/ipfs/QmWHebF5E9wuTxuavvoTnZfMRRYNYSE6549u2zkrbDr14V\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"claimInsurance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"deposit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPricePerFullShare\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/Vault.sol\":\"Vault\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/Vault.sol\":{\"keccak256\":\"0xf321698ee948035ef0e74e608f92941cb8d3ba87fce7eb02956d74f4c5dc2739\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://eea9e05d0ba94f3070958bfac39664ed7b5f065553107d5923153ccb70e440dd\",\"dweb:/ipfs/QmWHebF5E9wuTxuavvoTnZfMRRYNYSE6549u2zkrbDr14V\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.2;\n\ninterface Vault {\n    function balanceOf(address) external view returns (uint256);\n    function token() external view returns (address);\n    function claimInsurance() external;\n    function getPricePerFullShare() external view returns (uint256);\n    function deposit(uint) external;\n    function withdraw(uint) external;\n}\n",
-  "sourcePath": "/Users/aranade/Development/yield-delegation/contracts/interfaces/Vault.sol",
+  "sourcePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/Vault.sol",
   "ast": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/interfaces/Vault.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/Vault.sol",
     "exportedSymbols": {
       "Vault": [1994]
     },
@@ -473,7 +473,7 @@
     "src": "32:348:9"
   },
   "legacyAST": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/interfaces/Vault.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/Vault.sol",
     "exportedSymbols": {
       "Vault": [1994]
     },
@@ -862,7 +862,7 @@
   },
   "networks": {},
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-09-28T16:37:34.969Z",
+  "updatedAt": "2020-09-28T16:37:10.466Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

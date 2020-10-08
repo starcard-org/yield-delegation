@@ -1,16 +1,16 @@
 {
   "contractName": "SampleTokenStorage",
   "abi": [],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"stateVariables\":{\"initialized\":{\"details\":\"Initialized flag of reward token\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenStorage.sol\":\"SampleTokenStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenStorage.sol\":{\"keccak256\":\"0xc58d36aec9e0fb9308403335880c161a4b2288c69dc16e67b1d56ac91165111b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c69d813124765b6dc9242d061e44e61d6cb4b0ad235e3f83d8d9bddd2dc08e4b\",\"dweb:/ipfs/Qma3viUg5m8KcmUn3oUSztn162RtssE187P8VppJhKRpxy\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220703be118d5b89861b921feafb9324a53e4f7964741a4e0b1da6c5f6930b56d9364736f6c634300060c0033",
-  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220703be118d5b89861b921feafb9324a53e4f7964741a4e0b1da6c5f6930b56d9364736f6c634300060c0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"stateVariables\":{\"initialized\":{\"details\":\"Initialized flag of reward token\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenStorage.sol\":\"SampleTokenStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenStorage.sol\":{\"keccak256\":\"0xc58d36aec9e0fb9308403335880c161a4b2288c69dc16e67b1d56ac91165111b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://c69d813124765b6dc9242d061e44e61d6cb4b0ad235e3f83d8d9bddd2dc08e4b\",\"dweb:/ipfs/Qma3viUg5m8KcmUn3oUSztn162RtssE187P8VppJhKRpxy\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122051793a486e199ee43fdd0567465d268346dd40a0d4852e7cf92bbe1f6f8c2f6464736f6c634300060c0033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122051793a486e199ee43fdd0567465d268346dd40a0d4852e7cf92bbe1f6f8c2f6464736f6c634300060c0033",
   "immutableReferences": {},
   "sourceMap": "57:123:12:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "57:123:12:-:0;;;;;",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.2;\n\ncontract SampleTokenStorage {\n    /**\n     * @dev Initialized flag of reward token\n     */\n    bool internal initialized;\n}\n",
-  "sourcePath": "/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenStorage.sol",
+  "sourcePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenStorage.sol",
   "ast": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenStorage.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenStorage.sol",
     "exportedSymbols": {
       "SampleTokenStorage": [2112]
     },
@@ -78,7 +78,7 @@
     "src": "32:149:12"
   },
   "legacyAST": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenStorage.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenStorage.sol",
     "exportedSymbols": {
       "SampleTokenStorage": [2112]
     },
@@ -151,7 +151,7 @@
   },
   "networks": {},
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-09-28T16:37:34.976Z",
+  "updatedAt": "2020-09-28T16:37:10.469Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -27,16 +27,16 @@
       "type": "event"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"error\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"info\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"detail\",\"type\":\"uint256\"}],\"name\":\"Failure\",\"type\":\"event\"}],\"devdoc\":{\"events\":{\"Failure(uint256,uint256,uint256)\":{\"details\":\"`error` corresponds to enum Error; `info` corresponds to enum FailureInfo, and `detail` is an arbitrary contract-specific code that enables us to report opaque error codes from upgradeable contracts.*\"}},\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aranade/Development/yield-delegation/contracts/YDVErrorReporter.sol\":\"YDVErrorReporter\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aranade/Development/yield-delegation/contracts/YDVErrorReporter.sol\":{\"keccak256\":\"0x720468daad2df11a72b8f76124f83ccfd90344e8be5281cda331ee86b569c9ab\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7f4cde1bf10ebe24a143baad88a3b3555155c3009fdf80ad45081c22d77b0253\",\"dweb:/ipfs/QmSriTiXcNs97NRN8Seq4NqDav23LiNNcbVQ2oiLHya55U\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220a00faf781dc394f481d02e6bf5c57cc9ed1bb1180895f0cb280e487eb79ef2b964736f6c634300060c0033",
-  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220a00faf781dc394f481d02e6bf5c57cc9ed1bb1180895f0cb280e487eb79ef2b964736f6c634300060c0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"error\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"info\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"detail\",\"type\":\"uint256\"}],\"name\":\"Failure\",\"type\":\"event\"}],\"devdoc\":{\"events\":{\"Failure(uint256,uint256,uint256)\":{\"details\":\"`error` corresponds to enum Error; `info` corresponds to enum FailureInfo, and `detail` is an arbitrary contract-specific code that enables us to report opaque error codes from upgradeable contracts.*\"}},\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/YDVErrorReporter.sol\":\"YDVErrorReporter\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/YDVErrorReporter.sol\":{\"keccak256\":\"0x720468daad2df11a72b8f76124f83ccfd90344e8be5281cda331ee86b569c9ab\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7f4cde1bf10ebe24a143baad88a3b3555155c3009fdf80ad45081c22d77b0253\",\"dweb:/ipfs/QmSriTiXcNs97NRN8Seq4NqDav23LiNNcbVQ2oiLHya55U\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122060fc58ba463c18e007f4093091eeb4226d8a03301889d80a6703adf5442d649964736f6c634300060c0033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122060fc58ba463c18e007f4093091eeb4226d8a03301889d80a6703adf5442d649964736f6c634300060c0033",
   "immutableReferences": {},
   "sourceMap": "57:1107:1:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "57:1107:1:-:0;;;;;",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.2;\n\ncontract YDVErrorReporter {\n    enum Error {\n        NO_ERROR,\n        UNAUTHORIZED,\n        BAD_INPUT,\n        REJECTION\n    }\n\n    enum FailureInfo {\n        SET_INDIVIDUAL_SOFT_CAP_CHECK,\n        SET_GLOBAL_SOFT_CAP_CHECK\n    }\n\n    /**\n      * @dev `error` corresponds to enum Error; `info` corresponds to enum FailureInfo, and `detail` is an arbitrary\n      * contract-specific code that enables us to report opaque error codes from upgradeable contracts.\n      **/\n    event Failure(uint error, uint info, uint detail);\n\n    /**\n      * @dev use this when reporting a known error from the money market or a non-upgradeable collaborator\n      */\n    function fail(Error err, FailureInfo info) internal returns (uint) {\n        emit Failure(uint(err), uint(info), 0);\n\n        return uint(err);\n    }\n\n    /**\n      * @dev use this when reporting an opaque error from an upgradeable collaborator contract\n      */\n    function failOpaque(Error err, FailureInfo info, uint opaqueError) internal returns (uint) {\n        emit Failure(uint(err), uint(info), opaqueError);\n\n        return uint(err);\n    }\n}",
-  "sourcePath": "/Users/aranade/Development/yield-delegation/contracts/YDVErrorReporter.sol",
+  "sourcePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YDVErrorReporter.sol",
   "ast": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/YDVErrorReporter.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YDVErrorReporter.sol",
     "exportedSymbols": {
       "YDVErrorReporter": [114]
     },
@@ -1026,7 +1026,7 @@
     "src": "32:1132:1"
   },
   "legacyAST": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/YDVErrorReporter.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YDVErrorReporter.sol",
     "exportedSymbols": {
       "YDVErrorReporter": [114]
     },
@@ -2021,7 +2021,7 @@
   },
   "networks": {},
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-09-28T16:37:34.886Z",
+  "updatedAt": "2020-09-28T16:37:10.431Z",
   "devdoc": {
     "events": {
       "Failure(uint256,uint256,uint256)": {

@@ -38,16 +38,16 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"payReward\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"setYDV\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aranade/Development/yield-delegation/contracts/interfaces/ControllerInterface.sol\":\"ControllerInterface\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aranade/Development/yield-delegation/contracts/interfaces/ControllerInterface.sol\":{\"keccak256\":\"0xe9efc98d2aaa459aa632b5fcdd5d0c223db4148cb08c7c66c74fa57fea7ef439\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2f2a0e93b733288f1919336db4a7d716839f26713170a793cbb170e7872624ee\",\"dweb:/ipfs/QmevfDSyQBD2hAbvDNCbUJsXx95BHVE73kM76rH7ZkSBKw\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5c26b39d26f7ed489e555d955dcd3e01872972e71fdd1528e93ec164e4f23385\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://efdc632af6960cf865dbc113665ea1f5b90eab75cc40ec062b2f6ae6da582017\",\"dweb:/ipfs/QmfAZFDuG62vxmAN9DnXApv7e7PMzPqi4RkqqZHLMSQiY5\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"payReward\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"setYDV\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/ControllerInterface.sol\":\"ControllerInterface\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/ControllerInterface.sol\":{\"keccak256\":\"0xe9efc98d2aaa459aa632b5fcdd5d0c223db4148cb08c7c66c74fa57fea7ef439\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2f2a0e93b733288f1919336db4a7d716839f26713170a793cbb170e7872624ee\",\"dweb:/ipfs/QmevfDSyQBD2hAbvDNCbUJsXx95BHVE73kM76rH7ZkSBKw\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5c26b39d26f7ed489e555d955dcd3e01872972e71fdd1528e93ec164e4f23385\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://efdc632af6960cf865dbc113665ea1f5b90eab75cc40ec062b2f6ae6da582017\",\"dweb:/ipfs/QmfAZFDuG62vxmAN9DnXApv7e7PMzPqi4RkqqZHLMSQiY5\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.2;\nimport \"@openzeppelin/contracts/token/ERC20/IERC20.sol\";\n\ninterface ControllerInterface {\n    function payReward(address, uint256) external;\n    function setYDV(address, address) external;\n}\n",
-  "sourcePath": "/Users/aranade/Development/yield-delegation/contracts/interfaces/ControllerInterface.sol",
+  "sourcePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/ControllerInterface.sol",
   "ast": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/interfaces/ControllerInterface.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/ControllerInterface.sol",
     "exportedSymbols": {
       "ControllerInterface": [2175]
     },
@@ -267,7 +267,7 @@
     "src": "32:215:9"
   },
   "legacyAST": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/interfaces/ControllerInterface.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/interfaces/ControllerInterface.sol",
     "exportedSymbols": {
       "ControllerInterface": [2175]
     },
@@ -492,7 +492,7 @@
   },
   "networks": {},
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-10-06T04:54:20.230Z",
+  "updatedAt": "2020-10-06T13:09:07.304Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

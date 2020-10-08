@@ -48,16 +48,16 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"last_completed_migration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"completed\",\"type\":\"uint256\"}],\"name\":\"setCompleted\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aranade/Development/yield-delegation/contracts/Migrations.sol\":\"Migrations\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aranade/Development/yield-delegation/contracts/Migrations.sol\":{\"keccak256\":\"0xdafe59a98205ba8889cd295e6e3cee4b741abfc91f43f6bba8bef739b3978392\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7d56941ef77b8c2e6b952b0e12babf72dfdc75a4064fec423e1f3b1d31f7b672\",\"dweb:/ipfs/QmPHLHa5ApVbJu8LyKF6xmmJVAg53Qac7KVZWRbkrXJVYx\"]}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b50600080546001600160a01b0319163317905560fd806100316000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c8063445df0ac1460415780638da5cb5b146059578063fdacd57614607b575b600080fd5b60476097565b60408051918252519081900360200190f35b605f609d565b604080516001600160a01b039092168252519081900360200190f35b609560048036036020811015608f57600080fd5b503560ac565b005b60015481565b6000546001600160a01b031681565b6000546001600160a01b031633141560c45760018190555b5056fea264697066735822122016fd7edf1a7afaecd059ce4f855457efce31d3f9991836f745cdf529cd8ed8a864736f6c634300060c0033",
-  "deployedBytecode": "0x6080604052348015600f57600080fd5b5060043610603c5760003560e01c8063445df0ac1460415780638da5cb5b146059578063fdacd57614607b575b600080fd5b60476097565b60408051918252519081900360200190f35b605f609d565b604080516001600160a01b039092168252519081900360200190f35b609560048036036020811015608f57600080fd5b503560ac565b005b60015481565b6000546001600160a01b031681565b6000546001600160a01b031633141560c45760018190555b5056fea264697066735822122016fd7edf1a7afaecd059ce4f855457efce31d3f9991836f745cdf529cd8ed8a864736f6c634300060c0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"last_completed_migration\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"completed\",\"type\":\"uint256\"}],\"name\":\"setCompleted\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/Migrations.sol\":\"Migrations\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/Migrations.sol\":{\"keccak256\":\"0xdafe59a98205ba8889cd295e6e3cee4b741abfc91f43f6bba8bef739b3978392\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7d56941ef77b8c2e6b952b0e12babf72dfdc75a4064fec423e1f3b1d31f7b672\",\"dweb:/ipfs/QmPHLHa5ApVbJu8LyKF6xmmJVAg53Qac7KVZWRbkrXJVYx\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50600080546001600160a01b0319163317905560fd806100316000396000f3fe6080604052348015600f57600080fd5b5060043610603c5760003560e01c8063445df0ac1460415780638da5cb5b146059578063fdacd57614607b575b600080fd5b60476097565b60408051918252519081900360200190f35b605f609d565b604080516001600160a01b039092168252519081900360200190f35b609560048036036020811015608f57600080fd5b503560ac565b005b60015481565b6000546001600160a01b031681565b6000546001600160a01b031633141560c45760018190555b5056fea26469706673582212201bdb0aaec934e02b2b8287e71fa573b94ed769e55cf18cbdc616f313416185c864736f6c634300060c0033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b5060043610603c5760003560e01c8063445df0ac1460415780638da5cb5b146059578063fdacd57614607b575b600080fd5b60476097565b60408051918252519081900360200190f35b605f609d565b604080516001600160a01b039092168252519081900360200190f35b609560048036036020811015608f57600080fd5b503560ac565b005b60015481565b6000546001600160a01b031681565b6000546001600160a01b031633141560c45760018190555b5056fea26469706673582212201bdb0aaec934e02b2b8287e71fa573b94ed769e55cf18cbdc616f313416185c864736f6c634300060c0033",
   "immutableReferences": {},
   "sourceMap": "66:311:0:-:0;;;218:50;;;;;;;;;-1:-1:-1;245:5:0;:18;;-1:-1:-1;;;;;;245:18:0;253:10;245:18;;;66:311;;;;;;",
   "deployedSourceMap": "66:311:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;114:36;;;:::i;:::-;;;;;;;;;;;;;;;;90:20;;;:::i;:::-;;;;-1:-1:-1;;;;;90:20:0;;;;;;;;;;;;;;272:103;;;;;;;;;;;;;;;;-1:-1:-1;272:103:0;;:::i;:::-;;114:36;;;;:::o;90:20::-;;;-1:-1:-1;;;;;90:20:0;;:::o;272:103::-;201:5;;-1:-1:-1;;;;;201:5:0;187:10;:19;183:26;;;334:24:::1;:36:::0;;;183:26;272:103;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.25 <0.7.0;\n\ncontract Migrations {\n  address public owner;\n  uint public last_completed_migration;\n\n  modifier restricted() {\n    if (msg.sender == owner) _;\n  }\n\n  constructor() public {\n    owner = msg.sender;\n  }\n\n  function setCompleted(uint completed) public restricted {\n    last_completed_migration = completed;\n  }\n}\n",
-  "sourcePath": "/Users/aranade/Development/yield-delegation/contracts/Migrations.sol",
+  "sourcePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/Migrations.sol",
   "ast": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/Migrations.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/Migrations.sol",
     "exportedSymbols": {
       "Migrations": [36]
     },
@@ -471,7 +471,7 @@
     "src": "32:346:0"
   },
   "legacyAST": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/Migrations.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/Migrations.sol",
     "exportedSymbols": {
       "Migrations": [36]
     },
@@ -889,27 +889,15 @@
     "version": "0.6.12+commit.27d51765.Emscripten.clang"
   },
   "networks": {
-    "1": {
-      "events": {},
-      "links": {},
-      "address": "0x775f52Dbf17E8a24c23547915218756A5f873375",
-      "transactionHash": "0x44f1094c3f865eabbafc84f253975aea69a6dcb294c1de56ddf3804c2bb1422a"
-    },
-    "4": {
-      "events": {},
-      "links": {},
-      "address": "0x67689eCDd188C384A7B11998Eb0334f05739A5dA",
-      "transactionHash": "0x89fc55cbbad2f6f8f87d83f739eb5599f87de7391dfda13a1684a0dcc1420d13"
-    },
     "1001": {
       "events": {},
       "links": {},
       "address": "0x1B073A8F94d4677E9651f51135AeeA103d1A3E85",
-      "transactionHash": "0xe3b99d5c54b131284a8c1d69c3f8aee367ee8fb795791a428ccfa8c663585929"
+      "transactionHash": "0xacf9912c11e96e15b9ab80f9b578d8c1d650ef3de0f8b446d42b6120d4ee8901"
     }
   },
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-10-06T04:57:12.292Z",
+  "updatedAt": "2020-10-08T14:14:43.826Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

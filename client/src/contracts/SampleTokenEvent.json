@@ -15,16 +15,16 @@
       "type": "event"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"MinterAdded\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"events\":{\"MinterAdded(address)\":{\"notice\":\"Emitted when a minter is added by admin\"}},\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenEvent.sol\":\"SampleTokenEvent\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenEvent.sol\":{\"keccak256\":\"0xb7d4c4bad5cefba353592a1f5416d8fc67b73db7e3d253e549d2276af03fb3b5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8a1cfd6a64abfdbde5574a553487181244894eebe543a05df74c1e126a30f2b2\",\"dweb:/ipfs/QmXBkXoSo7as61kVyXHDFBuXJZ1poGKWDLowzrJcHwTafW\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122026cea653783d25c126f188e87ef5caa5b82c8c55b96cbd3b88ba18dfa765da9c64736f6c634300060c0033",
-  "deployedBytecode": "0x6080604052600080fdfea264697066735822122026cea653783d25c126f188e87ef5caa5b82c8c55b96cbd3b88ba18dfa765da9c64736f6c634300060c0033",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"MinterAdded\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"events\":{\"MinterAdded(address)\":{\"notice\":\"Emitted when a minter is added by admin\"}},\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenEvent.sol\":\"SampleTokenEvent\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenEvent.sol\":{\"keccak256\":\"0xb7d4c4bad5cefba353592a1f5416d8fc67b73db7e3d253e549d2276af03fb3b5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8a1cfd6a64abfdbde5574a553487181244894eebe543a05df74c1e126a30f2b2\",\"dweb:/ipfs/QmXBkXoSo7as61kVyXHDFBuXJZ1poGKWDLowzrJcHwTafW\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122089c18fd4efb1c7586dae29b9d7a7a66eaa26f8ca09498602845fa1835f4193b164736f6c634300060c0033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122089c18fd4efb1c7586dae29b9d7a7a66eaa26f8ca09498602845fa1835f4193b164736f6c634300060c0033",
   "immutableReferences": {},
   "sourceMap": "57:125:11:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "57:125:11:-:0;;;;;",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.2;\n\ncontract SampleTokenEvent {\n    /// @notice Emitted when a minter is added by admin\n    event MinterAdded(address account);\n}\n",
-  "sourcePath": "/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenEvent.sol",
+  "sourcePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenEvent.sol",
   "ast": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenEvent.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenEvent.sol",
     "exportedSymbols": {
       "SampleTokenEvent": [2106]
     },
@@ -108,7 +108,7 @@
     "src": "32:151:11"
   },
   "legacyAST": {
-    "absolutePath": "/Users/aranade/Development/yield-delegation/contracts/samplevault/SampleTokenEvent.sol",
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/samplevault/SampleTokenEvent.sol",
     "exportedSymbols": {
       "SampleTokenEvent": [2106]
     },
@@ -197,7 +197,7 @@
   },
   "networks": {},
   "schemaVersion": "3.2.3",
-  "updatedAt": "2020-09-28T16:37:34.974Z",
+  "updatedAt": "2020-09-28T16:37:10.469Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
