@@ -36,7 +36,7 @@ const Providers = ({children}) => (
   <DarkModeProvider>
     <ThemeProvider>
       <UseWalletProvider
-        chainId={1337}
+        chainId={1001}
         connectors={{
           walletconnect: {
             rpcUrl: 'https://mainnet.eth.aragon.network/',
