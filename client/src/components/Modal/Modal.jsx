@@ -46,6 +46,7 @@ const StyledModal = styled.div`
   width: 100%;
   min-height: 0;
   padding: 1em;
+  z-index: 2;
 `;
 
 export default Modal;

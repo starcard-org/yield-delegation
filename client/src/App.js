@@ -23,6 +23,7 @@ const Grow = styled.div`
   flex: 1;
   flex: 1 0 auto;
   min-height: 100vh;
+  background-color: #000000;
 `;
 
 const Shrink = styled.div`

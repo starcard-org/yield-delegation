@@ -39,6 +39,7 @@ const StyledCard = styled(Card)`
   background-color: #000000;
   margin-bottom: 1em;
   border-radius: 17px;
+  z-index: 1;
 
   visibility: ${({visible}) => (!visible ? 'hidden' : 'visible')};
   animation: ${({visible}) => (!visible ? fadeOut : fadeIn)} 1s linear;

@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import styled, {ThemeContext} from 'styled-components';
 
-const Container = ({children, size = 'md'}) => {
+const Container = ({className, children, size = 'md'}) => {
   const {siteWidth} = useContext(ThemeContext);
   let width;
   switch (size) {
@@ -15,7 +15,11 @@ const Container = ({children, size = 'md'}) => {
     default:
       width = siteWidth;
   }
-  return <StyledContainer width={width}>{children}</StyledContainer>;
+  return (
+    <StyledContainer className={className} width={width}>
+      {children}
+    </StyledContainer>
+  );
 };
 
 const StyledContainer = styled.div`

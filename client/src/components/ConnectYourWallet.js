@@ -1,8 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import styled from 'styled-components';
-import {Container, Button, Card} from '../components';
+import {Container, Button} from '../components';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import {fadeIn, fadeOut} from '../theme/animations';
+import WalletProviderModal from './WalletProviderModal';
+import useModal from '../hooks/useModal';
 
 const Forms = require('../assets/img/forms.png');
 
@@ -36,6 +38,13 @@ const TextContainer = styled.div`
 export const ConnectYourWallet = () => {
   const [vText, setVisibleText] = useState(false);
   const [vImage, setVisibleImage] = useState(false);
+
+  const [onPresentWalletProviderModal] = useModal(<WalletProviderModal />, 'provider');
+
+  const handleUnlockClick = useCallback(() => {
+    onPresentWalletProviderModal();
+  }, [onPresentWalletProviderModal]);
+
   useEffect(() => {
     setTimeout(() => {
       setVisibleImage(true);
@@ -60,7 +69,11 @@ export const ConnectYourWallet = () => {
             <Spacer />
             <Row center={'xs'}>
               <Col xs={5}>
-                <Button outline={false} text="Connect your wallet" />
+                <Button
+                  outline={false}
+                  text="Connect your wallet"
+                  onClick={handleUnlockClick}
+                />
               </Col>
             </Row>
           </TextContainer>
