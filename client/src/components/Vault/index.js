@@ -27,13 +27,13 @@ const TITLE = {
 const SYMBOL = {
   'yDAI+yUSDC+yUSDT+yTUSD': 'yCRV',
   'yyDAI+yUSDC+yUSDT+yTUSD': 'yUSD',
-  'rdyDAI+yUSDC+yUSDT+yTUSD': 'yUSD',
+  'rdyDAI+yUSDC+yUSDT+yTUSD': 'rdyUSD',
   'yDAI+yUSDC+yUSDT+yBUSD': 'crvBUSD',
   'yyDAI+yUSDC+yUSDT+yBUSD': 'ycrvBUSD',
-  'rdyDAI+yUSDC+yUSDT+yBUSD': 'ycrvBUSD',
+  'rdyDAI+yUSDC+yUSDT+yBUSD': 'rdycrvBUSD',
   crvRenWSBTC: 'crvBTC',
   ycrvRenWSBTC: 'ycrvBTC',
-  rdcrvRenWSBTC: 'ycrvBTC',
+  rdcrvRenWSBTC: 'rdycrvBTC',
 };
 
 const StyledCard = styled(Card)`
@@ -139,6 +139,7 @@ const useToken = (name, type = TOKEN_TYPES.UNDERLYING) => {
   const {onApprove} = useApprove(token, vault);
   const {getAllowance, allowance, setAllowance} = useAllowance(token, vault);
   const deposit = useDeposit(vault);
+  const withdraw = useWithdraw(vault);
 
   useEffect(() => {
     if (!allowance || allowance <= 0) {
@@ -171,6 +172,19 @@ const useToken = (name, type = TOKEN_TYPES.UNDERLYING) => {
     [deposit, balance, decimals, type, fetchBalance]
   );
 
+  const callWithdraw = useCallback(
+    async amount => {
+      await withdraw(
+        amount,
+        decimals,
+        type === TOKEN_TYPES.UNDERLYING ? 'withdraw' : 'withdrawyToken'
+      );
+
+      fetchBalance();
+    },
+    [withdraw, decimals, type, fetchBalance]
+  );
+
   return {
     name: token,
     title: TITLE[symbol] ? TITLE[symbol] : symbol,
@@ -184,6 +198,7 @@ const useToken = (name, type = TOKEN_TYPES.UNDERLYING) => {
     getFormatedBalance,
     callApprove,
     callDeposit,
+    callWithdraw,
   };
 };
 
@@ -192,18 +207,14 @@ const useVault = name => {
   const {account} = useWallet();
   const [symbol] = useCall(vault, 'symbol', '');
   const [balance, fetchBalance] = useCall(vault, 'balanceOf', 0, account);
-  const [pricePerFullShare] = useCall(vault, 'getPricePerFullShare', 0);
   const [decimals] = useCall(vault, 'decimals', 0);
   const [earned] = useCall(vault, 'earned', 0, account);
   const withdraw = useWithdraw(vault);
 
-  const callWithdraw = useCallback(
-    async amount => {
-      await withdraw(amount > balance ? balance : amount, decimals);
-      fetchBalance();
-    },
-    [withdraw, balance, decimals, fetchBalance]
-  );
+  const claimRewards = useCallback(async () => {
+    await withdraw(0);
+    fetchBalance();
+  }, [withdraw, fetchBalance]);
 
   const getFormatedBalance = useCallback(
     () => bnToDec(new BigNumber(balance), decimals).toFixed(2),
@@ -214,12 +225,11 @@ const useVault = name => {
     name: vault,
     symbol: SYMBOL[symbol] ? SYMBOL[symbol] : symbol,
     balance,
-    pricePerFullShare,
     decimals,
     getFormatedBalance,
     fetchBalance,
     earned,
-    callWithdraw,
+    claimRewards,
   };
 };
 
@@ -318,6 +328,55 @@ export default ({name, logo, fadeTime = 250}) => {
     [getActiveToken]
   );
 
+  const onWithdrawValueChange = useCallback(
+    e => {
+      setWAmount(e.target.value);
+    },
+    [setWAmount]
+  );
+
+  const onDepositValueChange = useCallback(
+    e => {
+      setDAmount(e.target.value);
+    },
+    [setDAmount]
+  );
+
+  const onApprove = useCallback(async () => {
+    await getActiveToken().callApprove();
+  }, [getActiveToken]);
+
+  const onDeposit = useCallback(async () => {
+    await getActiveToken().callDeposit(dAmount);
+    vault.fetchBalance();
+    setDAmount(0);
+  }, [getActiveToken, vault, dAmount]);
+
+  const onWithdraw = useCallback(async () => {
+    await getActiveToken().callWithdraw(wAmount);
+    vault.fetchBalance();
+    setWAmount(0);
+  }, [getActiveToken, vault, wAmount]);
+
+  const onWithdrawAll = useCallback(async () => {
+    await getActiveToken().callWithdraw(
+      bnToDec(new BigNumber(vault.balance), vault.decimals)
+    );
+    vault.fetchBalance();
+    setWAmount(0);
+  }, [getActiveToken, vault]);
+
+  const onClaimRewards = useCallback(async () => {
+    await vault.claimRewards();
+  }, [vault]);
+
+  const onActiveTokenChange = useCallback(
+    o => {
+      setActiveTokenName(o.value);
+    },
+    [setActiveTokenName]
+  );
+
   return (
     <StyledCard visible={visible}>
       <Accordion top={getTopSection()} isLoading={isLoading}>
@@ -330,9 +389,7 @@ export default ({name, logo, fadeTime = 250}) => {
                   defaultValue={options[0]}
                   name="Active Token"
                   options={options}
-                  onChange={o => {
-                    setActiveTokenName(o.value);
-                  }}
+                  onChange={onActiveTokenChange}
                 />
               </Row>
             </ContainerCol>
@@ -344,12 +401,7 @@ export default ({name, logo, fadeTime = 250}) => {
                   <RLYLogo src={RLY} />
                 </Earnings>
                 <Col xs={6}>
-                  <Button
-                    onClick={async () => {
-                      await vault.callWithdraw(0);
-                    }}
-                    text={'Claim'}
-                  />
+                  <Button onClick={onClaimRewards} text={'Claim'} />
                 </Col>
               </Row>
             </ContainerCol>
@@ -357,19 +409,16 @@ export default ({name, logo, fadeTime = 250}) => {
           <Row>
             <ContainerCol xs={6}>
               <Row>
-                Your Wallet: {token.getFormatedBalance()} {token.symbol}
+                Your Wallet: {getActiveToken().getFormatedBalance()}{' '}
+                {getActiveToken().symbol}
               </Row>
               <Row>
                 <StyledInput
                   value={dAmount}
                   disabled={!getActiveToken().isApproved}
                   defaultValue={0}
-                  onChange={e => {
-                    setDAmount(e.target.value);
-                  }}
-                  onBlur={e => {
-                    setDAmount(e.target.value);
-                  }}
+                  onChange={onDepositValueChange}
+                  onBlur={onDepositValueChange}
                   type="number"
                   required
                   min={0}
@@ -385,21 +434,15 @@ export default ({name, logo, fadeTime = 250}) => {
             </ContainerCol>
             <ContainerCol xs={6}>
               <Row>
-                {bnToDec(new BigNumber(vault.pricePerFullShare), vault.decimals) *
-                  bnToDec(new BigNumber(vault.balance), vault.decimals).toFixed(2)}{' '}
-                {token.symbol} ({vault.getFormatedBalance()} {vault.symbol})
+                {vault.getFormatedBalance()} {vault.symbol}
               </Row>
               <Row>
                 <StyledInput
                   value={wAmount}
                   defaultValue={0}
                   disabled={!getActiveToken().isApproved}
-                  onChange={e => {
-                    setWAmount(e.target.value);
-                  }}
-                  onBlur={e => {
-                    setWAmount(e.target.value);
-                  }}
+                  onChange={onWithdrawValueChange}
+                  onBlur={onWithdrawValueChange}
                   type="number"
                   required
                   min={0}
@@ -417,49 +460,23 @@ export default ({name, logo, fadeTime = 250}) => {
           <Row center={'xs'}>
             {!getActiveToken().isApproved && (
               <Col xs={12}>
-                <Button
-                  onClick={async () => {
-                    await getActiveToken().callApprove();
-                  }}
-                  text={'Approve'}
-                />
+                <Button onClick={onApprove} text={'Approve'} />
               </Col>
             )}
             {getActiveToken().isApproved && (
               <>
                 <Col xs={6}>
                   <Row>
-                    <Button
-                      onClick={async () => {
-                        await getActiveToken().callDeposit(dAmount);
-                        vault.fetchBalance();
-                        setDAmount(0);
-                      }}
-                      text={'Deposit'}
-                    />
+                    <Button onClick={onDeposit} text={'Deposit'} />
                   </Row>
                 </Col>
                 <Col xs={6}>
                   <Row center={'xs'}>
                     <Col xs={6}>
-                      <Button
-                        onClick={async () => {
-                          await vault.callWithdraw(wAmount);
-                          vault.fetchBalance();
-                          setWAmount(0);
-                        }}
-                        text={'Withdraw'}
-                      />
+                      <Button onClick={onWithdraw} text={'Withdraw'} />
                     </Col>
                     <Col xs={6}>
-                      <Button
-                        onClick={async () => {
-                          await vault.callWithdraw(getActiveToken().balance);
-                          vault.fetchBalance();
-                          setWAmount(0);
-                        }}
-                        text={'Withdraw All'}
-                      />
+                      <Button onClick={onWithdrawAll} text={'Withdraw All'} />
                     </Col>
                   </Row>
                 </Col>
