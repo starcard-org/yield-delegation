@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {Container} from '../index';
 
 import Nav from './components/Nav';
+import SocialNav from './components/SocialNav';
 import {Row, Grid, Col} from 'react-flexbox-grid';
 import Social from './components/Social';
 
@@ -30,6 +31,7 @@ const Footer = () => {
             </Col>
             <Col xs={3}>
               <Row>
+                <SocialNav />
                 {/* <Col xs={6} sm={3}>
                   <a href={""}>
                     <Social src={twitch} alt={'Logo'} />
@@ -38,11 +40,11 @@ const Footer = () => {
                 <Col xs={6} sm={3}>
                   <Social src={instagram} alt={'Logo'} />
                 </Col> */}
-                <a href={'https://twitter.com/rally_io'}>
+                {/* <a href={'https://twitter.com/rally_io'}>
                   <Col xs={6} sm={3}>
                     <Social src={twitter} alt={'Logo'} />
                   </Col>
-                </a>
+                </a> */}
                 {/* <Col xs={6} sm={3}>
                   <Social src={youtube} alt={'Logo'} />
                 </Col> */}
