@@ -27,13 +27,13 @@ const TITLE = {
 const SYMBOL = {
   'yDAI+yUSDC+yUSDT+yTUSD': 'yCRV',
   'yyDAI+yUSDC+yUSDT+yTUSD': 'yUSD',
-  'rdyDAI+yUSDC+yUSDT+yTUSD': 'rdyUSD',
+  'rdyDAI+yUSDC+yUSDT+yTUSD': 'rdyCRV',
   'yDAI+yUSDC+yUSDT+yBUSD': 'crvBUSD',
   'yyDAI+yUSDC+yUSDT+yBUSD': 'ycrvBUSD',
-  'rdyDAI+yUSDC+yUSDT+yBUSD': 'rdycrvBUSD',
+  'rdyDAI+yUSDC+yUSDT+yBUSD': 'rdcrvBUSD',
   crvRenWSBTC: 'crvBTC',
   ycrvRenWSBTC: 'ycrvBTC',
-  rdcrvRenWSBTC: 'rdycrvBTC',
+  rdcrvRenWSBTC: 'rdcrvBTC',
 };
 
 const StyledCard = styled(Card)`
@@ -285,7 +285,7 @@ export default ({name, logo, fadeTime = 250}) => {
               <Col xs={8}>
                 <Title>{yToken.title}</Title>
                 <Subtitle>
-                  Delegate earnings on deposist to Yearn {token.symbol} vault
+                  Delegate earnings on deposits to Yearn {token.symbol} vault
                 </Subtitle>
               </Col>
               <Col xs={4}>
