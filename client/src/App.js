@@ -8,6 +8,7 @@ import {DarkModeProvider} from './context/DarkModeContext';
 import {UseWalletProvider} from 'use-wallet';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Vaults from './pages/Vaults';
+import {ComingSoon} from './components/ComingSoon';
 
 const Container = styled.div`
   display: flex;
@@ -61,7 +62,7 @@ function App() {
           </Shrink>
           <Grow>
             <Switch>
-              <Route path="/" exact component={Vaults} />
+              <Route path="/" exact component={ComingSoon} />
             </Switch>
           </Grow>
           <Shrink>

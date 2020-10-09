@@ -6,7 +6,7 @@ const Nav = () => {
   return (
     <StyledNav>
       <StyledLink exact activeClassName="active" to="/">
-        vaults
+        Home
       </StyledLink>
     </StyledNav>
   );

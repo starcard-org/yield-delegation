@@ -9,7 +9,7 @@ import {Row, Grid, Col} from 'react-flexbox-grid';
 
 const logo = require('../../assets/img/Rally Logo.svg');
 
-const TopBar = () => {
+const Header = () => {
   return (
     <Container size="lg">
       <TopBarWrapper>
@@ -18,14 +18,7 @@ const TopBar = () => {
             <Col xs={2}>
               <img src={logo} className="logo" />
             </Col>
-            <Col xs={8}>
-              <Nav />
-            </Col>
-            <Col xs={2}>
-              <StyledAccountButtonWrapper>
-                <AccountButton />
-              </StyledAccountButtonWrapper>
-            </Col>
+            <Col xs={10}>&nbsp;</Col>
           </Row>
         </Grid>
       </TopBarWrapper>
@@ -48,4 +41,4 @@ const StyledAccountButtonWrapper = styled.div`
   }
 `;
 
-export default TopBar;
+export default Header;
