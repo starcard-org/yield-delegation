@@ -30,18 +30,22 @@ const Footer = () => {
             </Col>
             <Col xs={3}>
               <Row>
-                <Col xs={6} sm={3}>
-                  <Social src={twitch} alt={'Logo'} />
+                {/* <Col xs={6} sm={3}>
+                  <a href={""}>
+                    <Social src={twitch} alt={'Logo'} />
+                  </a>
                 </Col>
                 <Col xs={6} sm={3}>
                   <Social src={instagram} alt={'Logo'} />
-                </Col>
-                <Col xs={6} sm={3}>
-                  <Social src={twitter} alt={'Logo'} />
-                </Col>
-                <Col xs={6} sm={3}>
+                </Col> */}
+                <a href={'https://twitter.com/rally_io'}>
+                  <Col xs={6} sm={3}>
+                    <Social src={twitter} alt={'Logo'} />
+                  </Col>
+                </a>
+                {/* <Col xs={6} sm={3}>
                   <Social src={youtube} alt={'Logo'} />
-                </Col>
+                </Col> */}
               </Row>
             </Col>
           </Row>

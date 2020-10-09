@@ -29,6 +29,12 @@ const TextContainer = styled.div`
   transition: visibility 1s linear;
 `;
 
+const CommingSoon = styled.div`
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}`;
+
 export const ComingSoon = () => {
   const [vText, setVisibleText] = useState(false);
   const [vImage, setVisibleImage] = useState(false);
@@ -44,19 +50,23 @@ export const ComingSoon = () => {
   }, []);
 
   return (
-    <Container size="lg">
-      <Grid>
-        <ImageContainer center={'xs'} visible={vImage}>
-          <img src={Forms} width={'100%'} alt={'Geometric Forms'} />
-        </ImageContainer>
-        <Container size="sm">
-          <TextContainer visible={vText}>
-            <Row>
-              <Title xs={12}>Coming Soon</Title>
-            </Row>
-          </TextContainer>
-        </Container>
-      </Grid>
-    </Container>
+    <CommingSoon>
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <Container size="lg">
+        <Grid>
+          <ImageContainer center={'xs'} visible={vImage}>
+            <img src={Forms} width={'100%'} alt={'Geometric Forms'} />
+          </ImageContainer>
+          <Container size="sm">
+            <TextContainer visible={vText}>
+              <Row>
+                <Title xs={12}>Coming Soon</Title>
+              </Row>
+            </TextContainer>
+          </Container>
+        </Grid>
+      </Container>
+    </CommingSoon>
   );
 };
