@@ -1,20 +1,46 @@
+/* @import must be at top of file, otherwise CSS will not work */
+@import url('//hello.myfonts.net/count/3be8d7');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+@font-face {
+  font-family: 'SofiaPro-Medium';
+  src: url('webFonts/SofiaPro-Medium/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-Medium/font.woff') format('woff');
+}
+@font-face {
+  font-family: 'SofiaPro-Regular';
+  src: url('webFonts/SofiaPro-Regular/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-Regular/font.woff') format('woff');
+}
+@font-face {
+  font-family: 'SofiaPro-Light';
+  src: url('webFonts/SofiaPro-Light/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-Light/font.woff') format('woff');
+}
+@font-face {
+  font-family: 'SofiaPro-Bold';
+  src: url('webFonts/SofiaPro-Bold/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-Bold/font.woff') format('woff');
+}
+@font-face {
+  font-family: 'SofiaPro-UltraLight';
+  src: url('webFonts/SofiaPro-UltraLight/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-UltraLight/font.woff') format('woff');
+}
+
 html,
 body,
 #root {
   width: 100%;
   height: 100%;
+  font-family: 'SofiaPro-Regular';
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: SofiaPro-Light;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 body {
