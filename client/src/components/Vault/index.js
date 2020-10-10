@@ -48,7 +48,17 @@ const StyledCard = styled(Card)`
   transition: visibility 1s linear;
 `;
 
+const WalletBalance = styled.div`
+  font-family: 'Roboto Mono', monospace;
+  padding-left: 10px;
+`;
+
+const Balance = styled(Row)`
+  font-family: 'Roboto Mono', monospace;
+`;
+
 const Percentage = styled(Col)`
+  font-family: 'Roboto Mono', monospace;
   font-size: 14px;
   cursor: pointer;
 
@@ -76,6 +86,7 @@ const ContainerCol = styled(Col)`
 `;
 
 const Earnings = styled(Col)`
+  font-family: 'Roboto Mono', monospace;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -88,6 +99,7 @@ const RLYLogo = styled.img`
 `;
 
 const Title = styled.div`
+  font-family: 'Roboto Mono', monospace;
   font-size: 24px;
   padding-bottom: 0px;
   text-align: left;
@@ -100,6 +112,7 @@ const Subtitle = styled.div`
 `;
 
 const StyledInput = styled.input`
+  font-family: 'Roboto Mono', monospace;
   font-size: 16px;
   padding-left: 1em;
   text-align: left;
@@ -118,6 +131,12 @@ const VaultImage = styled.img`
 
 const VaultTopSection = styled(Row)`
   align-items: center;
+`;
+
+const CenteredRow = styled(Row)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const TOKEN_TYPES = {
@@ -281,7 +300,7 @@ export default ({name, logo, fadeTime = 250}) => {
             <VaultImage src={logo} />
           </Col>
           <Col xs={11}>
-            <Row center={'xs'}>
+            <CenteredRow center={'xs'}>
               <Col xs={8}>
                 <Title>{yToken.title}</Title>
                 <Subtitle>
@@ -301,7 +320,7 @@ export default ({name, logo, fadeTime = 250}) => {
                   </Title>
                 </Row>
               </Col>
-            </Row>
+            </CenteredRow>
           </Col>
         </VaultTopSection>
       </Grid>
@@ -409,8 +428,10 @@ export default ({name, logo, fadeTime = 250}) => {
           <Row>
             <ContainerCol xs={6}>
               <Row>
-                Your Wallet: {getActiveToken().getFormatedBalance()}{' '}
-                {getActiveToken().symbol}
+                <div>Your Wallet:</div>
+                <WalletBalance>
+                  {getActiveToken().getFormatedBalance()} {getActiveToken().symbol}
+                </WalletBalance>
               </Row>
               <Row>
                 <StyledInput
@@ -433,14 +454,14 @@ export default ({name, logo, fadeTime = 250}) => {
               </PercentageRow>
             </ContainerCol>
             <ContainerCol xs={6}>
-              <Row>
+              <Balance>
                 {vault.getFormatedBalance()} {vault.symbol}
-              </Row>
+              </Balance>
               <Row>
                 <StyledInput
                   value={wAmount}
                   defaultValue={0}
-                  disabled={!getActiveToken().isApproved}
+                  disabled={vault.balance <= 0}
                   onChange={onWithdrawValueChange}
                   onBlur={onWithdrawValueChange}
                   type="number"
@@ -458,30 +479,26 @@ export default ({name, logo, fadeTime = 250}) => {
             </ContainerCol>
           </Row>
           <Row center={'xs'}>
-            {!getActiveToken().isApproved && (
-              <Col xs={12}>
-                <Button onClick={onApprove} text={'Approve'} />
-              </Col>
-            )}
-            {getActiveToken().isApproved && (
-              <>
+            <Col xs={6}>
+              <Row>
+                {!getActiveToken().isApproved && (
+                  <Button onClick={onApprove} text={'Approve'} />
+                )}
+                {getActiveToken().isApproved && (
+                  <Button onClick={onDeposit} text={'Deposit'} />
+                )}
+              </Row>
+            </Col>
+            <Col xs={6}>
+              <Row center={'xs'}>
                 <Col xs={6}>
-                  <Row>
-                    <Button onClick={onDeposit} text={'Deposit'} />
-                  </Row>
+                  <Button onClick={onWithdraw} text={'Withdraw'} />
                 </Col>
                 <Col xs={6}>
-                  <Row center={'xs'}>
-                    <Col xs={6}>
-                      <Button onClick={onWithdraw} text={'Withdraw'} />
-                    </Col>
-                    <Col xs={6}>
-                      <Button onClick={onWithdrawAll} text={'Withdraw All'} />
-                    </Col>
-                  </Row>
+                  <Button onClick={onWithdrawAll} text={'Withdraw All'} />
                 </Col>
-              </>
-            )}
+              </Row>
+            </Col>
           </Row>
         </AccordionContent>
       </Accordion>
