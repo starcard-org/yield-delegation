@@ -428,7 +428,7 @@ export default ({name, logo, fadeTime = 250}) => {
           <Row>
             <ContainerCol xs={6}>
               <Row>
-                <div>Your Wallet:</div>
+                <div>{t('vault-your-wallet')}:</div>
                 <WalletBalance>
                   {getActiveToken().getFormatedBalance()} {getActiveToken().symbol}
                 </WalletBalance>

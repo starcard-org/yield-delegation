@@ -1,31 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Container} from '../components';
-import {Grid, Row, Col} from 'react-flexbox-grid';
+import {Row} from 'react-flexbox-grid';
 import {Faq} from '../components/Faq/Faq';
 
 const Forms = require('../assets/img/forms.png');
 
 const PageContainer = styled.div`
-  margin: auto;
   width: 100%;
+  height: 100%;
+  background: #ffffff;
 `;
 
 const FaqContainer = styled.div`
-  background: #fff;
   position: relative;
+  flex: 1 0 auto;
+  background: #ffffff;
 `;
 
 const StyledContainer = styled(Container)`
   padding: 2em 0;
   position: relative;
   z-index: 0;
-  background: #fff;
-  margin-top: 12rem;
 `;
 
 const ImageContainer = styled(Row)`
   position: relative;
+  background: #000000;
 `;
 
 const Image = styled.img`
@@ -35,7 +36,6 @@ const Image = styled.img`
 `;
 
 const Content = styled.div`
-  position: absolute;
   z-index: 1;
   text-align: left;
   width: 100%;

@@ -9,9 +9,13 @@
     "cancel-action": "Cancel",
     "wallet-new-eth": "New to Ethereum?",
     "wallet-learn-more": "Learn more about wallets",
+    "pool-approve": "Approve",
     "pool-earned": "Earned",
     "pool-staked": "Staked",
     "pool-balance": "Balance",
+    "pool-stake": "Stake",
+    "pool-unstake": "Unstake",
+    "pool-harvest": "Harvest",
     "vault-subtitle": "Delegate earnings on deposits to Yearn {{symbol}} vault",
     "vault-available": "Available to deposit",
     "vault-earnings": "Earnings",
@@ -20,6 +24,7 @@
     "vault-approve": "Approve",
     "vault-deposit": "Deposit",
     "vault-withdraw": "Withdraw",
-    "vault-withdraw-all": "Withdraw All"
+    "vault-withdraw-all": "Withdraw All",
+    "vault-your-wallet": "Your Wallet"
   }
 }

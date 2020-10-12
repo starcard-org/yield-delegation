@@ -12,7 +12,7 @@ const useAllowance = (token, vault) => {
   const {account} = useWallet();
   const [allowance, setAllowance] = useState(0);
   const fetchAllowance = useCallback(async () => {
-    if (!initialized) {
+    if (!initialized || !token) {
       return -1;
     }
 
@@ -20,7 +20,7 @@ const useAllowance = (token, vault) => {
       const tx = await getAllowance(
         drizzle.contracts[token].methods,
         account,
-        drizzle.contracts[vault].address,
+        drizzle.contracts[vault].address
       );
       setAllowance(tx);
     } catch (e) {

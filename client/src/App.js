@@ -24,7 +24,6 @@ const Container = styled.div`
 
 const Grow = styled.div`
   display: flex;
-  flex: 1;
   flex: 1 0 auto;
   min-height: 100vh;
   background-color: #000000;
@@ -32,7 +31,6 @@ const Grow = styled.div`
 
 const Shrink = styled.div`
   display: flex;
-  flex: 1;
   flex: 0 1 auto;
 `;
 

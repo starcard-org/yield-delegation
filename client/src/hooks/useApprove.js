@@ -10,10 +10,10 @@ const approve = async (methods, to, from) => {
 };
 
 const useApprove = (token, vault) => {
-  const {drizzle, loading} = useContext(DrizzleContext);
+  const {drizzle, initialized} = useContext(DrizzleContext);
   const {account} = useWallet();
   const handleApprove = useCallback(async () => {
-    if (!drizzle || loading) {
+    if (!drizzle || !initialized || !token) {
       return false;
     }
 
@@ -26,9 +26,10 @@ const useApprove = (token, vault) => {
 
       return tx.status;
     } catch (e) {
+      console.log(e);
       return false;
     }
-  }, [account, token, vault, drizzle, loading]);
+  }, [account, token, vault, drizzle, initialized]);
 
   return {onApprove: handleApprove};
 };
