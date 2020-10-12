@@ -1,0 +1,32 @@
+{
+  "sections": [
+    {
+      "title": "What is the Rally Network?",
+      "description": "The Rally Network is an emerging blockchain ecosystem focused on giving Creators new ways to build their businesses and achieve deeper engageement with their communities, with better fan alignment and more control than they have ever had before.",
+      "questions": [
+        {
+          "q": "Does Rally Charge Any Fees?",
+          "a": "Apart from payment and transaction processing fees, the Rally Network will not colelct fees for profit from transactions or seek revenue from Creator economies."
+        },
+        {
+          "q": "How Do I Contact Rally?",
+          "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        }
+      ]
+    },
+    {
+      "title": "Creator Coin Basics",
+      "description": "",
+      "questions": [
+        {
+          "q": "What are creator coins?",
+          "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        },
+        {
+          "q": "What Can I Do With Creator Coins",
+          "a": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        }
+      ]
+    }
+  ]
+}

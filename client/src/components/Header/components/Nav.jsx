@@ -13,6 +13,9 @@ const Nav = () => {
       <StyledLink exact activeClassName="active" to="/liquidity">
         {t('nav-liquidity')}
       </StyledLink>
+      <StyledLink exact activeClassName="active" to="/faq">
+        {t('nav-faq')}
+      </StyledLink>
       <StyledAnchor href={'https://rally.io'}>Rally.io</StyledAnchor>
     </StyledNav>
   );

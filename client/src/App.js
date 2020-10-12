@@ -9,6 +9,7 @@ import {UseWalletProvider} from 'use-wallet';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Vaults from './pages/Vaults';
 import Pools from './pages/Pools';
+import Faq from './pages/Faq';
 
 import './i18n';
 
@@ -66,6 +67,7 @@ function App() {
             <Switch>
               <Route path="/vaults" exact component={Vaults} />
               <Route path="/liquidity" exact component={Pools} />
+              <Route path="/faq" exact component={Faq} />
               <Redirect from="/" to="/vaults" />
             </Switch>
           </Grow>
