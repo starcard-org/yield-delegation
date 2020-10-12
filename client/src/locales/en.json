@@ -1,0 +1,24 @@
+{
+  "translation": {
+    "connect-your-wallet-title": "Connect your wallet to continue",
+    "connect-your-wallet-action": "Connect your wallet",
+    "nav-vaults": "Vaults",
+    "nav-liquidity": "Liquidity",
+    "select-wallet": "Select a wallet provider.",
+    "cancel-action": "Cancel",
+    "wallet-new-eth": "New to Ethereum?",
+    "wallet-learn-more": "Learn more about wallets",
+    "pool-earned": "Earned",
+    "pool-staked": "Staked",
+    "pool-balance": "Balance",
+    "vault-subtitle": "Delegate earnings on deposits to Yearn {{symbol}} vault",
+    "vault-available": "Available to deposit",
+    "vault-earnings": "Earnings",
+    "vault-active": "Active Token",
+    "vault-claim": "Claim",
+    "vault-approve": "Approve",
+    "vault-deposit": "Deposit",
+    "vault-withdraw": "Withdraw",
+    "vault-withdraw-all": "Withdraw All"
+  }
+}

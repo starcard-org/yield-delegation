@@ -16,7 +16,7 @@ const TopBar = () => {
         <Grid>
           <Row center={'xs'}>
             <Col xs={2}>
-              <img src={logo} className="logo" />
+              <img src={logo} className="logo" alt="Rally.io Logo" />
             </Col>
             <Col xs={8}>
               <Nav />

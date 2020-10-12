@@ -1,17 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {Container} from '../index';
-
 import Nav from './components/Nav';
 import {Row, Grid, Col} from 'react-flexbox-grid';
-import Social from './components/Social';
+import SocialNav from './components/SocialNav';
 
 const rallyLogoWhite = require('../../assets/img/RallyIconW.svg');
-const twitch = require('../../assets/img/TwitchB.svg');
-const twitter = require('../../assets/img/iconTwitter.svg');
-const youtube = require('../../assets/img/IconFacebook.svg');
-const instagram = require('../../assets/img/IconInstar.svg');
 
 const Footer = () => {
   return (
@@ -20,29 +14,13 @@ const Footer = () => {
         <Grid>
           <Row>
             <Col xs={2}>
-              <img src={rallyLogoWhite} className="Rally White Logo" />
+              <img src={rallyLogoWhite} alt="Rally White Logo" />
             </Col>
             <Col xs={7}>
               <Nav />
-              <Row>
-                <Copyright xs={12}>© 2020 Rally.io</Copyright>
-              </Row>
             </Col>
             <Col xs={3}>
-              <Row>
-                <Col xs={6} sm={3}>
-                  <Social src={twitch} alt={'Logo'} />
-                </Col>
-                <Col xs={6} sm={3}>
-                  <Social src={instagram} alt={'Logo'} />
-                </Col>
-                <Col xs={6} sm={3}>
-                  <Social src={twitter} alt={'Logo'} />
-                </Col>
-                <Col xs={6} sm={3}>
-                  <Social src={youtube} alt={'Logo'} />
-                </Col>
-              </Row>
+              <SocialNav />
             </Col>
           </Row>
         </Grid>
@@ -58,13 +36,11 @@ const StyledContainer = styled.div`
 `;
 
 const FooterWrapper = styled.div`
-  padding: 3em 0;
+  display: flex;
+  height: 100%;
   width: 100%;
-`;
-
-const Copyright = styled(Col)`
-  padding-left: 24px;
-  padding-top: 2em;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default Footer;

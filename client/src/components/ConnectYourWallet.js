@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import styled from 'styled-components';
+import {useTranslation} from 'react-i18next';
+
 import {Container, Button} from '../components';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import {fadeIn, fadeOut} from '../theme/animations';
@@ -36,6 +38,8 @@ const TextContainer = styled.div`
 `;
 
 export const ConnectYourWallet = () => {
+  const {t} = useTranslation();
+
   const [vText, setVisibleText] = useState(false);
   const [vImage, setVisibleImage] = useState(false);
 
@@ -64,14 +68,14 @@ export const ConnectYourWallet = () => {
         <Container size="sm">
           <TextContainer visible={vText}>
             <Row>
-              <Title xs={12}>Connect your wallet to continue</Title>
+              <Title xs={12}>{t('connect-your-wallet-title')}</Title>
             </Row>
             <Spacer />
             <Row center={'xs'}>
               <Col xs={5}>
                 <Button
                   outline={false}
-                  text="Connect your wallet"
+                  text={t('connect-your-wallet-action')}
                   onClick={handleUnlockClick}
                 />
               </Col>

@@ -7,6 +7,7 @@ import {useWallet} from 'use-wallet';
 
 import {Button} from '../Button';
 import {Modal, ModalActions, ModalTitle, ModalContent} from '../Modal';
+import {useTranslation} from 'react-i18next';
 
 const IconButton = styled(Button)`
   display: flex;
@@ -49,10 +50,14 @@ const StyledLink = styled.a`
   }
 `;
 
-const WalletProviderModal = ({onDismiss}) => {
-  const {account, connect, status, error} = useWallet();
+const StyledWalletsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
-  console.log(error);
+const WalletProviderModal = ({onDismiss}) => {
+  const {t} = useTranslation();
+  const {account, connect} = useWallet();
 
   useEffect(() => {
     if (account) {
@@ -62,46 +67,41 @@ const WalletProviderModal = ({onDismiss}) => {
 
   return (
     <Modal>
-      <ModalTitle text={'Select a wallet provider.'} />
+      <ModalTitle text={t('select-wallet')} />
       <ModalContent>
         <StyledWalletsWrapper>
           <IconButton onClick={() => connect()} text="MetaMask" outline={false}>
-            <img src={metamaskLogo} style={{height: 32, width: 32}} />
+            <img src={metamaskLogo} style={{height: 32, width: 32}} alt="MetaMask Logo" />
           </IconButton>
           <IconButton
             onClick={() => connect('walletconnect')}
             text="WalletConnect"
             outline={false}
           >
-            <img src={walletConnectLogo} style={{height: 32, width: 32}} />
+            <img
+              src={walletConnectLogo}
+              style={{height: 32, width: 32}}
+              alt="WalletConnect Logo"
+            />
           </IconButton>
         </StyledWalletsWrapper>
       </ModalContent>
 
       <ModalActions>
-        <Button text="Cancel" variant="secondary" onClick={onDismiss} />
+        <Button text={t('cancel-action')} variant="secondary" onClick={onDismiss} />
       </ModalActions>
       <Blurb>
-        <span>New to Ethereum? &nbsp;</span>{' '}
+        <span>{t('wallet-new-eth')}&nbsp;</span>{' '}
         <StyledLink
           target={'_blank'}
           rel={'noopener noreferrer'}
           href={'https://ethereum.org/wallets/'}
         >
-          Learn more about wallets
+          {t('wallet-learn-more')}
         </StyledLink>
       </Blurb>
     </Modal>
   );
 };
-
-const StyledWalletsWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const StyledWalletCard = styled.div`
-  flex-basis: calc(50% - ${({theme}) => theme.spacing[2]}px;
-`;
 
 export default WalletProviderModal;

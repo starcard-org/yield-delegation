@@ -1,29 +1,27 @@
-import React, { createContext, useCallback, useState } from "react";
-import styled from "styled-components";
+import React, {createContext, useCallback, useState} from 'react';
+import styled from 'styled-components';
 
 export const Context = createContext({
   onPresent: () => {},
   onDismiss: () => {},
 });
 
-const Modals = ({ children }) => {
+const Modals = ({children}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState();
-  const [modalKey, setModalKey] = useState();
 
   const handlePresent = useCallback(
-    (modalContent, key) => {
-      setModalKey(key);
+    modalContent => {
       setContent(modalContent);
       setIsOpen(true);
     },
-    [setContent, setIsOpen, setModalKey]
+    [setContent, setIsOpen]
   );
 
   const handleDismiss = useCallback(() => {
     setContent(undefined);
     setIsOpen(false);
-  }, [setContent, setIsOpen, modalKey]);
+  }, [setContent, setIsOpen]);
 
   return (
     <Context.Provider
@@ -61,7 +59,7 @@ const StyledModalWrapper = styled.div`
 `;
 
 const StyledModalBackdrop = styled.div`
-  background-color: ${({ theme }) => theme.bg1}aa;
+  background-color: ${({theme}) => theme.bg1}aa;
   position: absolute;
   top: 0;
   right: 0;

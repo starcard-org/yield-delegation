@@ -6,8 +6,11 @@ import ModalsProvider from './context/Modals';
 import {DrizzleProvider} from './context/DrizzleContext';
 import {DarkModeProvider} from './context/DarkModeContext';
 import {UseWalletProvider} from 'use-wallet';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Vaults from './pages/Vaults';
+import Pools from './pages/Pools';
+
+import './i18n';
 
 const Container = styled.div`
   display: flex;
@@ -61,7 +64,9 @@ function App() {
           </Shrink>
           <Grow>
             <Switch>
-              <Route path="/" exact component={Vaults} />
+              <Route path="/vaults" exact component={Vaults} />
+              <Route path="/liquidity" exact component={Pools} />
+              <Redirect from="/" to="/vaults" />
             </Switch>
           </Grow>
           <Shrink>

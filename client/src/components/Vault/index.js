@@ -12,6 +12,7 @@ import {fadeIn, fadeOut} from '../../theme/animations';
 import {useWallet} from 'use-wallet';
 import Select from 'react-select';
 import useAllowance from '../../hooks/useAllowance';
+import {useTranslation} from 'react-i18next';
 
 const RLY = require('../../assets/img/RLY-logo.png');
 
@@ -253,6 +254,7 @@ const useVault = name => {
 };
 
 export default ({name, logo, fadeTime = 250}) => {
+  const {t} = useTranslation();
   const [options, setOptions] = useState([]);
   const [visible, setVisible] = useState(false);
   const [isLoading, setLoading] = useState(true);
@@ -303,12 +305,10 @@ export default ({name, logo, fadeTime = 250}) => {
             <CenteredRow center={'xs'}>
               <Col xs={8}>
                 <Title>{yToken.title}</Title>
-                <Subtitle>
-                  Delegate earnings on deposits to Yearn {token.symbol} vault
-                </Subtitle>
+                <Subtitle>{t('vault-subtitle', {symbol: token.symbol})}</Subtitle>
               </Col>
               <Col xs={4}>
-                <Subtitle>Available to deposit</Subtitle>
+                <Subtitle>{t('vault-available')}</Subtitle>
                 <Row>
                   <Title>
                     {token.getFormatedBalance()} {token.symbol}
@@ -325,7 +325,7 @@ export default ({name, logo, fadeTime = 250}) => {
         </VaultTopSection>
       </Grid>
     ),
-    [logo, token, yToken]
+    [logo, token, yToken, t]
   );
 
   const onWithdrawPercentageClick = useCallback(
@@ -402,25 +402,25 @@ export default ({name, logo, fadeTime = 250}) => {
         <AccordionContent>
           <Row>
             <ContainerCol xs={6}>
-              <Row>Active Token:</Row>
+              <Row>{t('vault-active')}:</Row>
               <Row>
                 <TokenSelector
                   defaultValue={options[0]}
-                  name="Active Token"
+                  name={t('vault-active')}
                   options={options}
                   onChange={onActiveTokenChange}
                 />
               </Row>
             </ContainerCol>
             <ContainerCol xs={6}>
-              <Row>Earnings:</Row>
+              <Row>{t('vault-earnings')}:</Row>
               <Row>
                 <Earnings xs={6}>
                   <div>{Number(vault.earned).toFixed(2)} RLY</div>
                   <RLYLogo src={RLY} />
                 </Earnings>
                 <Col xs={6}>
-                  <Button onClick={onClaimRewards} text={'Claim'} />
+                  <Button onClick={onClaimRewards} text={t('vault-claim')} />
                 </Col>
               </Row>
             </ContainerCol>
@@ -482,20 +482,20 @@ export default ({name, logo, fadeTime = 250}) => {
             <Col xs={6}>
               <Row>
                 {!getActiveToken().isApproved && (
-                  <Button onClick={onApprove} text={'Approve'} />
+                  <Button onClick={onApprove} text={t('vault-approve')} />
                 )}
                 {getActiveToken().isApproved && (
-                  <Button onClick={onDeposit} text={'Deposit'} />
+                  <Button onClick={onDeposit} text={t('vault-deposit')} />
                 )}
               </Row>
             </Col>
             <Col xs={6}>
               <Row center={'xs'}>
                 <Col xs={6}>
-                  <Button onClick={onWithdraw} text={'Withdraw'} />
+                  <Button onClick={onWithdraw} text={t('vault-withdraw')} />
                 </Col>
                 <Col xs={6}>
-                  <Button onClick={onWithdrawAll} text={'Withdraw All'} />
+                  <Button onClick={onWithdrawAll} text={t('vault-withdraw-all')} />
                 </Col>
               </Row>
             </Col>

@@ -4,38 +4,9 @@ import {Drizzle} from '@drizzle/store';
 import {useWallet} from 'use-wallet';
 import ERC20 from '../contracts/ERC20';
 import YieldDelegatingVault from '../contracts/YieldDelegatingVault';
+import NoMintLiquidityRewardPools from '../contracts/NoMintLiquidityRewardPools';
 
 export const DrizzleContext = React.createContext();
-
-const ALL_CONTRACTS = [
-  'USDC',
-  'YCRV',
-  'TUSD',
-  'DAI',
-  'USDT',
-  'YFI',
-  'crvBUSD',
-  'crvBTC',
-  'WETH',
-  'yVaultUSDC',
-  'yVaultYCRV',
-  'yVaultTUSD',
-  'yVaultDAI',
-  'yVaultUSDT',
-  'yVaultYFI',
-  'yVaultcrvBUSD',
-  'yVaultcrvBTC',
-  'yVaultWETH',
-  'yTokenUSDC',
-  'yTokenYCRV',
-  'yTokenTUSD',
-  'yTokenDAI',
-  'yTokenUSDT',
-  'yTokenYFI',
-  'yTokencrvBUSD',
-  'yTokencrvBTC',
-  'yTokenWETH',
-];
 
 // y Tokens addresses  for (deposityToken, withdrawyToken)
 const Y_TOKEN_ADDRESSES = {
@@ -74,7 +45,10 @@ export const DrizzleProvider = ({children}) => {
   const [drizzle, setDrizzle] = useState(null);
   const [state, setState] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [loadingContracts, setLoadingContracts] = useState(CONTRACT_LOADING_STATE.NONE);
+  const [loadingContracts, setLoadingContracts] = useState([]);
+  const [loadingContractsState, setLoadingContractsState] = useState(
+    CONTRACT_LOADING_STATE.NONE
+  );
   const [initialized, setInitialized] = useState(false);
 
   const connect = useCallback(() => {
@@ -121,13 +95,12 @@ export const DrizzleProvider = ({children}) => {
       (loading && !initialized) ||
       !drizzle ||
       initialized ||
-      loadingContracts !== CONTRACT_LOADING_STATE.NONE
+      loadingContractsState !== CONTRACT_LOADING_STATE.NONE
     ) {
       return;
     }
 
-    console.log(1);
-    setLoadingContracts(CONTRACT_LOADING_STATE.LOADING);
+    setLoadingContractsState(CONTRACT_LOADING_STATE.LOADING);
     let contracts = [
       ...Object.entries(VAULT_ADDRESSES).map(([key, value]) => ({
         contractName: `yVault${key}`,
@@ -137,16 +110,22 @@ export const DrizzleProvider = ({children}) => {
         contractName: `yToken${key}`,
         web3Contract: new drizzle.web3.eth.Contract(ERC20.abi, value),
       })),
+      {
+        contractName: 'NoMintLiquidityRewardPools',
+        web3Contract: new drizzle.web3.eth.Contract(
+          NoMintLiquidityRewardPools.abi,
+          '0x7A942fF3B4291bEf302ba5BEA050CBa3E2c09C61'
+        ),
+      },
     ];
 
     contracts.map(c => {
-      drizzle.addContract(c);
+      return drizzle.addContract(c);
     });
 
-    console.log(2);
     (async () => {
       // Underlying token for (deposit, withdraw, withdrawAll)
-      contracts = await Promise.all(
+      const tokens = await Promise.all(
         Object.keys(VAULT_ADDRESSES).map(async key => {
           console.log(`Loading ${key}`);
           return new Promise(async resolve => {
@@ -168,24 +147,47 @@ export const DrizzleProvider = ({children}) => {
         })
       );
 
-      console.log(3);
-      contracts.map(c => {
-        drizzle.addContract(c);
+      const poolLength = await drizzle.contracts.NoMintLiquidityRewardPools.methods
+        .poolLength()
+        .call();
+
+      const pools = await Promise.all(
+        Array.from({length: poolLength}).map(async (_v, i) => {
+          return new Promise(async resolve => {
+            const info = await drizzle.contracts.NoMintLiquidityRewardPools.methods
+              .poolInfo(i)
+              .call();
+
+            resolve({
+              contractName: `Pool_${i}`,
+              web3Contract: new drizzle.web3.eth.Contract(ERC20.abi, info.lpToken),
+            });
+          });
+        })
+      );
+
+      [...tokens, ...pools].map(c => {
+        return drizzle.addContract(c);
       });
 
-      console.log(4);
-      setLoadingContracts(CONTRACT_LOADING_STATE.DONE);
+      setLoadingContracts([...contracts, ...pools, ...tokens]);
+      setLoadingContractsState(CONTRACT_LOADING_STATE.DONE);
     })();
-  }, [drizzle, initialized, loading, loadingContracts]);
+  }, [drizzle, initialized, loading, loadingContracts, loadingContractsState]);
 
   useEffect(() => {
-    if (!drizzle || initialized || loadingContracts !== CONTRACT_LOADING_STATE.DONE) {
+    if (
+      !drizzle ||
+      initialized ||
+      loadingContractsState !== CONTRACT_LOADING_STATE.DONE ||
+      loadingContracts.length === 0
+    ) {
       return;
     }
 
-    setInitialized(drizzle.contractList.length === ALL_CONTRACTS.length);
-    console.log(drizzle);
-  }, [drizzle, initialized, loading, loadingContracts]);
+    // This makes sure that all the contracts that we added are actually loaded
+    setInitialized(drizzle.contractList.length === loadingContracts.length);
+  }, [drizzle, initialized, loading, loadingContracts, loadingContractsState]);
 
   useEffect(() => {
     if (status !== 'connected') {

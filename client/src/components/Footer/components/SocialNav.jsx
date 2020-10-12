@@ -1,18 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import {NavLink} from 'react-router-dom';
-import {useTranslation} from 'react-i18next';
 
-const Nav = () => {
-  const {t} = useTranslation();
+const SocialNav = () => {
   return (
     <StyledNav>
-      <StyledLink exact activeClassName="active" to="/vaults">
-        {t('nav-vaults')}
-      </StyledLink>
-      <StyledLink exact activeClassName="active" to="/liquidity">
-        {t('nav-liquidity')}
-      </StyledLink>
+      <StyledLink href={'https://discord.com/invite/PVMdQBq'}>Discord</StyledLink>
+      <StyledLink href={'https://twitter.com/rally_io'}>Twitter</StyledLink>
+      <StyledLink href={'https://medium.com/rallynetwork'}>Medium</StyledLink>
+      <StyledLink href={'https://rally.io'}>Rally.io</StyledLink>
     </StyledNav>
   );
 };
@@ -23,7 +18,7 @@ const StyledNav = styled.nav`
   flex: 1 0 auto;
 `;
 
-const StyledLink = styled(NavLink)`
+const StyledLink = styled.a`
   position: relative;
   color: ${({theme}) => theme.text1};
   padding-left: ${({theme}) => theme.spacing[3]}px;
@@ -35,4 +30,4 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-export default Nav;
+export default SocialNav;
