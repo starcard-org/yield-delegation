@@ -25,9 +25,9 @@ const Footer = () => {
             </Col>
             <Col xs={7}>
               <Nav />
-              <Row>
+              {/* <Row>
                 <Copyright xs={12}>© 2020 Rally.io</Copyright>
-              </Row>
+              </Row> */}
             </Col>
             <Col xs={3}>
               <Row>
