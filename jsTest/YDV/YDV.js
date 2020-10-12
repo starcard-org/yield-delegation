@@ -107,3 +107,54 @@ export class YDV {
     return BigNumber(a);
   }
 }
+
+export const ydv = new YDV(
+  "http://localhost:8545/",
+  "1001",
+  true, {
+    defaultAccount: "",
+    defaultConfirmations: 1,
+    autoGasMultiplier: 1.5,
+    testing: false,
+    defaultGas: "6000000",
+    defaultGasPrice: "1000000000000",
+    accounts: [],
+    ethereumNodeTimeout: 10000
+  }
+)
+
+export const send = async (contract, func, params=[], from, gasLimit = 125000) => {
+  return await ydv.contracts[contract].methods[func](...params).send({
+    from,
+    gasLimit
+  });
+}
+
+export const call = async (contract, func, params = []) => {
+  return await ydv.contracts[contract].methods[func](...params).call();
+}
+
+export const balanceOf = async (token, account) => {
+  return await call(token, 'balanceOf', [account]);
+}
+
+export const totalSupply = async (token) => {
+  return await call(token, 'totalSupply');
+}
+
+export const approve = async (token, to, amount, from ) => {
+  return send(token, 'approve', [to, amount], from);
+}
+
+export const mint = async (token, to, mintAmount, from) => {
+  return send(token, 'mint', [to, mintAmount], from);
+}
+
+export const deposit = async (token, underlying, amount, from) => {
+  await approve(underlying, ydv.contracts[token].options.address, amount, from);
+  return send(token, 'deposit', [amount], from);
+}
+
+export const withdraw = async (token, amount, from) => {
+  return send(token, 'withdraw', [amount], from);
+}

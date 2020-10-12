@@ -223,7 +223,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         uint256 rallyReward = 0;
         if (_availableYield > 0) {
             rallyReward = _availableYield.mul(delegatePercent).div(10000).mul(rewardPerToken).div(1e18);
-            rally.safeTransfer(msg.sender, rallyReward);
+            rewards.transferReward(rallyReward);
             IERC20(vault).safeTransfer(treasury, _availableYield.mul(delegatePercent).div(10000));
             accRallyPerShare = accRallyPerShare.add(rallyReward.mul(1e12).div(totalSupply()));
             totalDeposits = balance().mul(Vault(vault).getPricePerFullShare()).div(1e18);

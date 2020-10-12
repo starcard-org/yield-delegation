@@ -29,7 +29,7 @@ async function deploySampleVault (deployer, network, accounts) {
       "9000", //out of 10000
       "100000000000000000000000000", //global deposit cap
       "100000000000000000000000", //per deposit cap
-      "5"
+      "500000000000000000"
     );
 
     let rewards = new web3.eth.Contract(YDVRewardsDistributor.abi, YDVRewardsDistributor.address);

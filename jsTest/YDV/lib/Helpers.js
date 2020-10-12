@@ -70,3 +70,15 @@ function partial(
 ){
   return target.times(numerator).div(denominator).integerValue(BigNumber.ROUND_DOWN);
 }
+
+export function etherExp(num) { return etherMantissa(num, 1e18) }
+export function etherDouble(num) { return etherMantissa(num, 1e36) }
+export function etherMantissa(num, scale = 1e18) {
+  if (num < 0)
+    return new BigNumber(2).pow(256).plus(num).toFixed();
+  return new BigNumber(num).times(scale).toFixed();
+}
+
+export function etherUnsigned(num) {
+  return new BigNumber(num).toFixed();
+}

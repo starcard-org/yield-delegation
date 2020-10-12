@@ -1,30 +1,14 @@
 import {
-  YDV
-} from "../index.js";
-import * as Types from "../lib/types.js";
+  ydv,
+  call,
+  balanceOf,
+  totalSupply
+} from "../YDV.js"
 import {
-  addressMap
-} from "../lib/constants.js";
-import {
-  decimalToString,
-  stringToDecimal
+  etherMantissa
 } from "../lib/Helpers.js"
 
-
-export const ydv = new YDV(
-  "http://localhost:8545/",
-  "1001",
-  true, {
-    defaultAccount: "",
-    defaultConfirmations: 1,
-    autoGasMultiplier: 1.5,
-    testing: false,
-    defaultGas: "6000000",
-    defaultGasPrice: "1000000000000",
-    accounts: [],
-    ethereumNodeTimeout: 10000
-  }
-)
+const escrowAmount = etherMantissa(15e9);
 
 describe("Reward Token", () => {
   let snapshotId;
@@ -34,7 +18,6 @@ describe("Reward Token", () => {
   
   beforeAll(async () => {
     const accounts = await ydv.web3.eth.getAccounts();
-    ydv.addAccount(accounts[0]);
     deployer = accounts[0];
     user = accounts[1];
     snapshotId = await ydv.testing.snapshot();
@@ -46,11 +29,11 @@ describe("Reward Token", () => {
 
   describe('Rally Token', () => {
     test('rally token setup', async () => {
-      expect(await ydv.contracts.rally.methods.name().call()).toBe('Rally');
-      expect(await ydv.contracts.rally.methods.symbol().call()).toBe('RLY');
-      expect(await ydv.contracts.rally.methods.balanceOf(user).call()).toBe("0");
-      expect(await ydv.contracts.rally.methods.totalSupply().call()).toBe("15000000000000000000000000000");
-      expect(await ydv.contracts.rally.methods.balanceOf(escrow).call()).toBe("15000000000000000000000000000");
+      expect(await call("rally", "name")).toBe('Rally');
+      expect(await call("rally", "symbol")).toBe('RLY');
+      expect(await balanceOf("rally", user)).toBe("0");
+      expect(await totalSupply("rally")).toBe(escrowAmount);
+      expect(await balanceOf("rally", escrow)).toBe(escrowAmount);
     });
   });
 });

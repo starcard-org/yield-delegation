@@ -1,34 +1,26 @@
 import {
-  YDV, BigNumber
-} from "../index.js";
-import * as Types from "../lib/types.js";
+  ydv,
+  send,
+  call,
+  balanceOf,
+  totalSupply,
+  mint,
+  deposit,
+  withdraw
+} from "../YDV.js"
 import {
-  addressMap
-} from "../lib/constants.js";
+  etherMantissa
+} from "../lib/Helpers.js"
+
+const mintAmount = etherMantissa(10e4);
+const depositAmount = etherMantissa(10e3);
+const interestAmount = etherMantissa(2e2);
+
 import {
-  decimalToString,
-  stringToDecimal,
   plus,
   minus,
-  times,
-  div
 } from "../lib/Helpers.js"
 import * as util from "../lib/utils.js"
-
-export const ydv = new YDV(
-  "http://localhost:8545/",
-  "1001",
-  true, {
-    defaultAccount: "",
-    defaultConfirmations: 1,
-    autoGasMultiplier: 1.5,
-    testing: false,
-    defaultGas: "6000000",
-    defaultGasPrice: "1000000000000",
-    accounts: [],
-    ethereumNodeTimeout: 10000
-  }
-)
 
 describe("Sample Vault", () => {
   let snapshotId;
@@ -48,131 +40,70 @@ describe("Sample Vault", () => {
 
   beforeEach(async () => {
     await ydv.testing.resetEVM("0x2");
-    await ydv.contracts.st.methods.mint(user, util.TOKEN_1000).send({from:deployer});
-    await ydv.contracts.st.methods.mint(user2, util.TOKEN_100).send({from:deployer});
-    await ydv.contracts.st.methods.mint(user2, util.TOKEN_100).send({from:deployer});
+    await mint("st", user, mintAmount, deployer);
+    await mint("st", user2, depositAmount, deployer);
+    await mint("st", user2, depositAmount, deployer);
+    await mint("st", user2, interestAmount, deployer);
   });
 
   describe('Sample Vault', () => {
     test('sample vault setup', async () => {
-      expect(await ydv.contracts.sv.methods.name().call()).toBe('sample vault sample token');
-      expect(await ydv.contracts.sv.methods.symbol().call()).toBe('svSTKN');
-      expect(await ydv.contracts.sv.methods.balanceOf(user).call()).toBe("0");
-      expect(await ydv.contracts.st.methods.balanceOf(user).call()).toBe(util.TOKEN_1000);
+      expect(await call("sv", "name")).toBe('sample vault sample token');
+      expect(await call("sv", "symbol")).toBe('svSTKN');
+      expect(await balanceOf("sv", user)).toBe("0");
+      expect(await balanceOf("st", user)).toBe(mintAmount);
     });
 
     test("deposit sample token", async () => {
-      // deposit to sv
-      await ydv.contracts.st.methods.approve(ydv.contracts.sv.options.address, util.TOKEN_100).send({from: user2});
-      await ydv.contracts.sv.methods.deposit(
-        util.TOKEN_100
-      ).send({
-        from: user2,
-        gas: 12500000
-      });
+      await deposit("sv", "st", depositAmount, user2);
 
-      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-      expect(await ydv.contracts.sv.methods.balance().call()).toBe(util.TOKEN_100);
+      expect(await balanceOf("sv", user2)).toBe(depositAmount);
+      expect(await call("sv", "balance")).toBe(depositAmount);
     });
 
     test("deposit sample token and simulate interest", async () => {
-      // deposit to sv
-      await ydv.contracts.st.methods.approve(ydv.contracts.sv.options.address, util.TOKEN_100).send({from: user2});
-      await ydv.contracts.sv.methods.deposit(
-        util.TOKEN_100
-      ).send({
-        from: user2,
-        gas: 12500000
-      });
-
-      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-      expect(await ydv.contracts.sv.methods.balance().call()).toBe(util.TOKEN_100);
+      await deposit("sv", "st", depositAmount, user2);
 
       // simulate earning in sv
-      await ydv.contracts.st.methods.mint(ydv.contracts.sv.options.address, util.TOKEN_10).send({from: deployer});
-      expect(await ydv.contracts.sv.methods.balance().call()).toBe(plus(util.TOKEN_100, util.TOKEN_10));
+      await mint("st", ydv.contracts.sv.options.address, interestAmount, deployer);
+      expect(await call("sv", "balance")).toBe(plus(depositAmount, interestAmount));
 
-      // deposit to sv
-      await ydv.contracts.st.methods.approve(ydv.contracts.sv.options.address, util.TOKEN_100).send({from: user2});
-      await ydv.contracts.sv.methods.deposit(
-        util.TOKEN_100
-      ).send({
-        from: user2,
-        gas: 12500000
-      });
+      await deposit("sv", "st", depositAmount, user2);
       
-      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe("190909090909090909090");
+      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe("19803921568627450980392");
     });
 
     test("withdraw sample token", async () => {
-      // deposit to sv
-      await ydv.contracts.st.methods.approve(ydv.contracts.sv.options.address, util.TOKEN_100).send({from: user2});
-      await ydv.contracts.sv.methods.deposit(
-        util.TOKEN_100
-      ).send({
-        from: user2,
-        gas: 12500000
-      });
-
-      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-      expect(await ydv.contracts.sv.methods.balance().call()).toBe(util.TOKEN_100);
+      await deposit("sv", "st", depositAmount, user2);
       
-      let _before = await ydv.contracts.st.methods.balanceOf(user2).call();
+      let _before = await balanceOf("st", user2);
 
-      // withdraw from sv
-      await ydv.contracts.sv.methods.withdraw(
-        util.TOKEN_100
-      ).send({
-        from: user2,
-        gas: 12500000
-      });
+      await withdraw("sv", depositAmount, user2);
 
-      let _after = await ydv.contracts.st.methods.balanceOf(user2).call();
-      expect(minus(_after, _before)).toBe(util.TOKEN_100);
+      let _after = await balanceOf("st", user2);
+      expect(minus(_after, _before)).toBe(depositAmount);
 
-      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe(util.TOKEN_0);
-      expect(await ydv.contracts.sv.methods.balance().call()).toBe(util.TOKEN_0);
+      expect(await balanceOf("sv", user2)).toBe("0");
+      expect(await call("sv", "balance")).toBe("0");
     });
 
     test("with sample token after yield", async () => {
-      // deposit to sv
-      await ydv.contracts.st.methods.approve(ydv.contracts.sv.options.address, util.TOKEN_100).send({from: user2});
-      await ydv.contracts.sv.methods.deposit(
-        util.TOKEN_100
-      ).send({
-        from: user2,
-        gas: 12500000
-      });
-
-      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-      expect(await ydv.contracts.sv.methods.balance().call()).toBe(util.TOKEN_100);
+      await deposit("sv", "st", depositAmount, user2);
 
       // simulate earning in sv
-      await ydv.contracts.st.methods.mint(ydv.contracts.sv.options.address, util.TOKEN_10).send({from: deployer});
-      expect(await ydv.contracts.sv.methods.balance().call()).toBe(plus(util.TOKEN_100, util.TOKEN_10));
+      await mint("st", ydv.contracts.sv.options.address, interestAmount, deployer);
+      expect(await call("sv", "balance")).toBe(plus(depositAmount, interestAmount));
 
-      // deposit to sv
-      await ydv.contracts.st.methods.approve(ydv.contracts.sv.options.address, util.TOKEN_100).send({from: user2});
-      await ydv.contracts.sv.methods.deposit(
-        util.TOKEN_100
-      ).send({
-        from: user2,
-        gas: 12500000
-      });
+      await deposit("sv", "st", depositAmount, user2);
       
-      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe("190909090909090909090");
+      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe("19803921568627450980392");
 
       let _before = await ydv.contracts.st.methods.balanceOf(user2).call();
 
-      // withdraw from sv
-      await ydv.contracts.sv.methods.withdrawAll(
-      ).send({
-        from: user2,
-        gas: 12500000
-      });
+      await withdraw("sv", depositAmount, user2);
 
       let _after = await ydv.contracts.st.methods.balanceOf(user2).call();
-      expect(minus(_after, _before)).toBe(plus(util.TOKEN_100, plus(util.TOKEN_100, util.TOKEN_10)));
+      expect(minus(_after, _before)).toBe("10200000000000000000000");
     });
   });
 })
