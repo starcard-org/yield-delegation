@@ -1,25 +1,44 @@
 import React from 'react';
-import {TopBar} from './components';
+import {Header, Footer} from './components';
 import ThemeProvider from './theme';
 import styled from 'styled-components';
 import ModalsProvider from './context/Modals';
 import {DrizzleProvider} from './context/DrizzleContext';
 import {DarkModeProvider} from './context/DarkModeContext';
 import {UseWalletProvider} from 'use-wallet';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Home from './pages/Home';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
+import Vaults from './pages/Vaults';
+import Pools from './pages/Pools';
+import Faq from './pages/Faq';
+
+import './i18n';
 
 const Container = styled.div`
-  background-color: ${({theme}) => theme.primary1};
+  display: flex;
+  flex-direction: column;
+  background-color: ${({theme}) => theme.bg1};
   height: 100%;
   width: 100%;
+  color: ${({theme}) => theme.text1};
+`;
+
+const Grow = styled.div`
+  display: flex;
+  flex: 1 0 auto;
+  min-height: 100vh;
+  background-color: #000000;
+`;
+
+const Shrink = styled.div`
+  display: flex;
+  flex: 0 1 auto;
 `;
 
 const Providers = ({children}) => (
   <DarkModeProvider>
     <ThemeProvider>
       <UseWalletProvider
-        chainId={1337}
+        chainId={1001}
         connectors={{
           walletconnect: {
             rpcUrl: 'https://mainnet.eth.aragon.network/',
@@ -39,12 +58,20 @@ function App() {
     <Providers>
       <Container>
         <Router>
-          <TopBar />
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/farms"></Route>
-            <Route path="/faq"> </Route>
-          </Switch>
+          <Shrink>
+            <Header />
+          </Shrink>
+          <Grow>
+            <Switch>
+              <Route path="/vaults" exact component={Vaults} />
+              <Route path="/liquidity" exact component={Pools} />
+              <Route path="/faq" exact component={Faq} />
+              <Redirect from="/" to="/vaults" />
+            </Switch>
+          </Grow>
+          <Shrink>
+            <Footer />
+          </Shrink>
         </Router>
       </Container>
     </Providers>

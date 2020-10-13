@@ -1,0 +1,169 @@
+/* @import must be at top of file, otherwise CSS will not work */
+@import url('//hello.myfonts.net/count/3be8d7');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+@font-face {
+  font-family: 'SofiaPro-Medium';
+  src: url('webFonts/SofiaPro-Medium/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-Medium/font.woff') format('woff');
+}
+@font-face {
+  font-family: 'SofiaPro-Regular';
+  src: url('webFonts/SofiaPro-Regular/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-Regular/font.woff') format('woff');
+}
+@font-face {
+  font-family: 'SofiaPro-Light';
+  src: url('webFonts/SofiaPro-Light/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-Light/font.woff') format('woff');
+}
+@font-face {
+  font-family: 'SofiaPro-Bold';
+  src: url('webFonts/SofiaPro-Bold/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-Bold/font.woff') format('woff');
+}
+@font-face {
+  font-family: 'SofiaPro-UltraLight';
+  src: url('webFonts/SofiaPro-UltraLight/font.woff2') format('woff2'),
+    url('webFonts/SofiaPro-UltraLight/font.woff') format('woff');
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  font-family: 'SofiaPro-Regular';
+}
+
+body {
+  margin: 0;
+  font-family: SofiaPro-Light;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  line-height: 1.4;
+}
+
+.wrapper {
+  width: 600px;
+  margin: 0 auto;
+}
+
+.accordion-wrapper {
+  & + * {
+    margin-top: 0.5em;
+  }
+}
+
+.accordion-item {
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+  height: auto;
+  max-height: 9999px;
+}
+
+.accordion-item.collapsed {
+  max-height: 0;
+  transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+}
+
+.accordion-top {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 1em;
+  border-radius: 17px;
+  transition: border-bottom-right-radius 1s, border-bottom-left-radius 1s;
+}
+
+.accordion-top-icon {
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid currentColor;
+  }
+
+  &.open {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    transition: border-bottom-right-radius 0.5s, border-bottom-left-radius 0.5s;
+
+    &::after {
+      content: '';
+      border-top: 0;
+      border-bottom: 5px solid;
+    }
+  }
+}
+
+.accordion-content {
+  padding: 1em 1.5em;
+}
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #ffffff;
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}

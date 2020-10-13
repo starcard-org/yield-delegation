@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Rally_Logo" width="82.52" height="26.518" viewBox="0 0 82.52 26.518">
+    <defs>
+        <style>
+            .cls-1{fill:#fff}
+        </style>
+    </defs>
+    <g id="Layer_1">
+        <path id="Path_1014" d="M96.123 19a4.56 4.56 0 0 0-3.833 2.339h-.06v-2h-2.95v13.334h3.642v-6.586c0-2.209 1.28-3.772 3.034-3.772a3.579 3.579 0 0 1 2 .571v-3.552A5.069 5.069 0 0 0 96.123 19z" class="cls-1" transform="translate(-59.448 -12.651)"/>
+        <path id="Path_1015" d="M128.936 19.334v1.5A6.132 6.132 0 0 0 124.529 19c-3.789 0-6.449 2.94-6.449 7s2.673 7 6.449 7a6.135 6.135 0 0 0 4.407-1.831v1.5h2.951V19.334zm-.481 6.867a3.424 3.424 0 1 1-6.833-.184 3.425 3.425 0 1 1 6.833-.2z" class="cls-1" transform="translate(-78.625 -12.651)"/>
+        <path id="Path_1016" d="M188.18 2.1v17.92h3.646V0z" class="cls-1" transform="translate(-125.301)"/>
+        <path id="Path_1017" d="M168.24 2.1v17.92h3.642V0z" class="cls-1" transform="translate(-112.024)"/>
+        <path id="Path_1018" d="M208.849 36.654h3.6l1.407-3.719 5.186-12.9h-3.809l-3.194 9.256-3.2-9.256h-3.809l5.356 13.182z" class="cls-1" transform="translate(-136.521 -13.337)"/>
+        <path id="Path_1019" fill="#941b1f" d="M11.474 39.761L0 33.139V19.89l11.474 6.61z" transform="translate(0 -13.244)"/>
+        <path id="Path_1020" fill="#d10714" d="M34.34 39.761l11.474-6.623V19.89L34.34 26.5z" transform="translate(-22.866 -13.244)"/>
+        <path id="Path_1021" fill="#ff4500" d="M11.474 13.349l11.475-6.61L11.488.14 0 6.739z" transform="translate(0 -.093)"/>
+        <path id="Path_1022" d="M26.684 17.6L19 13.16l-7.66 4.421v8.845l3.816 2.2v-8.84L19 17.567l3.869 2.239z" class="cls-1" transform="translate(-7.551 -8.763)"/>
+        <path id="Path_1023" fill="#b3b3b3" d="M11.36 26.42v8.835l3.816 2.2v-8.836z" transform="translate(-7.564 -17.592)"/>
+    </g>
+</svg>

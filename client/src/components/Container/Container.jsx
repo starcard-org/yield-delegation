@@ -1,28 +1,32 @@
-import React, { useContext } from "react";
-import styled, { ThemeContext } from "styled-components";
+import React, {useContext} from 'react';
+import styled, {ThemeContext} from 'styled-components';
 
-const Container = ({ children, size = "md" }) => {
-  const { siteWidth } = useContext(ThemeContext);
+const Container = ({className, children, size = 'md'}) => {
+  const {siteWidth} = useContext(ThemeContext);
   let width;
   switch (size) {
-    case "sm":
+    case 'sm':
       width = siteWidth / 2;
       break;
-    case "md":
+    case 'md':
       width = (siteWidth * 2) / 3;
       break;
-    case "lg":
+    case 'lg':
     default:
       width = siteWidth;
   }
-  return <StyledContainer width={width}>{children}</StyledContainer>;
+  return (
+    <StyledContainer className={className} width={width}>
+      {children}
+    </StyledContainer>
+  );
 };
 
 const StyledContainer = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
-  max-width: ${(props) => props.width}px;
-  padding: 0 ${({ theme }) => theme.spacing[4]}px;
+  max-width: ${props => props.width}px;
+  padding: ${({theme}) => theme.spacing[4]}px;
   width: 100%;
 `;
 
