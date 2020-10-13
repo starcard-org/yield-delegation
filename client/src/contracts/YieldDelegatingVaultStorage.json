@@ -1,0 +1,1112 @@
+{
+  "contractName": "YieldDelegatingVaultStorage",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "accRallyPerShare",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "controller",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "delegatePercent",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "globalDepositCap",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "individualDepositCap",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "rally",
+      "outputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "rewardDebt",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "rewardPerToken",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "token",
+      "outputs": [
+        {
+          "internalType": "contract IERC20",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalDeposits",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "treasury",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "vault",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.12+commit.27d51765\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"accRallyPerShare\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"controller\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"delegatePercent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"globalDepositCap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"individualDepositCap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rally\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"rewardDebt\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rewardPerToken\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"token\",\"outputs\":[{\"internalType\":\"contract IERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalDeposits\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"treasury\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"vault\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/YieldDelegatingVaultStorage.sol\":\"YieldDelegatingVaultStorage\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/aclement/Documents/Rally/yield-delegation/contracts/YDVRewardsDistributor.sol\":{\"keccak256\":\"0xd60b85a35859118a0d73b0d2e125b10360d85f58bb1b06a051f691a05bd187d5\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://96f6b3dcc75965d88f011ddef10228bd57806bf53932dde88ff706b076ac6162\",\"dweb:/ipfs/QmYMaPWsUhKtb896Z1kPjQfKGNb1jPz9mUCvAswShN7eXi\"]},\"/Users/aclement/Documents/Rally/yield-delegation/contracts/YieldDelegatingVaultStorage.sol\":{\"keccak256\":\"0x3371ce0b8d9c1fd29c63e45fe5a957037baac65f7c5547fd6daaf6cc2de1b60e\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://198334b676f5866f61dc4fe285ce40bfbbf5e8ce753263b22f7224e614fc8862\",\"dweb:/ipfs/Qmf7kXLv5QJ8vout8LEL3vu6bpKqX9RVXjNLpqV2Dye3HB\"]},\"@openzeppelin/contracts/GSN/Context.sol\":{\"keccak256\":\"0xdb26cbf4d028490f49831a7865c2fe1b28db44b535ca8d343785a3b768aae183\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://840b14ce0315c47d49ba328f1f9fa7654ded1c9e1559e6c5e777a7b2dc28bf0a\",\"dweb:/ipfs/QmTLLabn4wcfGro9LEmUXUN2nwKqZSotXMvjDCLXEnLtZP\"]},\"@openzeppelin/contracts/access/AccessControl.sol\":{\"keccak256\":\"0x92f7900d382761c7faefeaced81c6b4f1aae909ed0551803bfe8f27101956360\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://407c0864143968542e5cf5aa7556916d2cf292b201e3dadb65662e9a3aa24187\",\"dweb:/ipfs/QmSnXzYAUaGLGr7uofRbgQraTJvatbjQLBPhyYiMd18oUJ\"]},\"@openzeppelin/contracts/access/Ownable.sol\":{\"keccak256\":\"0x4bd6402ca6b3419008c2b482aff54e66836e8cb4eba2680e42ac5884ae6424fc\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8f9f711fb8d0d92aeea1c327e3845d13ca1fa8f142e47f8723cd5b3106fb29a3\",\"dweb:/ipfs/QmVQUReDW9f4zGqhizwHnyU8EntMs95tbASdqkGncnikba\"]},\"@openzeppelin/contracts/math/SafeMath.sol\":{\"keccak256\":\"0x9a9cf02622cd7a64261b10534fc3260449da25c98c9e96d1b4ae8110a20e5806\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://2df142592d1dc267d9549049ee3317fa190d2f87eaa565f86ab05ec83f7ab8f5\",\"dweb:/ipfs/QmSkJtcfWo7c42KnL5hho6GFxK6HRNV91XABx1P7xDtfLV\"]},\"@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x5c26b39d26f7ed489e555d955dcd3e01872972e71fdd1528e93ec164e4f23385\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://efdc632af6960cf865dbc113665ea1f5b90eab75cc40ec062b2f6ae6da582017\",\"dweb:/ipfs/QmfAZFDuG62vxmAN9DnXApv7e7PMzPqi4RkqqZHLMSQiY5\"]},\"@openzeppelin/contracts/token/ERC20/SafeERC20.sol\":{\"keccak256\":\"0xf3b30f8a49631420635a8c35daacfcaa338012755f18a76fdd118730256f9a27\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0d7de652204c2ee291a61aa984103dfc7ae4392d651fbbc44a0079caee7c69a3\",\"dweb:/ipfs/Qmcw1cQnq9eWDnrCBwU3TNyqLfTMUFg5YKpYUkELoMPuUE\"]},\"@openzeppelin/contracts/utils/Address.sol\":{\"keccak256\":\"0xf5fa8cbdffa5ef8be49b246b5628facc30b71707e78a45d80d93b64eff3fe390\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://774e78a9ff32792cc95db4d2ceaf3a7965bb7f0bea5e6cb7cff182b450d44b37\",\"dweb:/ipfs/QmRRMC4uj7eAcLW7chynA3sNEYULMFazdLwQHKHQPyzAbA\"]},\"@openzeppelin/contracts/utils/EnumerableSet.sol\":{\"keccak256\":\"0xb2a11b236f073662f5a196995863f51c11d006bf7c3de158b316dfa1506c4b79\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8651649cf0b9efa18c3b01c030276fa320d41adbdc286833417e7f36e357b2f3\",\"dweb:/ipfs/QmafhM2Nd1aP43QVB1eRRZaqRXQKswNfQcWi8U8xjrxCfN\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061021b806100206000396000f3fe608060405234801561001057600080fd5b50600436106100b35760003560e01c8063bdeb560211610071578063bdeb560214610134578063cbb58bf71461013c578063cd3daf9d14610144578063f77c47911461014c578063fbfa77cf14610154578063fc0c546a1461015c576100b3565b806230bffe146100b85780635873eb9b146100dc57806361d027b3146101145780636b4965091461011c5780637d882097146101245780637fd347971461012c575b600080fd5b6100c0610164565b604080516001600160a01b039092168252519081900360200190f35b610102600480360360208110156100f257600080fd5b50356001600160a01b0316610173565b60408051918252519081900360200190f35b6100c0610185565b610102610194565b61010261019a565b6101026101a0565b6101026101a6565b6101026101ac565b6101026101b2565b6100c06101b8565b6100c06101c7565b6100c06101d6565b6003546001600160a01b031681565b60096020526000908152604090205481565b6004546001600160a01b031681565b60065481565b600a5481565b60075481565b600c5481565b60085481565b600b5481565b6000546001600160a01b031681565b6001546001600160a01b031681565b6005546001600160a01b03168156fea2646970667358221220d7213054d1fa809b23951fe39135cc288cf1cdbe98327b321985fa65c0446edf64736f6c634300060c0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100b35760003560e01c8063bdeb560211610071578063bdeb560214610134578063cbb58bf71461013c578063cd3daf9d14610144578063f77c47911461014c578063fbfa77cf14610154578063fc0c546a1461015c576100b3565b806230bffe146100b85780635873eb9b146100dc57806361d027b3146101145780636b4965091461011c5780637d882097146101245780637fd347971461012c575b600080fd5b6100c0610164565b604080516001600160a01b039092168252519081900360200190f35b610102600480360360208110156100f257600080fd5b50356001600160a01b0316610173565b60408051918252519081900360200190f35b6100c0610185565b610102610194565b61010261019a565b6101026101a0565b6101026101a6565b6101026101ac565b6101026101b2565b6100c06101b8565b6100c06101c7565b6100c06101d6565b6003546001600160a01b031681565b60096020526000908152604090205481565b6004546001600160a01b031681565b60065481565b600a5481565b60075481565b600c5481565b60085481565b600b5481565b6000546001600160a01b031681565b6001546001600160a01b031681565b6005546001600160a01b03168156fea2646970667358221220d7213054d1fa809b23951fe39135cc288cf1cdbe98327b321985fa65c0446edf64736f6c634300060c0033",
+  "immutableReferences": {},
+  "sourceMap": "153:488:5:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "153:488:5:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;288:19;;;:::i;:::-;;;;-1:-1:-1;;;;;288:19:5;;;;;;;;;;;;;;486:45;;;;;;;;;;;;;;;;-1:-1:-1;486:45:5;-1:-1:-1;;;;;486:45:5;;:::i;:::-;;;;;;;;;;;;;;;;313:23;;;:::i;367:30::-;;;:::i;537:28::-;;;:::i;403:31::-;;;:::i;607:::-;;;:::i;440:35::-;;;:::i;572:29::-;;;:::i;196:25::-;;;:::i;227:20::-;;;:::i;342:19::-;;;:::i;288:::-;;;-1:-1:-1;;;;;288:19:5;;:::o;486:45::-;;;;;;;;;;;;;:::o;313:23::-;;;-1:-1:-1;;;;;313:23:5;;:::o;367:30::-;;;;:::o;537:28::-;;;;:::o;403:31::-;;;;:::o;607:::-;;;;:::o;440:35::-;;;;:::o;572:29::-;;;;:::o;196:25::-;;;-1:-1:-1;;;;;196:25:5;;:::o;227:20::-;;;-1:-1:-1;;;;;227:20:5;;:::o;342:19::-;;;-1:-1:-1;;;;;342:19:5;;:::o",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.6.2;\n\nimport \"@openzeppelin/contracts/token/ERC20/IERC20.sol\";\nimport \"./YDVRewardsDistributor.sol\";\n\ncontract YieldDelegatingVaultStorage {\n    address public controller;\n    address public vault;\n    YDVRewardsDistributor rewards;\n    IERC20 public rally;\n    address public treasury;\n    IERC20 public token;\n    uint256 public delegatePercent;\n    uint256 public globalDepositCap;\n    uint256 public individualDepositCap;\n    \n    mapping(address => uint256) public rewardDebt;\n    uint256 public totalDeposits;\n\n    uint256 public rewardPerToken;\n    uint256 public accRallyPerShare;\n}\n",
+  "sourcePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YieldDelegatingVaultStorage.sol",
+  "ast": {
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YieldDelegatingVaultStorage.sol",
+    "exportedSymbols": {
+      "YieldDelegatingVaultStorage": [1299]
+    },
+    "id": 1300,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1268,
+        "literals": ["solidity", "^", "0.6", ".2"],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:5"
+      },
+      {
+        "absolutePath": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "file": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "id": 1269,
+        "nodeType": "ImportDirective",
+        "scope": 1300,
+        "sourceUnit": 3778,
+        "src": "57:56:5",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YDVRewardsDistributor.sol",
+        "file": "./YDVRewardsDistributor.sol",
+        "id": 1270,
+        "nodeType": "ImportDirective",
+        "scope": 1300,
+        "sourceUnit": 212,
+        "src": "114:37:5",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1299,
+        "linearizedBaseContracts": [1299],
+        "name": "YieldDelegatingVaultStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "functionSelector": "f77c4791",
+            "id": 1272,
+            "mutability": "mutable",
+            "name": "controller",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "196:25:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1271,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "196:7:5",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "fbfa77cf",
+            "id": 1274,
+            "mutability": "mutable",
+            "name": "vault",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "227:20:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1273,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "227:7:5",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1276,
+            "mutability": "mutable",
+            "name": "rewards",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "253:29:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_YDVRewardsDistributor_$211",
+              "typeString": "contract YDVRewardsDistributor"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1275,
+              "name": "YDVRewardsDistributor",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 211,
+              "src": "253:21:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_YDVRewardsDistributor_$211",
+                "typeString": "contract YDVRewardsDistributor"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "functionSelector": "0030bffe",
+            "id": 1278,
+            "mutability": "mutable",
+            "name": "rally",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "288:19:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_IERC20_$3777",
+              "typeString": "contract IERC20"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1277,
+              "name": "IERC20",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 3777,
+              "src": "288:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IERC20_$3777",
+                "typeString": "contract IERC20"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "61d027b3",
+            "id": 1280,
+            "mutability": "mutable",
+            "name": "treasury",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "313:23:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1279,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "313:7:5",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "fc0c546a",
+            "id": 1282,
+            "mutability": "mutable",
+            "name": "token",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "342:19:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_IERC20_$3777",
+              "typeString": "contract IERC20"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1281,
+              "name": "IERC20",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 3777,
+              "src": "342:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IERC20_$3777",
+                "typeString": "contract IERC20"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "6b496509",
+            "id": 1284,
+            "mutability": "mutable",
+            "name": "delegatePercent",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "367:30:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1283,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "367:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "7fd34797",
+            "id": 1286,
+            "mutability": "mutable",
+            "name": "globalDepositCap",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "403:31:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1285,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "403:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "cbb58bf7",
+            "id": 1288,
+            "mutability": "mutable",
+            "name": "individualDepositCap",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "440:35:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1287,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "440:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "5873eb9b",
+            "id": 1292,
+            "mutability": "mutable",
+            "name": "rewardDebt",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "486:45:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+              "typeString": "mapping(address => uint256)"
+            },
+            "typeName": {
+              "id": 1291,
+              "keyType": {
+                "id": 1289,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "494:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "486:27:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                "typeString": "mapping(address => uint256)"
+              },
+              "valueType": {
+                "id": 1290,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "505:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "7d882097",
+            "id": 1294,
+            "mutability": "mutable",
+            "name": "totalDeposits",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "537:28:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1293,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "537:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "cd3daf9d",
+            "id": 1296,
+            "mutability": "mutable",
+            "name": "rewardPerToken",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "572:29:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1295,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "572:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "bdeb5602",
+            "id": 1298,
+            "mutability": "mutable",
+            "name": "accRallyPerShare",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "607:31:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1297,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "607:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1300,
+        "src": "153:488:5"
+      }
+    ],
+    "src": "32:610:5"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YieldDelegatingVaultStorage.sol",
+    "exportedSymbols": {
+      "YieldDelegatingVaultStorage": [1299]
+    },
+    "id": 1300,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1268,
+        "literals": ["solidity", "^", "0.6", ".2"],
+        "nodeType": "PragmaDirective",
+        "src": "32:23:5"
+      },
+      {
+        "absolutePath": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "file": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "id": 1269,
+        "nodeType": "ImportDirective",
+        "scope": 1300,
+        "sourceUnit": 3778,
+        "src": "57:56:5",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/Users/aclement/Documents/Rally/yield-delegation/contracts/YDVRewardsDistributor.sol",
+        "file": "./YDVRewardsDistributor.sol",
+        "id": 1270,
+        "nodeType": "ImportDirective",
+        "scope": 1300,
+        "sourceUnit": 212,
+        "src": "114:37:5",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 1299,
+        "linearizedBaseContracts": [1299],
+        "name": "YieldDelegatingVaultStorage",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "functionSelector": "f77c4791",
+            "id": 1272,
+            "mutability": "mutable",
+            "name": "controller",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "196:25:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1271,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "196:7:5",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "fbfa77cf",
+            "id": 1274,
+            "mutability": "mutable",
+            "name": "vault",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "227:20:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1273,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "227:7:5",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 1276,
+            "mutability": "mutable",
+            "name": "rewards",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "253:29:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_YDVRewardsDistributor_$211",
+              "typeString": "contract YDVRewardsDistributor"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1275,
+              "name": "YDVRewardsDistributor",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 211,
+              "src": "253:21:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_YDVRewardsDistributor_$211",
+                "typeString": "contract YDVRewardsDistributor"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "functionSelector": "0030bffe",
+            "id": 1278,
+            "mutability": "mutable",
+            "name": "rally",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "288:19:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_IERC20_$3777",
+              "typeString": "contract IERC20"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1277,
+              "name": "IERC20",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 3777,
+              "src": "288:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IERC20_$3777",
+                "typeString": "contract IERC20"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "61d027b3",
+            "id": 1280,
+            "mutability": "mutable",
+            "name": "treasury",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "313:23:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 1279,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "313:7:5",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "fc0c546a",
+            "id": 1282,
+            "mutability": "mutable",
+            "name": "token",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "342:19:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_IERC20_$3777",
+              "typeString": "contract IERC20"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 1281,
+              "name": "IERC20",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 3777,
+              "src": "342:6:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_IERC20_$3777",
+                "typeString": "contract IERC20"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "6b496509",
+            "id": 1284,
+            "mutability": "mutable",
+            "name": "delegatePercent",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "367:30:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1283,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "367:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "7fd34797",
+            "id": 1286,
+            "mutability": "mutable",
+            "name": "globalDepositCap",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "403:31:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1285,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "403:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "cbb58bf7",
+            "id": 1288,
+            "mutability": "mutable",
+            "name": "individualDepositCap",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "440:35:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1287,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "440:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "5873eb9b",
+            "id": 1292,
+            "mutability": "mutable",
+            "name": "rewardDebt",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "486:45:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+              "typeString": "mapping(address => uint256)"
+            },
+            "typeName": {
+              "id": 1291,
+              "keyType": {
+                "id": 1289,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "494:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "486:27:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                "typeString": "mapping(address => uint256)"
+              },
+              "valueType": {
+                "id": 1290,
+                "name": "uint256",
+                "nodeType": "ElementaryTypeName",
+                "src": "505:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "7d882097",
+            "id": 1294,
+            "mutability": "mutable",
+            "name": "totalDeposits",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "537:28:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1293,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "537:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "cd3daf9d",
+            "id": 1296,
+            "mutability": "mutable",
+            "name": "rewardPerToken",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "572:29:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1295,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "572:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "functionSelector": "bdeb5602",
+            "id": 1298,
+            "mutability": "mutable",
+            "name": "accRallyPerShare",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 1299,
+            "src": "607:31:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 1297,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "607:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1300,
+        "src": "153:488:5"
+      }
+    ],
+    "src": "32:610:5"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.12+commit.27d51765.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.2.3",
+  "updatedAt": "2020-10-06T13:09:07.289Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}

@@ -1,40 +1,8 @@
-import React, { useContext, useMemo } from "react";
-import styled, { ThemeContext } from "styled-components";
-import { Link } from "react-router-dom";
+import React, {useMemo} from 'react';
+import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
-const Button = ({
-  className,
-  children,
-  disabled,
-  href,
-  onClick,
-  size,
-  text,
-  to,
-}) => {
-  const { spacing } = useContext(ThemeContext);
-  let boxShadow;
-  let buttonSize;
-  let buttonPadding;
-  let fontSize;
-  switch (size) {
-    case "sm":
-      buttonPadding = spacing[3];
-      buttonSize = 36;
-      fontSize = 14;
-      break;
-    case "lg":
-      buttonPadding = spacing[4];
-      buttonSize = 72;
-      fontSize = 16;
-      break;
-    case "md":
-    default:
-      buttonPadding = spacing[4];
-      buttonSize = 56;
-      fontSize = 16;
-  }
-
+const Button = ({className, children, href, onClick, text, to, outline = true}) => {
   const ButtonChild = useMemo(() => {
     if (to) {
       return <StyledLink to={to}>{text}</StyledLink>;
@@ -50,14 +18,7 @@ const Button = ({
   }, [href, text, to]);
 
   return (
-    <StyledButton
-      className={className}
-      disabled={disabled}
-      fontSize={fontSize}
-      onClick={onClick}
-      padding={buttonPadding}
-      size={buttonSize}
-    >
+    <StyledButton className={className} onClick={onClick} outline={outline}>
       {ButtonChild}
       {children}
     </StyledButton>
@@ -65,26 +26,32 @@ const Button = ({
 };
 
 const StyledButton = styled.button`
-  align-items: center;
-  background-color: ${({ theme }) => theme.red2};
-  border: 0;
-  border-radius: 24px;
-  color: ${(props) =>
-    !props.disabled ? props.theme.white : `${props.theme.white}55`};
-  cursor: pointer;
-  display: flex;
-  font-size: ${(props) => props.fontSize}px;
-  font-weight: 700;
-  height: ${(props) => props.size}px;
-  justify-content: center;
-  outline: none;
-  padding-left: ${(props) => props.padding}px;
-  padding-right: ${(props) => props.padding}px;
-  pointer-events: ${(props) => (!props.disabled ? undefined : "none")};
+  position: relative;
   width: 100%;
-  &:hover {
-    background-color: ${({ theme }) => theme.bg5};
-  }
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+
+  ${props =>
+    props.outline
+      ? `
+      border-radius: 20px;
+      height: 40px;
+      border: solid 1px #ffd800;
+      background-color: rgba(0, 0, 0, 0);
+
+      :focus {
+        outline: 0px;
+        border: solid 2px #ffd800;
+      }
+    `
+      : `
+      height: 48px;
+      border-radius: 24px;
+      background-image: linear-gradient(103deg, #f1480b, #ffd800);
+      font-weight: bold;
+      border: 0px;
+    `}
 `;
 
 const StyledLink = styled(Link)`
@@ -94,8 +61,8 @@ const StyledLink = styled(Link)`
   flex: 1;
   height: 56px;
   justify-content: center;
-  margin: 0 ${(props) => -props.theme.spacing[4]}px;
-  padding: 0 ${({ theme }) => theme.spacing[4]}px;
+  margin: 0 ${props => -props.theme.spacing[4]}px;
+  padding: 0 ${({theme}) => theme.spacing[4]}px;
   text-decoration: none;
 `;
 
@@ -106,8 +73,8 @@ const StyledExternalLink = styled.a`
   flex: 1;
   height: 56px;
   justify-content: center;
-  margin: 0 ${(props) => -props.theme.spacing[4]}px;
-  padding: 0 ${({ theme }) => theme.spacing[4]}px;
+  margin: 0 ${props => -props.theme.spacing[4]}px;
+  padding: 0 ${({theme}) => theme.spacing[4]}px;
   text-decoration: none;
 `;
 

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="TwitchB" width="24" height="24" viewBox="0 0 24 24">
+    <defs>
+        <style>
+            .cls-1{fill:none}.cls-2{fill:#fff}
+        </style>
+    </defs>
+    <g id="Group_1699" transform="translate(-153.729 -376.841)">
+        <g id="TwitchGlitchWhite" transform="translate(154.729 376.841)">
+            <path id="Path_1623" d="M0 0h15v10.5l-9.1 7.6L0 13.957z" class="cls-1" transform="translate(4 1)"/>
+            <g id="Layer_1-2">
+                <path id="Path_1221" d="M4.167 0L0 4.286v15.428h5V24l4.167-4.286H12.5L20 12V0zm14.166 11.143L15 14.571h-3.333l-2.917 3v-3H5V1.714h13.333z" class="cls-2"/>
+                <path id="Rectangle_2169" d="M0 0H1.448V4.343H0z" class="cls-2" transform="translate(13.99 4.65)"/>
+                <path id="Rectangle_2170" d="M0 0H1.448V4.343H0z" class="cls-2" transform="translate(9.993 4.65)"/>
+            </g>
+        </g>
+    </g>
+    <path id="Rectangle_2277" d="M0 0H24V24H0z" class="cls-1"/>
+</svg>

@@ -28,37 +28,34 @@ export function colors(darkMode) {
     black,
 
     // text
-    text1: darkMode ? '#FFFFFF' : '#000000',
-    text2: darkMode ? '#C3C5CB' : '#565A69',
-    text3: darkMode ? '#6C7284' : '#9a7c64',
-    text4: darkMode ? '#565A69' : '#C3C5CB',
-    text5: darkMode ? '#2C2F36' : '#e6ddd6',
+    text1: '#FFFFFF',
+    text2: '#fbd903',
 
     // backgrounds / greys
-    bg1: darkMode ? '#212429' : '#FFFFFF',
-    bg2: darkMode ? '#2C2F36' : '#fff7f2',
-    bg3: darkMode ? '#40444F' : '#e6ddd6',
-    bg4: darkMode ? '#565A69' : '#CED0D9',
-    bg5: darkMode ? '#6C7284' : '#9a7c64',
+    bg1: '#000000',
+    bg2: '#2C2F36',
+    bg3: '#40444F',
+    bg4: '#565A69',
+    bg5: '#6C7284',
 
     //specialty colors
-    modalBG: darkMode ? 'rgba(0,0,0,.425)' : 'rgba(0,0,0,0.3)',
-    advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
+    modalBG: 'rgba(0,0,0,.425)',
+    advancedBG: 'rgba(0,0,0,0.1)',
 
     //primary colors
-    primary1: darkMode ? '#2172E5' : '#ffce03',
-    primary2: darkMode ? '#3680E7' : '#ffd62a',
-    primary3: darkMode ? '#4D8FEA' : '#ffdd51',
-    primary4: darkMode ? '#376bad70' : '#ffe579',
-    primary5: darkMode ? '#153d6f70' : '#ffeda0',
+    primary1: '#2172E5',
+    primary2: '#3680E7',
+    primary3: '#4D8FEA',
+    primary4: '#376bad70',
+    primary5: '#153d6f70',
 
     // color text
-    primaryText1: darkMode ? '#6da8ff' : '#805e49',
+    link1: '#3b99fc',
 
     // secondary colors
-    secondary1: darkMode ? '#2172E5' : '#805e49',
-    secondary2: darkMode ? '#17000b26' : '#e2d6cf',
-    secondary3: darkMode ? '#17000b26' : '#f0e9e7',
+    secondary1: '#2172E5',
+    secondary2: '#17000b26',
+    secondary3: '#17000b26',
 
     // other
     red1: '#FF6871',
@@ -66,10 +63,6 @@ export function colors(darkMode) {
     green1: '#27AE60',
     yellow1: '#FFE270',
     yellow2: '#F3841E',
-
-    // dont wanna forget these blue yet
-    // blue4: darkMode ? '#153d6f70' : '#C4D9F8',
-    // blue5: darkMode ? '#153d6f70' : '#EBF4FF',
   };
 }
 
@@ -97,7 +90,7 @@ export function theme(darkMode) {
     },
 
     //shadows
-    shadow1: darkMode ? '#000' : '#2F80ED',
+    shadow1: '#2F80ED',
 
     // media queries
     mediaWidth: mediaWidthTemplates,

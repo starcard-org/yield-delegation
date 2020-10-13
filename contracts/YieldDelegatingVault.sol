@@ -127,13 +127,12 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
     function deposityToken(uint256 _yamount) public returns (uint256) {
         transferPendingReward();
 
-        uint256 _pool = balance();
         uint256 _before = IERC20(vault).balanceOf(address(this));
         IERC20(vault).safeTransferFrom(msg.sender, address(this), _yamount);
         uint256 _after = IERC20(vault).balanceOf(address(this));
         _yamount = _after.sub(_before);
 
-        uint _underlyingAmount = _yamount.div(Vault(vault).getPricePerFullShare());
+        uint _underlyingAmount = _yamount.mul(Vault(vault).getPricePerFullShare()).div(1e18);
         totalDeposits = totalDeposits.add(_underlyingAmount);
         
         //translate vault shares into delegating vault shares
@@ -141,7 +140,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         if (totalSupply() == 0) {
             shares = _yamount;
         } else {
-            shares = (_yamount.mul(totalSupply())).div(_pool);
+            shares = (_yamount.mul(totalSupply())).div(_before);
         }
         _mint(msg.sender, shares);
         rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);

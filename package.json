@@ -7,7 +7,12 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "load:dev": "",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:client": "yarn contracts:migrate && yarn contracts:copy && cd client && yarn start",
+    "contracts:migrate": "cp environments/.env.dev .env && dotenv -e .env -- truffle migrate --network development",
+    "contracts:copy": "cp build/contracts/* client/src/contracts",
+    "start:blockchain": "ganache-cli --fork https://mainnet.infura.io/v3/cb4a5ae28e874192b688d73008d7875e --networkId 1001 --gasPrice 0x1 -e 100000000000000000000 --gasLimit 12500000  --mnemonic=\"concert load couple harbor equip island argue ramp clarify fence smart topic\" --max-old-space-size=8192 -u 0x1ec32bfdbdbd40c0d3ec0fe420ebcfeeb2d56917 -u 0x35fA62d1A915a5A1390215e2b85aDE1cB48205c0 -u 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48 -u 0x1152ef352834922ba1b1f8dfc97fbaa041eff4b4 -u 0x1714A5badf44F9Aade2E902eb083b80f6d4129a2 -u 0xaae19c623A3dF62290Ac999D94ac930939B840b3 -u 0x223034EDbe95823c1160C16F26E3000315171cA9 -u 0x778476d4c51f93078d61e51c978f90b4a6e500af -u 0x649455d5e4eefdF9381E6Af090A13b4105AbfA06 -u 0x7Bb53A7c80652963fA6e613DCF97A58335cdc466 -u 0xdd5BF2495556d79b8c9c5c226c4B95f957BE84bd -u 0x98Ba17C7d27beE73A2f4DcF6581CdF4D67911339"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +30,7 @@
     "husky": "^4.3.0",
     "jest": "^26.4.2",
     "openzeppelin-test-helpers": "^0.5.1",
-    "truffle-plugin-verify": "^0.4.0"
+    "truffle-plugin-verify": "^0.4.0",
+    "dotenv-cli": "^4.0.0"
   }
 }
