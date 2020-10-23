@@ -18,7 +18,7 @@ module.exports = async function(deployer, network, accounts) {
     let crvbtc_address = '0x7Ff566E1d69DEfF32a7b244aE7276b9f90e9D0f6';
     let weth_address = '0xe1237aA7f535b0CC33Fd973D66cBf830354D16c7';
 
-    let proxied_addresses = [usdc_address, ycrv_address, tusd_address, dai_address, usdt_address, yfi_address, crvbusd_address, crvbtc_address, weth_address];
+    let proxied_addresses = [usdc_address/*, ycrv_address, tusd_address, dai_address, usdt_address, yfi_address, crvbusd_address, crvbtc_address, weth_address*/];
 
     let rewards = new web3.eth.Contract(YDVRewardsDistributor.abi, YDVRewardsDistributor.address);
     
