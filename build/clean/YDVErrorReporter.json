@@ -1,0 +1,1 @@
+{"abi": [{"inputs": [{"indexed": false, "type": "uint256", "name": "error", "internalType": "uint256"}, {"indexed": false, "type": "uint256", "name": "info", "internalType": "uint256"}, {"indexed": false, "type": "uint256", "name": "detail", "internalType": "uint256"}], "type": "event", "name": "Failure", "anonymous": false}], "networks": {}}

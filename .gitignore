@@ -1,2 +1,3 @@
-build/
+build/contracts/
 node_modules/
+.env
