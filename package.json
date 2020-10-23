@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@alch/alchemy-web3": "^0.1.16",
     "@openzeppelin/contracts": "^3.2.0",
     "dotenv-flow": "^3.2.0",
     "ethers": "^5.0.14",
