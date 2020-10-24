@@ -20,7 +20,6 @@ import {
   plus,
   minus,
 } from "../lib/Helpers.js"
-import * as util from "../lib/utils.js"
 
 describe("Sample Vault", () => {
   let snapshotId;
@@ -87,7 +86,7 @@ describe("Sample Vault", () => {
       expect(await call("sv", "balance")).toBe("0");
     });
 
-    test("with sample token after yield", async () => {
+    test("withdraw sample token after yield", async () => {
       await deposit("sv", "st", depositAmount, user2);
 
       // simulate earning in sv
@@ -96,13 +95,18 @@ describe("Sample Vault", () => {
 
       await deposit("sv", "st", depositAmount, user2);
       
-      expect(await ydv.contracts.sv.methods.balanceOf(user2).call()).toBe("19803921568627450980392");
+      expect(await balanceOf("sv", user2)).toBe("19803921568627450980392");
+      let svBalance = await call("sv", "balance");
+      let pricePerFullShare = await call("sv", "getPricePerFullShare");
+      let amount = svBalance.div(1e18).mul(svBalance);
+      console.log("pricePerFullShare", pricePerFullShare)
+      console.log("amount", amount)
 
-      let _before = await ydv.contracts.st.methods.balanceOf(user2).call();
+      let _before = await balanceOf("st", user2).call();
 
       await withdraw("sv", depositAmount, user2);
 
-      let _after = await ydv.contracts.st.methods.balanceOf(user2).call();
+      let _after = await balanceOf("st", user2).call();
       expect(minus(_after, _before)).toBe("10200000000000000000000");
     });
   });

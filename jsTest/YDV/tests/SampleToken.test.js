@@ -31,7 +31,6 @@ describe("Reward Token", () => {
 
   describe('Sample Token', () => {
     test('sample token setup', async () => {
-      await ydv.testing.resetEVM("0x2");
       expect(await call("st", "name")).toBe('sample token');
       expect(await call("st", "symbol")).toBe('STKN');
       expect(await balanceOf("st", user)).toBe("0");
@@ -39,15 +38,13 @@ describe("Reward Token", () => {
     });
 
     test('other users mint fail', async () => {
-      await ydv.testing.resetEVM("0x2");
       await ydv.testing.expectThrow(send("st", "mint", [user, mintAmount], user), "only minters");
     });
 
     test('admin mint success', async () => {
-      await ydv.testing.resetEVM("0x2");
       expect(await balanceOf("st", user)).toBe("0");
       await send("st", "mint", [user, mintAmount], deployer);
-      await expect(await balanceOf("st", user)).toBe(mintAmount);
+      expect(await balanceOf("st", user)).toBe(mintAmount);
     });
   });
 });

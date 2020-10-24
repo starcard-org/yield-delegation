@@ -68,7 +68,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         emit NewIndividualDepositCap(oldIndividualDepositCap, newIndividualDepositCap);
     }
 
-    function setNewRewardPerToken(uint256 newRewardPerToken) public onlyOwner {
+    function setRewardPerToken(uint256 newRewardPerToken) public onlyOwner {
         uint256 oldRewardPerToken = rewardPerToken;
         rewardPerToken = newRewardPerToken;
 
@@ -87,14 +87,19 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         deposit(token.balanceOf(msg.sender));
     }
 
-    function deposit(uint256 _amount) public returns (uint256) {
-        if(individualDepositCap < balanceOf(address(this)).add(_amount)) {
+    function checkDepositCap(uint256 _amount) public returns(uint256) {
+        if(individualDepositCap < underlyingAmount(balanceOf(msg.sender).mul(balance()).div(totalSupply())).add(_amount)) {
             return fail(Error.BAD_INPUT, FailureInfo.SET_INDIVIDUAL_SOFT_CAP_CHECK);
         }
 
-        if(globalDepositCap < totalSupply().add(_amount)) {
+        if(globalDepositCap < totalDeposits.add(_amount)) {
             return fail(Error.BAD_INPUT, FailureInfo.SET_GLOBAL_SOFT_CAP_CHECK);
         }
+    }
+
+    function deposit(uint256 _amount) public returns (uint256) {
+        uint err = checkDepositCap(_amount);
+        require(err == uint(Error.NO_ERROR), "Check deposit cap failed");
 
         transferPendingReward();
         
@@ -121,10 +126,14 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
             shares = (_new_shares.mul(totalSupply())).div(_pool);
         }
         _mint(msg.sender, shares);
+        emit Mint(msg.sender, shares);
         rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
     }
 
     function deposityToken(uint256 _yamount) public returns (uint256) {
+        uint _underlyingAmount = underlyingAmount(_yamount);
+        require(checkDepositCap(_underlyingAmount) == uint(Error.NO_ERROR), "Check deposit cap failed");
+
         transferPendingReward();
 
         uint256 _before = IERC20(vault).balanceOf(address(this));
@@ -132,7 +141,6 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         uint256 _after = IERC20(vault).balanceOf(address(this));
         _yamount = _after.sub(_before);
 
-        uint _underlyingAmount = _yamount.mul(Vault(vault).getPricePerFullShare()).div(1e18);
         totalDeposits = totalDeposits.add(_underlyingAmount);
         
         //translate vault shares into delegating vault shares
@@ -143,6 +151,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
             shares = (_yamount.mul(totalSupply())).div(_before);
         }
         _mint(msg.sender, shares);
+        emit Mint(msg.sender, shares);
         rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
     }
 
@@ -155,6 +164,7 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
 
         uint256 r = (balance().mul(_shares)).div(totalSupply());
         _burn(msg.sender, _shares);
+        emit Burn(msg.sender, _shares);
         rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
         uint256 _before = token.balanceOf(address(this));
         Vault(vault).withdraw(r);
@@ -179,8 +189,9 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
 
         uint256 r = (balance().mul(_shares)).div(totalSupply());
         _burn(msg.sender, _shares);
+        emit Burn(msg.sender, _shares);
         rewardDebt[msg.sender] = balanceOf(msg.sender).mul(accRallyPerShare).div(1e12);
-        uint256 _amount = r.mul(Vault(vault).getPricePerFullShare()).div(1e18);
+        uint256 _amount = underlyingAmount(r);
 
         safeReduceTotalDeposits(_amount);
 
@@ -199,14 +210,16 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         uint256 rallyBal = rally.balanceOf(address(this));
         if (_amount > rallyBal) {
             rally.transfer(_to, rallyBal);
+            emit DistributeReward(_to, rallyBal);
         } else {
             rally.transfer(_to, _amount);
+            emit DistributeReward(_to, rallyBal);
         }
     }
 
     //how much are our shares of the underlying vault worth relative to the deposit value? returns value denominated in vault tokens
     function availableYield() public view returns (uint256) {
-        uint256 totalValue = balance().mul(Vault(vault).getPricePerFullShare()).div(1e18);
+        uint256 totalValue = underlyingAmount(balance());
         if (totalValue > totalDeposits) {
             uint256 earnings = totalValue.sub(totalDeposits);
             return earnings.mul(1e18).div(Vault(vault).getPricePerFullShare());
@@ -223,10 +236,16 @@ contract YieldDelegatingVault is ERC20, YieldDelegatingVaultStorage, YieldDelega
         if (_availableYield > 0) {
             rallyReward = _availableYield.mul(delegatePercent).div(10000).mul(rewardPerToken).div(1e18);
             rewards.transferReward(rallyReward);
+            emit TransferReward(msg.sender, rallyReward);
             IERC20(vault).safeTransfer(treasury, _availableYield.mul(delegatePercent).div(10000));
+            emit Harvest(treasury, _availableYield.mul(delegatePercent).div(10000));
             accRallyPerShare = accRallyPerShare.add(rallyReward.mul(1e12).div(totalSupply()));
-            totalDeposits = balance().mul(Vault(vault).getPricePerFullShare()).div(1e18);
+            totalDeposits = underlyingAmount(balance());
         }
         return rallyReward;
+    }
+
+    function underlyingAmount(uint256 yVaultShares) public view returns(uint256) {
+        return yVaultShares.mul(Vault(vault).getPricePerFullShare()).div(1e18);
     }
 }

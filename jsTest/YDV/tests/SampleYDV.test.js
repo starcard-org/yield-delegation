@@ -1,230 +1,227 @@
+import BigNumber from 'bignumber.js'
 import {
-  YDV, BigNumber
-} from "../index.js";
-import * as Types from "../lib/types.js";
+  ydv,
+  send,
+  call,
+  balanceOf,
+  mint,
+  deposit,
+  withdraw
+} from "../YDV.js"
+
 import {
-  addressMap
-} from "../lib/constants.js";
-import {
-  decimalToString,
-  stringToDecimal,
+  etherMantissa,
   plus,
   minus,
   times,
-  div
+  div,
 } from "../lib/Helpers.js"
-import * as util from "../lib/utils.js"
 
-
-export const ydv = new YDV(
-  "http://localhost:8545/",
-  "1001",
-  true, {
-    defaultAccount: "",
-    defaultConfirmations: 1,
-    autoGasMultiplier: 1.5,
-    testing: false,
-    defaultGas: "6000000",
-    defaultGasPrice: "1000000000000",
-    accounts: [],
-    ethereumNodeTimeout: 10000
-  }
-)
+const depositAmount = etherMantissa(10e3);
+const interestAmount = etherMantissa(2e2);
+const transferRewardAmount = etherMantissa(1e8);
+const mantissa = etherMantissa(1);
 
 describe('Sample YDV', () => {
-
   let snapshotId;
   let deployer;
   let user;
-  let user2;
+  let yTokenUser;
+  let anotherUser;
   let escrow = process.env.TOKEN_ESCROW;
   let treasury = process.env.TREASURY;
+  let newTreasury;
   
   beforeAll(async () => {
     const accounts = await ydv.web3.eth.getAccounts();
     ydv.addAccount(accounts[0]);
     deployer = accounts[0];
     user = accounts[1];
-    user2 = accounts[2];
+    yTokenUser = accounts[2];
+    newTreasury = accounts[3];
+    anotherUser = accounts[4];
     snapshotId = await ydv.testing.snapshot();
   });
 
   beforeEach(async () => {
     await ydv.testing.resetEVM("0x2");
-    await ydv.contracts.st.methods.mint(user, util.TOKEN_1000).send({from:deployer});
-    await ydv.contracts.st.methods.mint(user2, util.TOKEN_100).send({from:deployer});
-    await ydv.contracts.st.methods.mint(user2, util.TOKEN_100).send({from:deployer});
+    await mint("st", user, depositAmount, deployer);
+    await mint("st", user, depositAmount, deployer);
+    await mint("st", user, depositAmount, deployer);
+    await mint("st", yTokenUser, depositAmount, deployer);
+    await mint("st", yTokenUser, depositAmount, deployer);
+    await mint("st", anotherUser, depositAmount, deployer);
+
+    // send reward tokens from escrow to YDVRewardsDistributor contract
+    await send("rally", "approve", [ydv.contracts.ydv_rd.options.address, transferRewardAmount], escrow);
+    await send("rally", "transfer", [ydv.contracts.ydv_rd.options.address, transferRewardAmount], escrow);
   });
 
   test('sample ydv setup', async () => {
-    expect(await ydv.contracts.ydv.methods.name().call()).toBe('rally delegating sample token');
-    expect(await ydv.contracts.ydv.methods.symbol().call()).toBe('rdSTKN');
-    expect(await ydv.contracts.ydv.methods.balanceOf(user).call()).toBe("0");
+    expect(await call("ydv", "name")).toBe('rally delegating sample token');
+    expect(await call("ydv", "symbol")).toBe('rdSTKN');
+    expect(await balanceOf("rally", user)).toBe("0");
+    expect(await balanceOf("rally", ydv.contracts.ydv_rd.options.address)).toBe(transferRewardAmount);
+  });
+
+  test('sample ydv config params', async () => {
+    let newGlobalDepositCap = etherMantissa(10e9);
+    let newIndividualDepositCap = etherMantissa(10e6);
+    let newRewardPerToken = etherMantissa(7);
+
+    await send("ydv", "setTreasury", [newTreasury], deployer);
+    await send("ydv", "setGlobalDepositCap", [newGlobalDepositCap], deployer);
+    await send("ydv", "setIndividualDepositCap", [newIndividualDepositCap], deployer);
+    await send("ydv", "setRewardPerToken", [newRewardPerToken], deployer);
+
+    expect(await call("ydv", "treasury")).toBe(newTreasury);
+    expect(await call("ydv", "globalDepositCap")).toBe(newGlobalDepositCap);
+    expect(await call("ydv", "individualDepositCap")).toBe(newIndividualDepositCap);
+    expect(await call("ydv", "rewardPerToken")).toBe(newRewardPerToken);
+  });
+
+  test('sample ydv config params failed from other user', async () => {
+    let newGlobalDepositCap = etherMantissa(10e9);
+    let newIndividualDepositCap = etherMantissa(10e6);
+    let newRewardPerToken = etherMantissa(7);
+
+    await ydv.testing.expectThrow(send("ydv", "setTreasury", [newTreasury], user), "Ownable: caller is not the owner");
+    await ydv.testing.expectThrow(send("ydv", "setGlobalDepositCap", [newGlobalDepositCap], user), "Ownable: caller is not the owner");
+    await ydv.testing.expectThrow(send("ydv", "setIndividualDepositCap", [newIndividualDepositCap], user), "Ownable: caller is not the owner");
+    await ydv.testing.expectThrow(send("ydv", "setRewardPerToken", [newRewardPerToken], user), "Ownable: caller is not the owner");
   });
 
   test("deposit sample token", async () => {
-    // deposit to sv
-    await ydv.contracts.st.methods.approve(ydv.contracts.ydv.options.address, util.TOKEN_100).send({from: user2});
-    await ydv.contracts.ydv.methods.deposit(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
+    await deposit("ydv", "st", depositAmount, user);
 
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-    expect(await ydv.contracts.ydv.methods.balance().call()).toBe(util.TOKEN_100);
+    expect(await balanceOf("ydv", user)).toBe(depositAmount);
+    expect(await call("ydv", "balance")).toBe(depositAmount);
+  });
+
+  test("deposit ytoken", async () => {
+    // prepare sample vault
+    await deposit("sv", "st", depositAmount, anotherUser);
+
+    await deposit("sv", "st", depositAmount, yTokenUser);
+    expect(await balanceOf("sv", yTokenUser)).toBe(depositAmount);
+
+    await send("sv", "approve", [user, depositAmount], yTokenUser);
+    await send("sv", "transfer", [user, depositAmount], yTokenUser);
+
+    expect(await balanceOf("sv", user)).toBe(depositAmount);
+    await send("sv", "approve", [ydv.contracts.ydv.options.address, depositAmount], user);
+    await send("ydv", "deposityToken", [depositAmount], user);
+    expect(await balanceOf("ydv", user)).toBe(depositAmount);
   });
 
   test("deposit sample token and simulate interest", async () => {
-    // deposit to sv
-    await ydv.contracts.st.methods.approve(ydv.contracts.ydv.options.address, util.TOKEN_100).send({from: user2});
-    await ydv.contracts.ydv.methods.deposit(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
+    await deposit("ydv", "st", depositAmount, user);
 
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-    expect(await ydv.contracts.ydv.methods.balance().call()).toBe(util.TOKEN_100);
+    // simulate earning in ydv
+    await mint("st", ydv.contracts.sv.options.address, interestAmount, deployer);
 
-    // simulate earning in sv
-    await ydv.contracts.st.methods.mint(ydv.contracts.sv.options.address, util.TOKEN_10).send({from: deployer});
-    //expect(await ydv.contracts.ydv.methods.balance().call()).toBe(plus(util.TOKEN_100, util.TOKEN_10));
-
-    // deposit to sv
-    await ydv.contracts.st.methods.approve(ydv.contracts.ydv.options.address, util.TOKEN_100).send({from: user2});
-    await ydv.contracts.ydv.methods.deposit(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
+    await deposit("ydv", "st", depositAmount, user);
     
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe("190909090909090909090");
+    expect(await balanceOf("ydv", user)).toBe("19803921568627450980392");
+  });
+
+  test("withdraw sample ytoken", async () => {
+    // prepare sample vault
+    await deposit("sv", "st", depositAmount, anotherUser);
+
+    await deposit("sv", "st", depositAmount, yTokenUser);
+
+    await send("sv", "approve", [user, depositAmount], yTokenUser);
+    await send("sv", "transfer", [user, depositAmount], yTokenUser);
+
+    await send("sv", "approve", [ydv.contracts.ydv.options.address, depositAmount], user);
+    await send("ydv", "deposityToken", [depositAmount], user);
+
+    await send("ydv", "withdrawyToken", [depositAmount], user);
+    expect(await balanceOf("sv", user)).toBe(depositAmount);
   });
 
   test("withdraw sample token", async () => {
-    // deposit to sv
-    await ydv.contracts.st.methods.approve(ydv.contracts.ydv.options.address, util.TOKEN_100).send({from: user2});
-    await ydv.contracts.ydv.methods.deposit(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
-
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-    expect(await ydv.contracts.ydv.methods.balance().call()).toBe(util.TOKEN_100);
+    await deposit("ydv", "st", depositAmount, user);
     
-    let _before = await ydv.contracts.st.methods.balanceOf(user2).call();
+    let _before = await balanceOf("st", user);
+    await withdraw("ydv", depositAmount, user);
+    let _after = await balanceOf("st", user);
+    expect(minus(_after, _before)).toBe(depositAmount);
 
-    // withdraw from sv
-    await ydv.contracts.ydv.methods.withdraw(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
-
-    let _after = await ydv.contracts.st.methods.balanceOf(user2).call();
-    expect(minus(_after, _before)).toBe(util.TOKEN_100);
-
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe(util.TOKEN_0);
-    expect(await ydv.contracts.ydv.methods.balance().call()).toBe(util.TOKEN_0);
+    expect(await balanceOf("ydv", user)).toBe("0");
+    expect(await call("ydv", "balance")).toBe("0");
   });
 
-  test("with sample token after yield", async () => {
-    // deposit to sv
-    await ydv.contracts.st.methods.approve(ydv.contracts.ydv.options.address, util.TOKEN_100).send({from: user2});
-    await ydv.contracts.ydv.methods.deposit(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
+  test("withdraw sample token after yVault yield without harvest", async () => {
+    expect(await balanceOf("st", ydv.contracts.ydv.options.address)).toBe("0");
+    expect(await balanceOf("st", ydv.contracts.sv.options.address)).toBe("0");
+    await deposit("ydv", "st", depositAmount, user);
 
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-    expect(await ydv.contracts.ydv.methods.balance().call()).toBe(util.TOKEN_100);
+    // simulate earning in ydv
+    await mint("st", ydv.contracts.sv.options.address, interestAmount, deployer);
 
-    // simulate earning in sv
-    await ydv.contracts.st.methods.mint(ydv.contracts.sv.options.address, util.TOKEN_10).send({from: deployer});
-    //expect(await ydv.contracts.ydv.methods.balance().call()).toBe(plus(util.TOKEN_100, util.TOKEN_10));
+    await deposit("ydv", "st", depositAmount, user);
 
-    // deposit to sv
-    await ydv.contracts.st.methods.approve(ydv.contracts.ydv.options.address, util.TOKEN_100).send({from: user2});
-    await ydv.contracts.ydv.methods.deposit(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
-    
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe("190909090909090909090");
+    expect(await balanceOf("ydv", user)).toBe("19803921568627450980392");
+    expect(await balanceOf("sv", ydv.contracts.ydv.options.address)).toBe("19803921568627450980392");
 
-    let _before = await ydv.contracts.st.methods.balanceOf(user2).call();
+    let _before = await balanceOf("st", user);
+    await withdraw("ydv", depositAmount, user);
+    await send("ydv", "withdrawAll", [], user);
+    let _after = await balanceOf("st", user);
 
-    // withdraw from sv
-    await ydv.contracts.ydv.methods.withdrawAll(
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
-
-    let _after = await ydv.contracts.st.methods.balanceOf(user2).call();
-    expect(minus(_after, _before)).toBe(plus(util.TOKEN_100, plus(util.TOKEN_100, util.TOKEN_10)));
+    expect(minus(_after, _before)).toBe(plus(depositAmount, plus(depositAmount, interestAmount)));
   });
 
   test("send treasury and transfer rewards", async () => {
-    // deposit to sv
-    await ydv.contracts.st.methods.approve(ydv.contracts.ydv.options.address, util.TOKEN_100).send({from: user2});
-    await ydv.contracts.ydv.methods.deposit(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
+    let _before, _after;
+    await deposit("ydv", "st", depositAmount, user);
 
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe(util.TOKEN_100);
-    expect(await ydv.contracts.ydv.methods.balance().call()).toBe(util.TOKEN_100);
+    // simulate earning in ydv
+    await mint("st", ydv.contracts.sv.options.address, interestAmount, deployer);
 
-    // simulate earning in sv
-    await ydv.contracts.st.methods.mint(ydv.contracts.sv.options.address, util.TOKEN_10).send({from: deployer});
-    //expect(await ydv.contracts.ydv.methods.balance().call()).toBe(plus(util.TOKEN_100, util.TOKEN_10));
+    await deposit("ydv", "st", depositAmount, user);
 
-    // deposit to sv
-    await ydv.contracts.st.methods.approve(ydv.contracts.ydv.options.address, util.TOKEN_100).send({from: user2});
-    await ydv.contracts.ydv.methods.deposit(
-      util.TOKEN_100
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
+    let treasuryAmount = "176470588235294117645";
+    _before = await balanceOf("sv", ydv.contracts.ydv.options.address);
+    await send("ydv", "harvest", [], user);
+    _after = await balanceOf("sv", ydv.contracts.ydv.options.address);
     
-    expect(await ydv.contracts.ydv.methods.balanceOf(user2).call()).toBe("190909090909090909090");
+    expect(await balanceOf("sv", treasury)).toBe(treasuryAmount);
+    expect(_before).toBe("19803921568627450980392");
+    expect(_before).toBe(plus(treasuryAmount, _after));
 
-    // send all reward tokens from escrow to YDVRewardsDistributor contract
-    await ydv.contracts.rally.methods.approve(ydv.contracts.ydv.options.address, "100000000000000000000000").send({from:escrow});
-    await ydv.contracts.rally.methods.transfer(ydv.contracts.ydv.options.address, "100000000000000000000000").send({from:escrow});
-    expect(await ydv.contracts.rally.methods.balanceOf(ydv.contracts.ydv.options.address).call()).toBe("100000000000000000000000");
+    let yVaultPricePerFullShare = await call("sv", "getPricePerFullShare");
+    let delegatePercent = await call("ydv", "delegatePercent");
+    
+    expect(BigNumber(interestAmount).times(delegatePercent).div(10000).div(yVaultPricePerFullShare).dp(6).toString(10))
+      .toBe(BigNumber(treasuryAmount).div(mantissa).dp(6).toString(10));
+    
+    let pendingReward = "88235294106666666666";
+    
+    expect(await call("ydv", "earned", [user])).toBe(pendingReward);
+    expect(await balanceOf("rally", user)).toBe("0");
 
-    await ydv.contracts.ydv.methods.harvest().send({ from: user2, gasLimit: 12500000 });
+    _before = await balanceOf("st", user);
+    await send("ydv", "withdrawAll", [], user);
+    _after = await balanceOf("st", user);
+    expect(minus(_after, _before)).toBe("20020000000000000000002");
 
-    expect(await ydv.contracts.sv.methods.balanceOf(treasury).call()).toBe("8181818181818181817");
-    expect(await ydv.contracts.rally.methods.balanceOf(user2).call()).toBe("40");
+    expect(await balanceOf("rally", user)).toBe("88235294106666666666");
+  });
 
-    let _before = await ydv.contracts.st.methods.balanceOf(user2).call();
+  test("check deposit caps", async () => {
+    await(send("ydv", "setGlobalDepositCap", [BigNumber(depositAmount).times(2)], deployer));
+    await(send("ydv", "setIndividualDepositCap", [depositAmount], deployer));
 
-    // withdraw from sv
-    await ydv.contracts.ydv.methods.withdrawAll(
-    ).send({
-      from: user2,
-      gas: 12500000
-    });
-
-    let _after = await ydv.contracts.st.methods.balanceOf(user2).call();
-    console.log("totalDeposits2:", await ydv.contracts.ydv.methods.totalDeposits().call());
-    expect(minus(_after, _before)).toBe("201000000000000000001");
+    expect(await balanceOf("st", user)).toBe(BigNumber(depositAmount).times(3).toString(10));
+    await send("st", "approve", [ydv.contracts.ydv.options.address, BigNumber(depositAmount).times(3)], user);
+    
+    console.log(expect(await send("ydv", "deposit", [depositAmount], user)));
+    
+    expect(await send("ydv", "deposit", [depositAmount], user));
+    await ydv.testing.expectThrow(send("ydv", "deposit", [depositAmount], user), "Check deposit cap failed");
+    await ydv.testing.expectThrow(send("ydv", "deposit", [depositAmount], user), "Check deposit cap failed");
   });
 });

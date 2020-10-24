@@ -8,7 +8,7 @@ import {
   etherMantissa
 } from "../lib/Helpers.js"
 
-const escrowAmount = etherMantissa(15e9);
+const rallyAmount = etherMantissa(15e9);
 
 describe("Reward Token", () => {
   let snapshotId;
@@ -32,8 +32,8 @@ describe("Reward Token", () => {
       expect(await call("rally", "name")).toBe('Rally');
       expect(await call("rally", "symbol")).toBe('RLY');
       expect(await balanceOf("rally", user)).toBe("0");
-      expect(await totalSupply("rally")).toBe(escrowAmount);
-      expect(await balanceOf("rally", escrow)).toBe(escrowAmount);
+      expect(await totalSupply("rally")).toBe(rallyAmount);
+      expect(await balanceOf("rally", escrow)).toBe(rallyAmount);
     });
   });
 });

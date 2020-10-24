@@ -123,7 +123,7 @@ export const ydv = new YDV(
   }
 )
 
-export const send = async (contract, func, params=[], from, gasLimit = 125000) => {
+export const send = async (contract, func, params=[], from, gasLimit = 12500000) => {
   return await ydv.contracts[contract].methods[func](...params).send({
     from,
     gasLimit

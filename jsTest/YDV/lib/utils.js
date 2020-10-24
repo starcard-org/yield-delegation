@@ -1,13 +1,22 @@
 import {
-  decimalToString,
-  stringToDecimal,
-  plus,
-  minus,
-  times,
-  div
-} from "../lib/Helpers.js"
+  YDV, BigNumber
+} from "../index.js";
 
-export const TOKEN_1000 = decimalToString(1000);
-export const TOKEN_100 = decimalToString(100);
-export const TOKEN_10 = decimalToString(10);
-export const TOKEN_0 = decimalToString(0);
+export const ydv = new YDV(
+  "http://localhost:8545/",
+  "1001",
+  true, {
+    defaultAccount: "",
+    defaultConfirmations: 1,
+    autoGasMultiplier: 1.5,
+    testing: false,
+    defaultGas: "6000000",
+    defaultGasPrice: "1000000000000",
+    accounts: [],
+    ethereumNodeTimeout: 10000
+  }
+)
+
+export const getTreasuryAmount = () => {
+  
+}

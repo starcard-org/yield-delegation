@@ -17,6 +17,21 @@ contract YieldDelegatingVaultEvent {
     /// @notice Emitted when a minter is added by admin
     event NewRewardPerToken(uint256 oldRewardPerToken, uint256 newRewardPerToken);
     
+    /// @notice Emitted when a YDV minted
+    event Mint(address account, uint256 shares);
+
+    /// @notice Emitted when a YDV burned
+    event Burn(address account, uint256 shares);
+
+    /// @notice Emitted when a Rally distributed to user
+    event DistributeReward(address _to, uint256 rallyBal);
+
+    /// @notice Emitted when a harvest
+    event Harvest(address treasury, uint256 amount);
+
+    /// @notice Emitted when reward tokens transferd from distributor to YDV
+    event TransferReward(address to, uint256 amount);
+    
     /// @notice Emitted when a reward paid
     event RewardPaid(address account, uint256 reward);
 }
