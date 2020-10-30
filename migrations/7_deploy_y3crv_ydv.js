@@ -3,7 +3,7 @@ const YDVRewardsDistributor = artifacts.require("YDVRewardsDistributor");
 const NoMintLiquidityRewardPools = artifacts.require("NoMintLiquidityRewardPools");
 
 module.exports = async function(deployer, network, accounts) {
-  if (network == 'mainnet' || network == 'development') {
+  if (network == 'mainnet' || network == 'development' || network == 'mainnet-fork') {
     let treasury = process.env.TREASURY;
 
     let y3crv_address = '0x9cA85572E6A3EbF24dEDd195623F188735A5179f';
@@ -15,16 +15,19 @@ module.exports = async function(deployer, network, accounts) {
       rewards.options.address,
       treasury,
       "9000",
-      "52461109490000000000"
+      "26461109490000000000"
     );
 
+    console.log("registering with rewards distribution");
     await rewards.methods.addYDV(YieldDelegatingVault2.address).send({from:process.env.DEPLOYER_ACCOUNT});
 
+    console.log("adding zero weight LM pool");
     let pools = new web3.eth.Contract(NoMintLiquidityRewardPools.abi, '0x9CF178df8DDb65B9ea7d4C2f5d1610eB82927230');
     await pools.methods.add(0, YieldDelegatingVault2.address, false).send({from:process.env.DEPLOYER_ACCOUNT}); //add to pool rewards
     
+    console.log("enabling liquidity mining rewards for ydv");
     let ydv = new web3.eth.Contract(YieldDelegatingVault2.abi, YieldDelegatingVault2.address);
-    await ydv.methods.enableLiquidityRewards(pools.options.address, 5).send({from:accounts[0]});;
+    await ydv.methods.enableLiquidityRewards(pools.options.address, 5).send({from:process.env.DEPLOYER_ACCOUNT});;
   }
 };
 
