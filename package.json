@@ -28,7 +28,7 @@
     "@truffle/hdwallet-provider": "^1.0.40",
     "ethereumjs-abi": "^0.6.8",
     "ethereumjs-util": "^7.0.4",
-    "husky": "^4.3.0",
+    "husky": "^8.0.3",
     "jest": "^26.4.2",
     "openzeppelin-test-helpers": "^0.5.1",
     "truffle-plugin-verify": "^0.4.0",
